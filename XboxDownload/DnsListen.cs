@@ -131,6 +131,23 @@ namespace XboxDownload
                     }
                 });
             }
+            Byte[] cnIP2 = null;
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.CnIP2))
+            {
+                cnIP2 = IPAddress.Parse(Properties.Settings.Default.CnIP2).GetAddressBytes();
+            }
+            else
+            {
+                Task.Run(() =>
+                {
+                    string ip = Properties.Settings.Default.DoH ? ClassDNS.DoH("dlassets.xboxlive.cn") : ClassDNS.HostToIP("dlassets.xboxlive.cn", Properties.Settings.Default.DnsIP);
+                    if (!string.IsNullOrEmpty(ip))
+                    {
+                        if (Form1.bServiceFlag) parentForm.SetTextBox(parentForm.tbCnIP2, ip);
+                        cnIP2 = IPAddress.Parse(ip).GetAddressBytes();
+                    }
+                });
+            }
             Byte[] appIP = null;
             if (!string.IsNullOrEmpty(Properties.Settings.Default.AppIP))
             {
@@ -266,11 +283,14 @@ namespace XboxDownload
                                         break;
                                     case "assets1.xboxlive.cn":
                                     case "assets2.xboxlive.cn":
-                                    case "dlassets.xboxlive.cn":
-                                    case "dlassets2.xboxlive.cn":
                                     case "d1.xboxlive.cn":
                                     case "d2.xboxlive.cn":
                                         byteIP = cnIP;
+                                        argb = 0x008000;
+                                        break;
+                                    case "dlassets.xboxlive.cn":
+                                    case "dlassets2.xboxlive.cn":
+                                        byteIP = cnIP2;
                                         argb = 0x008000;
                                         break;
                                     case "dl.delivery.mp.microsoft.com":

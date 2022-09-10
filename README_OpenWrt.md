@@ -30,20 +30,24 @@ list listen_http '[::]:80' --> list listen_http '[::]:8080'
 2.安装 lighttpd
 ```bash
 opkg update
-opkg install lighttpd lighttpd-mod-redirect
+opkg install lighttpd lighttpd-mod-redirect lighttpd-mod-proxy
 ```
 
 3.配置 lighttpd
 ```bash
 vi /etc/lighttpd/lighttpd.conf
 #按 i 进入编辑模式，然后复制下面代码，Shift+Inset 粘贴，按ESC键 跳到命令模式，然后输入 :wq 保存文件并退出vi
+
 server.modules = ( "mod_redirect" )
 $HTTP["host"] =~ "^(assets1|assets2|d1|d2|xvcf1|xvcf2)\.xboxlive\.com$" {
-	url.redirect = ( "^(.+)" => "http://assets1.xboxlive.cn$1" )
+	url.redirect = ( "(.*)" => "http://%1.xboxlive.cn$1" )
 }
 $HTTP["host"] =~ "^(dlassets|dlassets2)\.xboxlive\.com$" {
-	url.redirect = ( "^(.+)" => "http://dlassets.xboxlive.cn$1" )
+	url.redirect = ( "(.*)" => "http://dlassets.xboxlive.cn$1" )
 }
+#其它访问转发到8080端口，进入管理页面不需要加端口
+servers.modules +=( "mod_proxy")
+proxy.server = ( "" => (( "host" => "127.0.0.1", "port" => 8080	)))
 
 #启动lighttpd服务以及设置其开机自启
 /etc/init.d/lighttpd start
@@ -53,26 +57,29 @@ $HTTP["host"] =~ "^(dlassets|dlassets2)\.xboxlive\.com$" {
 ```
 ![图2](doc/Op2.png)
 
-4.打开OpenWrt管理页(http://192.168.1.1:8080) 网络-》主机名 ，添加 主机名：
+4.打开OpenWrt管理页 网络-》主机名 ，添加 主机名：
 ```bash
+xvcf1.xboxlive.com			192.168.1.1
+xvcf2.xboxlive.com			192.168.1.1
 assets1.xboxlive.com			192.168.1.1
 assets2.xboxlive.com			192.168.1.1
-dlassets.xboxlive.com			192.168.1.1
-dlassets2.xboxlive.com			192.168.1.1
 d1.xboxlive.com				192.168.1.1
 d2.xboxlive.com				192.168.1.1
-xvcf1.xboxlive.com			192.168.1.1	#PC微软商店使用
-xvcf2.xboxlive.com			192.168.1.1	#PC微软商店使用
+dlassets.xboxlive.com			192.168.1.1
+dlassets2.xboxlive.com			192.168.1.1
 
-#xxx.xxx.xxx.xxx 可以使用下载助手测速找出最快IP
-assets1.xboxlive.cn			xxx.xxx.xxx.xxx	#主要
-assets2.xboxlive.cn			xxx.xxx.xxx.xxx	#可选
-dlassets.xboxlive.cn			xxx.xxx.xxx.xxx	#主要
+#xxx.xxx.xxx.xxx 可以使用Xbox下载助手测速找出最快IP，分三组IP，目前国内IP大部分不通用，需要分别测速(Akamai IP可以通用)
+#第一组
+assets1.xboxlive.cn			xxx.xxx.xxx.xxx
+assets2.xboxlive.cn			xxx.xxx.xxx.xxx
+d1.xboxlive.cn				xxx.xxx.xxx.xxx
+d2.xboxlive.cn				xxx.xxx.xxx.xxx
+#第二组，部分老游戏使用此域名，可以不加，使用自动解释
+dlassets.xboxlive.cn			xxx.xxx.xxx.xxx #可选
 dlassets2.xboxlive.cn			xxx.xxx.xxx.xxx	#可选
-d1.xboxlive.cn				xxx.xxx.xxx.xxx	#可选
-d2.xboxlive.cn				xxx.xxx.xxx.xxx	#可选
-dl.delivery.mp.microsoft.com		xxx.xxx.xxx.xxx	#应用下载
-tlu.dl.delivery.mp.microsoft.com	xxx.xxx.xxx.xxx	#应用下载
+#第三组，应用下载和部分PC微软商店游戏
+dl.delivery.mp.microsoft.com		xxx.xxx.xxx.xxx
+tlu.dl.delivery.mp.microsoft.com	xxx.xxx.xxx.xxx
 ```
 
 ![图2](doc/Op3.png)
@@ -120,24 +127,27 @@ server {
 
 4.打开OpenWrt管理页(http://192.168.1.1:8080) 网络-》主机名 ，添加 主机名：
 ```bash
+xvcf1.xboxlive.com			192.168.1.1
+xvcf2.xboxlive.com			192.168.1.1
 assets1.xboxlive.com			192.168.1.1
 assets2.xboxlive.com			192.168.1.1
-dlassets.xboxlive.com			192.168.1.1
-dlassets2.xboxlive.com			192.168.1.1
 d1.xboxlive.com				192.168.1.1
 d2.xboxlive.com				192.168.1.1
-xvcf1.xboxlive.com			192.168.1.1	#PC微软商店使用
-xvcf2.xboxlive.com			192.168.1.1	#PC微软商店使用
+dlassets.xboxlive.com			192.168.1.1
+dlassets2.xboxlive.com			192.168.1.1
 
-#xxx.xxx.xxx.xxx 可以使用下载助手测速找出最快IP
-assets1.xboxlive.cn			xxx.xxx.xxx.xxx	#主要
-assets2.xboxlive.cn			xxx.xxx.xxx.xxx	#可选
-dlassets.xboxlive.cn			xxx.xxx.xxx.xxx	#主要
+#xxx.xxx.xxx.xxx 可以使用Xbox下载助手测速找出最快IP，分三组IP，目前国内IP大部分不通用，需要分别测速(Akamai IP可以通用)
+#第一组
+assets1.xboxlive.cn			xxx.xxx.xxx.xxx
+assets2.xboxlive.cn			xxx.xxx.xxx.xxx
+d1.xboxlive.cn				xxx.xxx.xxx.xxx
+d2.xboxlive.cn				xxx.xxx.xxx.xxx
+#第二组，部分老游戏使用此域名，可以不加，使用自动解释
+dlassets.xboxlive.cn			xxx.xxx.xxx.xxx #可选
 dlassets2.xboxlive.cn			xxx.xxx.xxx.xxx	#可选
-d1.xboxlive.cn				xxx.xxx.xxx.xxx	#可选
-d2.xboxlive.cn				xxx.xxx.xxx.xxx	#可选
-dl.delivery.mp.microsoft.com		xxx.xxx.xxx.xxx	#应用下载
-tlu.dl.delivery.mp.microsoft.com	xxx.xxx.xxx.xxx	#应用下载
+#第三组，应用下载和部分PC微软商店游戏
+dl.delivery.mp.microsoft.com		xxx.xxx.xxx.xxx
+tlu.dl.delivery.mp.microsoft.com	xxx.xxx.xxx.xxx
 ```
 
 ![图2](doc/Op3.png)

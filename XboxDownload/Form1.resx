@@ -184,6 +184,24 @@
   <metadata name="Col_Speed.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <metadata name="Col_Check.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Col_IP.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Col_ASN.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Col_TTL.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Col_RoundtripTime.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Col_Speed.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="Col_IPv4.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -1829,6 +1847,25 @@
   <metadata name="contextMenuStrip2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>560, 17</value>
   </metadata>
+  <data name="tsmUseIPCn2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAW
+        JQAAFiUBSVIk8AAAAvhJREFUWEftlk1sTFEUx099RCxEYiGxKU1YWIqVj8SCpJRYCImG2ClJI4IwZd7M
+        21nYWFjZWPoMQapv3ps0EsFCLHwsLIiNahFCiqq2yu9cdyavM3em73XYzT/5572555z/uffce+4baaKJ
+        NOgpyPJcKF4ukP58KINeIOP5gozxfMvvKFeQHj+QZdb93yF7S9pIes0ryC8S/a5HJjjBRC75RWm14Y0D
+        sfUIr/Yi2cGKe5nMZFVixkh8xwtlN+9r8pF02vCZI1uQ/Yi/4vmQ54Gu8zJXx5nMOsr+PDaBJ/isNUEA
+        23Z8HjCRd/lAuu1wOhDYWblStuApVVip9kN9Mo+xs6z6TNfjvxM7FcgSrUI8xmikrUa2V5YiNBwXigl+
+        yUWy0bqWoRWg/EPOGLRU07pOD1Z60SVUIvahI1dkvnWXTFEWUrGPLt8SVdO610e236x+wiWiZJXf4/td
+        AlVpJ8lPV4xSNTNJWpRTnnEJKHU/mcBO66qV2ub1SYf9ac4N9tqtirZ1rQ2ShM5gyCpOWzfxI+ngpI8a
+        RrLVDgs+eVesUrWtW20gMOAKpuz3dl2V2erD+2Za7UfJpu+ItxsBkRY0pnRCiaptfWoDx1FH4LCeDbVn
+        A9nE7xGHzwiV2KA+x67LYirzodIHjqq9LljJWFVgJIfV5nP4sH+rspdIi3pFWaW+nI99lXY9pGqrCw7R
+        mylBobz078ocLqAVvH+K22pw0H4HWtiqR3Fboi1wHMLu4zdlAclfVIzXJImeaQzbsGXKeJJDSJnKbajb
+        QdkXkfxyXCgRC3LD92UWGq9jY9O3obmG+aSagEDuE7SnLJCSJD+YDeWceU96ESmogrmKuWQu0GLv46Jp
+        SOxnmDPvSa9iRea2tFKF4UaSl8kWsPp0HyOFXquUsOqPR1oajZn+OaEKRxuZhMbCE1ZuZjCVYDtcCeqR
+        7ftK9+y1Mo1BLxY9ROXuqEP10bb9P/+O+R5oL1PWkOcAqxxXknQQFpnASdquzbo30UQCiPwBxMuU2/Vy
+        uXUAAAAASUVORK5CYII=
+</value>
+  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAgIAAAAEAIAAoCAEAFgAAACgAAACAAAAAAAEAAAEAIAAAAAAAAAABABMLAAATCwAAAAAAAAAA
