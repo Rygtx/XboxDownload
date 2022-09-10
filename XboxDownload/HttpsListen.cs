@@ -103,7 +103,7 @@ namespace XboxDownload
                                     mySocket.Close();
                                     continue;
                                 }
-                                string _hosts = result.Groups[1].Value.Trim();
+                                string _hosts = result.Groups[1].Value.Trim().ToLower();
                                 string _tmpPath = Regex.Replace(_filePath, @"\?.+$", ""), _localPath = null;
                                 if (Properties.Settings.Default.LocalUpload)
                                 {

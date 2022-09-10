@@ -121,6 +121,8 @@ namespace XboxDownload
             }
 
             cbImportIP.SelectedIndex = 0;
+            cbHosts.SelectedIndex = 0;
+            cbDohDNS.SelectedIndex = 0;
 
             dtHosts.Columns.Add("Enable", typeof(Boolean));
             dtHosts.Columns.Add("HostName", typeof(String));
@@ -234,7 +236,7 @@ namespace XboxDownload
             }
             else
             {
-                ThreadPool.QueueUserWorkItem(delegate { UpdateFile.UpdateGameUrl(); });
+                ThreadPool.QueueUserWorkItem(delegate { UpdateFile.UpdateXboxGameData(); });
             }
             if (bAutoStartup)
             {
@@ -334,7 +336,7 @@ namespace XboxDownload
                     {
                         using (FileStream fs = File.Create(Application.ExecutablePath + ".md5"))
                         {
-                            Byte[] b = new UTF8Encoding(true).GetBytes(UpdateFile.GetPathMD5(Application.ExecutablePath));
+                            Byte[] b = new UTF8Encoding(true).GetBytes(UpdateFile.GetPathHash(Application.ExecutablePath, "md5"));
                             fs.Write(b, 0, b.Length);
                             fs.Flush();
                             fs.Close();
@@ -1652,6 +1654,7 @@ namespace XboxDownload
                 int rowIndex = 0;
                 foreach (DataGridViewRow dgvr in dgvIpList.Rows)
                 {
+                    if (dgvr.Cells["Col_ASN"].Value == null) continue;
                     string ASN = dgvr.Cells["Col_ASN"].Value.ToString();
                     if (reg.IsMatch(ASN))
                     {
@@ -1968,22 +1971,16 @@ namespace XboxDownload
                             if (XboxGameDownload.dicXboxGame.TryGetValue(games[i, 1], out XboxGameDownload.Products XboxGame))
                             {
                                 string url = XboxGame.Url;
-                                string hosts = Regex.Match(url, @"(?<=://)[a-zA-Z\.0-9]+(?=\/)").Value;
-                                switch (hosts)
+                                switch (Regex.Match(url, @"(?<=://)[a-zA-Z\.0-9]+(?=\/)").Value)
                                 {
-                                    case "assets1.xboxlive.com":
-                                    case "assets2.xboxlive.com":
-                                    case "dlassets.xboxlive.com":
-                                    case "dlassets2.xboxlive.com":
-                                    case "d1.xboxlive.com":
-                                    case "d2.xboxlive.com":
-                                        url = url.Replace(".xboxlive.com", ".xboxlive.cn");
-                                        break;
                                     case "xvcf1.xboxlive.com":
                                         url = url.Replace("xvcf1.xboxlive.com", "assets1.xboxlive.cn");
                                         break;
                                     case "xvcf2.xboxlive.com":
                                         url = url.Replace("xvcf2.xboxlive.com", "assets2.xboxlive.cn");
+                                        break;
+                                    default:
+                                        url = url.Replace(".xboxlive.com", ".xboxlive.cn");
                                         break;
                                 }
                                 LinkLabel lb = new LinkLabel()
@@ -2445,29 +2442,79 @@ namespace XboxDownload
             }
         }
 
-        private void LinkHostsXbox360_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void CbHosts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string[] hostNames = new string[] { "download.xbox.com", "download.xbox.com.edgesuite.net", "xbox-ecn102.vo.msecnd.net" };
-            foreach (string hostName in hostNames)
+            if (cbHosts.SelectedIndex <= 0) return;
+            Match result = Regex.Match(cbHosts.Text, @"(?<remark>[^\(]+)(\((?<hostname>.+)\))?");
+            if (result.Success)
             {
-                DataRow[] rows = dtHosts.Select("HostName='" + hostName + "'");
-                if (rows.Length >= 1)
+                string remark = result.Groups["remark"].Value;
+                if (remark == "Xbox360主机本地上传")
                 {
-                    rows[0]["Enable"] = true;
-                    rows[0]["IPv4"] = Properties.Settings.Default.LocalIP;
-                    rows[0]["Remark"] = "Xbox360主机下载域名";
+                    string[] hostNames = new string[] { "download.xbox.com", "download.xbox.com.edgesuite.net", "xbox-ecn102.vo.msecnd.net" };
+                    foreach (string hostName in hostNames)
+                    {
+                        DataRow[] rows = dtHosts.Select("HostName='" + hostName + "'");
+                        if (rows.Length >= 1)
+                        {
+                            rows[0]["Enable"] = true;
+                            rows[0]["IPv4"] = Properties.Settings.Default.LocalIP;
+                            rows[0]["Remark"] = "Xbox360主机下载域名";
+                        }
+                        else
+                        {
+                            DataRow dr = dtHosts.NewRow();
+                            dr["Enable"] = true;
+                            dr["HostName"] = hostName;
+                            dr["IPv4"] = Properties.Settings.Default.LocalIP;
+                            dr["Remark"] = "Xbox360主机下载域名";
+                            dtHosts.Rows.Add(dr);
+                        }
+                        dgvHosts.ClearSelection();
+                        dgvHosts.Rows.Cast<DataGridViewRow>().Where(r => r.Cells["Col_HostName"].Value.ToString() == hostNames[0]).Select(r => r).FirstOrDefault().Cells["Col_IPv4"].Selected = true;
+                    }
                 }
                 else
                 {
-                    DataRow dr = dtHosts.NewRow();
-                    dr["Enable"] = true;
-                    dr["HostName"] = hostName;
-                    dr["IPv4"] = Properties.Settings.Default.LocalIP;
-                    dr["Remark"] = "Xbox360主机下载域名";
-                    dtHosts.Rows.Add(dr);
+                    string dnsServer;
+                    switch (cbDohDNS.SelectedIndex)
+                    {
+                        case 1:
+                            dnsServer = "doh.pub";
+                            break;
+                        case 2:
+                            dnsServer = "doh.360.cn";
+                            break;
+                        case 3:
+                            dnsServer = "8.8.8.8";
+                            break;
+                        default:
+                            dnsServer = "223.5.5.5";    //dns.alidns.com
+                            break;
+                    }
+                    string hostname = result.Groups["hostname"].Value.ToLower();
+                    DataRow[] rows = dtHosts.Select("HostName='" + hostname + "'");
+                    DataRow dr;
+                    if (rows.Length >= 1)
+                    {
+                        dr = rows[0];
+                    }
+                    else
+                    {
+                        dr = dtHosts.NewRow();
+                        dr["Enable"] = true;
+                        dr["HostName"] = hostname;
+                        dtHosts.Rows.Add(dr);
+                    }
+                    dr["IPv4"] = null;
+                    Task.Run(() =>
+                    {
+                        dr["IPv4"] = ClassDNS.DoH(hostname, dnsServer);
+                    });
+                    dr["Remark"] = remark;
+                    dgvHosts.ClearSelection();
+                    dgvHosts.Rows.Cast<DataGridViewRow>().Where(r => r.Cells["Col_HostName"].Value.ToString() == hostname).Select(r => r).FirstOrDefault().Cells["Col_IPv4"].Selected = true;
                 }
-                dgvHosts.ClearSelection();
-                dgvHosts.Rows.Cast<DataGridViewRow>().Where(r => r.Cells["Col_HostName"].Value.ToString() == hostNames[0]).Select(r => r).FirstOrDefault().Cells["Col_HostName"].Selected = true;
             }
         }
 
@@ -2704,6 +2751,30 @@ namespace XboxDownload
                     }
                 }
             }
+        }
+
+        private void VerifySslCertificate()
+        {
+            foreach (var item in DnsListen.dicCdnHosts1)
+            {
+                if (Regex.IsMatch(item.Key, @"nintendo")) continue;
+                Uri uri = new Uri("https://" + item.Key);
+                IPAddress ip = new IPAddress(item.Value[0].Datas);
+                bool verified = ClassWeb.VerifySslCertificate(uri, ip, out string errMsg);
+                if (!verified)
+                {
+                    string msg = item.Key + " -> " + ip.ToString() + " " + verified + " " + errMsg;
+                    using (StreamWriter sw = File.AppendText(Application.StartupPath + "\\AkamaiErr.log"))
+                    {
+                        sw.Write(msg + "\r\n");
+                        sw.Flush();
+                        sw.Close();
+                        sw.Dispose();
+                    }
+                    SaveLog("Akaima", msg, null, 0xFF0000);
+                }
+            }
+            SaveLog("Akaima", "证书有效性验证已完成，共验证域名：" + DnsListen.dicCdnHosts1.Count, null, 0x008000);
         }
 
         private void ButCdnReset_Click(object sender, EventArgs e)

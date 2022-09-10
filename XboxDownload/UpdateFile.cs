@@ -94,7 +94,7 @@ namespace XboxDownload
 
         private static void Update(bool autoupdate, string md5, string updateUrl, Form1 parentForm)
         {
-            if (!string.Equals(md5, GetPathMD5(Application.ExecutablePath)))
+            if (!string.Equals(md5, GetPathHash(Application.ExecutablePath, "md5")))
             {
                 bool isUpdate = false;
                 parentForm.Invoke(new Action(() =>
@@ -142,7 +142,7 @@ namespace XboxDownload
                 });
                 tasks[2] = new Task(() =>
                 {
-                    UpdateGameUrl(updateUrl);
+                    UpdateXboxGameData(updateUrl);
                 });
                 Array.ForEach(tasks, x => x.Start());
                 Task.WaitAll(tasks);
@@ -150,7 +150,7 @@ namespace XboxDownload
                 FileInfo fi = new FileInfo(Application.StartupPath + "\\" + filename + ".update");
                 if (fi.Exists)
                 {
-                    if (string.Equals(md5, GetPathMD5(fi.FullName)))
+                    if (string.Equals(md5, GetPathHash(fi.FullName, "md5")))
                     {
                         parentForm.Invoke(new Action(() =>
                         {
@@ -202,7 +202,7 @@ namespace XboxDownload
                     if (!autoupdate) MessageBox.Show("软件已经是最新版本。", Form1.appName + " - 软件更新", MessageBoxButtons.OK, MessageBoxIcon.None);
                     parentForm.tsmUpdate.Enabled = true;
                 }));
-                UpdateGameUrl(updateUrl);
+                UpdateXboxGameData(updateUrl);
             }
         }
 
@@ -260,7 +260,7 @@ namespace XboxDownload
             UpdateFile.bDownloadEnd = true;
         }
 
-        public static void UpdateGameUrl(string updateUrl = null)
+        public static void UpdateXboxGameData(string updateUrl = null)
         {
             if (string.IsNullOrEmpty(updateUrl)) updateUrl = UpdateFile.updateUrl;
             SocketPackage socketPackage = ClassWeb.HttpRequest(updateUrl + "XboxGame.dat", "GET", null, null, true, false, false, null, null, null, ClassWeb.useragent, null, null, null, null, 0, null);
@@ -314,15 +314,31 @@ namespace XboxDownload
             }
         }
 
-        public static string GetPathMD5(string path)
+        public static string GetPathHash(string path, string encrypt = "md5")
         {
-            using (MD5 md5 = MD5.Create())
+            string hash = string.Empty;
+            switch (encrypt)
             {
-                using (var stream = File.OpenRead(path))
-                {
-                    return BitConverter.ToString(md5.ComputeHash(stream)).Replace("-", string.Empty);
-                }
+                case "md5":
+                    using (var md5 = MD5.Create())
+                    {
+                        using (var stream = File.OpenRead(path))
+                        {
+                            hash = BitConverter.ToString(md5.ComputeHash(stream)).Replace("-", string.Empty);
+                        }
+                    }
+                    break;
+                case "sha256":
+                    using (var sha256 = SHA256Managed.Create())
+                    {
+                        using (var stream = File.OpenRead(path))
+                        {
+                            hash = BitConverter.ToString(sha256.ComputeHash(stream)).Replace("-", string.Empty);
+                        }
+                    }
+                    break;
             }
+            return hash;
         }
     }
 }

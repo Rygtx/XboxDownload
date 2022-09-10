@@ -405,7 +405,6 @@ namespace XboxDownload
                                                         }
                                                     }
                                                     socket.SendTo(dns.ToBytes(), client);
-                                                    //if (Properties.Settings.Default.RecordLog) parentForm.SaveLog("DNS 查询", queryName + " -> " + string.Join(", ", json.Answer.Where(x => x.Type == 1).Select(x => x.Data).ToArray()), ((IPEndPoint)client).Address.ToString(), argb);
                                                     string[] arrIp = json.Answer.Where(x => x.Type == 1).Select(x => x.Data).ToArray();
                                                     if (Properties.Settings.Default.RecordLog) parentForm.SaveLog("DNS 查询", queryName + " -> " + string.Join(", ", arrIp), ((IPEndPoint)client).Address.ToString(), argb);
                                                     return;

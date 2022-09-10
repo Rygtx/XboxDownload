@@ -79,7 +79,7 @@ namespace XboxDownload
                         continue;
                     }
 
-                    string _hosts = result.Groups[1].Value.Trim();
+                    string _hosts = result.Groups[1].Value.Trim().ToLower();
                     string _tmpPath = Regex.Replace(_filePath, @"\?.+$", ""), _localPath = null;
                     if (Properties.Settings.Default.LocalUpload)
                     {
@@ -160,6 +160,8 @@ namespace XboxDownload
                                     _redirect = true;
                                     _newHosts = Regex.Replace(_hosts, @"\.com$", ".cn");
                                 }
+                                if (dicFilePath.TryAdd(_filePath, null))
+                                    ThreadPool.QueueUserWorkItem(delegate { UpdateGameUrl(_hosts, _filePath); });
                                 break;
                             case "xvcf1.xboxlive.com":
                                 if (Properties.Settings.Default.Redirect)
@@ -167,6 +169,8 @@ namespace XboxDownload
                                     _redirect = true;
                                     _newHosts = "assets1.xboxlive.cn";
                                 }
+                                if (dicFilePath.TryAdd(_filePath, null))
+                                    ThreadPool.QueueUserWorkItem(delegate { UpdateGameUrl(_hosts, _filePath); });
                                 break;
                             case "xvcf2.xboxlive.com":
                                 if (Properties.Settings.Default.Redirect)
@@ -174,6 +178,8 @@ namespace XboxDownload
                                     _redirect = true;
                                     _newHosts = "assets2.xboxlive.cn";
                                 }
+                                if (dicFilePath.TryAdd(_filePath, null))
+                                    ThreadPool.QueueUserWorkItem(delegate { UpdateGameUrl(_hosts, _filePath); });
                                 break;
                             case "us.cdn.blizzard.com":
                             case "eu.cdn.blizzard.com":
@@ -360,6 +366,8 @@ namespace XboxDownload
                                         case "d1.xboxlive.cn":
                                         case "d2.xboxlive.cn":
                                             argb = 0x008000;
+                                            if (dicFilePath.TryAdd(_filePath, null))
+                                                ThreadPool.QueueUserWorkItem(delegate { UpdateGameUrl(_hosts, _filePath); });
                                             break;
                                         case "tlu.dl.delivery.mp.microsoft.com":
                                         case "download.xbox.com":
@@ -398,6 +406,59 @@ namespace XboxDownload
                 socket.Close();
                 socket.Dispose();
                 socket = null;
+            }
+        }
+
+        readonly ConcurrentDictionary<String, String> dicFilePath = new ConcurrentDictionary<String, String>();
+        private void UpdateGameUrl(string _hosts, string _filePath)
+        {
+            Match result = Regex.Match(_filePath, @"/(?<ContentId>\w{8}-\w{4}-\w{4}-\w{4}-\w{12})/(?<Version>\d+\.\d+\.\d+\.\d+)\.\w{8}-\w{4}-\w{4}-\w{4}-\w{12}");
+            if (result.Success)
+            {
+                string contentId = result.Groups["ContentId"].Value.ToLower();
+                if (Regex.IsMatch(_filePath, @"_xs\.xvc$", RegexOptions.IgnoreCase))
+                    contentId += "_xs";
+                else if (!Regex.IsMatch(_filePath, @"\.msixvc$", RegexOptions.IgnoreCase))
+                    contentId += "_x";
+                Version version = new Version(result.Groups["Version"].Value);
+                if (XboxGameDownload.dicXboxGame.TryGetValue(contentId, out XboxGameDownload.Products XboxGame))
+                {
+                    if (XboxGame.Version >= version) return;
+                }
+                _hosts = _hosts.Replace(".xboxlive.cn", ".xboxlive.com");
+                if (!DnsListen.dicHosts2.TryGetValue(_hosts, out IPAddress ip))
+                {
+                    if (IPAddress.TryParse(ClassDNS.DoH(_hosts), out ip))
+                    {
+                        DnsListen.dicHosts2.AddOrUpdate(_hosts, ip, (oldkey, oldvalue) => ip);
+                    }
+                }
+                if (ip != null)
+                {
+                    SocketPackage socketPackage = ClassWeb.HttpRequest("http://" + _hosts + _filePath, "GET", null, null, true, false, false, null, null, new string[] { "Range: bytes=0-0" }, ClassWeb.useragent, null, null, null, null, 0, null, 30000, 30000, 1, ip.ToString());
+                    Match m1 = Regex.Match(socketPackage.Headers, @"Content-Range: bytes 0-0/(?<FileSize>\d+)");
+                    if (m1.Success)
+                    {
+                        ulong filesize = ulong.Parse(m1.Groups["FileSize"].Value);
+                        XboxGame = new XboxGameDownload.Products
+                        {
+                            Version = version,
+                            FileSize = filesize,
+                            Url = "http://" + _hosts + _filePath
+                        };
+                        XboxGameDownload.dicXboxGame.AddOrUpdate(contentId, XboxGame, (oldkey, oldvalue) => XboxGame);
+                        try
+                        {
+                            using (FileStream stream = new FileStream(Application.StartupPath + "\\XboxGame.dat", FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
+                            {
+                                BinaryFormatter bFormat = new BinaryFormatter();
+                                bFormat.Serialize(stream, XboxGameDownload.dicXboxGame);
+                                stream.Close();
+                            }
+                        }
+                        catch { }
+                    }
+                }
             }
         }
     }

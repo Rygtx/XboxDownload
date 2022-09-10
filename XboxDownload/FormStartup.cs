@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Windows.Forms;
 
 namespace XboxDownload
@@ -9,11 +8,6 @@ namespace XboxDownload
         public FormStartup()
         {
             InitializeComponent();
-
-            if (File.Exists(Application.StartupPath + "\\Interop.TaskScheduler.dll"))
-                cbStartup.Checked = SchTaskExt.IsExists(Form1.appName);
-            else
-                cbStartup.Enabled = butSubmit.Enabled = false;
         }
 
         private void ButSubmit_Click(object sender, EventArgs e)
