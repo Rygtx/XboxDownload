@@ -115,14 +115,14 @@ address=/dl.delivery.mp.microsoft.com/cn IP 或者 Akamai IP
 address=/tlu.dl.delivery.mp.microsoft.com /cn IP 或者 Akamai IP
 ```
 ```
-address=/assets1.xboxlive.com/com IP
-address=/assets2.xboxlive.com/com IP
-address=/dlassets.xboxlive.com/com IP
-address=/dlassets2.xboxlive.com/com IP
-address=/d1.xboxlive.com/com IP
-address=/d2.xboxlive.com/com IP
 address=/xvcf1.xboxlive.com/com IP
 address=/xvcf2.xboxlive.com/com IP
+address=/assets1.xboxlive.com/com IP
+address=/assets2.xboxlive.com/com IP
+address=/d1.xboxlive.com/com IP
+address=/d2.xboxlive.com/com IP
+address=/dlassets.xboxlive.com/com IP
+address=/dlassets2.xboxlive.com/com IP
 ```
 注意：不少人直接把 com 域名指定到 cn ip、或者使用 CNAME 解释到 cn IP，这两种方法都是错误的，服务器会返回403错误。 com域名不能使用cn IP，反过来cn域名可以使用部分com IP(Akamai).
 
