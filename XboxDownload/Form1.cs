@@ -210,7 +210,7 @@ namespace XboxDownload
                 IsBalloon = true
             };
             toolTip1.SetToolTip(this.labelDNS, "常用 DNS 服务器\n114.114.114.114 (114)\n180.76.76.76 (百度)\n223.5.5.5 (阿里)\n119.29.29.29 (腾讯)\n208.67.220.220 (OpenDns)\n8.8.8.8 (Google)\n168.126.63.1 (韩国)");
-            toolTip1.SetToolTip(this.labelCom, "包括以下com游戏下载域名\nassets1.xboxlive.com\nassets2.xboxlive.com\ndlassets.xboxlive.com\ndlassets2.xboxlive.com\nd1.xboxlive.com\nd2.xboxlive.com\nxvcf1.xboxlive.com\nxvcf2.xboxlive.com\n\n以上域名不能使用 cn IP");
+            toolTip1.SetToolTip(this.labelCom, "包括以下com游戏下载域名\nxvcf1.xboxlive.com\nxvcf2.xboxlive.com\nassets1.xboxlive.com\nassets2.xboxlive.com\nd1.xboxlive.com\nd2.xboxlive.com\ndlassets.xboxlive.com\ndlassets2.xboxlive.com\n\n以上域名不能使用 cn IP");
             toolTip1.SetToolTip(this.labelCn, "包括以下cn1游戏下载域名\nassets1.xboxlive.cn\nassets2.xboxlive.cn\nd1.xboxlive.cn\nd2.xboxlive.cn\n\n以上域名可以共用 Akamai IP");
             toolTip1.SetToolTip(this.labelCn2, "包括以下cn2游戏下载域名\ndlassets.xboxlive.cn\ndlassets2.xboxlive.cn\n\n以上域名可以共用 Akamai IP");
             toolTip1.SetToolTip(this.labelApp, "包括以下应用下载域名\ndl.delivery.mp.microsoft.com\ntlu.dl.delivery.mp.microsoft.com");
@@ -904,14 +904,14 @@ namespace XboxDownload
                     sb.AppendLine("# Added by " + Form1.appName);
                     if (Properties.Settings.Default.MicrosoftStore)
                     {
-                        sb.AppendLine(comIP + " assets1.xboxlive.com");
-                        sb.AppendLine(comIP + " assets2.xboxlive.com");
-                        sb.AppendLine(comIP + " dlassets.xboxlive.com");
-                        sb.AppendLine(comIP + " dlassets2.xboxlive.com");
-                        sb.AppendLine(comIP + " d1.xboxlive.com");
-                        sb.AppendLine(comIP + " d2.xboxlive.com");
                         sb.AppendLine(comIP + " xvcf1.xboxlive.com");
                         sb.AppendLine(comIP + " xvcf2.xboxlive.com");
+                        sb.AppendLine(comIP + " assets1.xboxlive.com");
+                        sb.AppendLine(comIP + " assets2.xboxlive.com");
+                        sb.AppendLine(comIP + " d1.xboxlive.com");
+                        sb.AppendLine(comIP + " d2.xboxlive.com");
+                        sb.AppendLine(comIP + " dlassets.xboxlive.com");
+                        sb.AppendLine(comIP + " dlassets2.xboxlive.com");
                         if (!string.IsNullOrEmpty(Properties.Settings.Default.CnIP))
                         {
                             sb.AppendLine(Properties.Settings.Default.CnIP + " assets1.xboxlive.cn");
@@ -1205,14 +1205,14 @@ namespace XboxDownload
             tssUseIP1.Visible = false;
             switch (host)
             {
-                case "assets1.xboxlive.com":
-                case "assets2.xboxlive.com":
-                case "dlassets.xboxlive.com":
-                case "dlassets2.xboxlive.com":
-                case "d1.xboxlive.com":
-                case "d2.xboxlive.com":
                 case "xvcf1.xboxlive.com":
                 case "xvcf2.xboxlive.com":
+                case "assets1.xboxlive.com":
+                case "assets2.xboxlive.com":
+                case "d1.xboxlive.com":
+                case "d2.xboxlive.com":
+                case "dlassets.xboxlive.com":
+                case "dlassets2.xboxlive.com":
                     tsmUseIPCom.Visible = true;
                     tsmUseIPApp.Visible = true;
                     break;
@@ -1368,23 +1368,23 @@ namespace XboxDownload
                 string msg = string.Empty;
                 switch (host)
                 {
-                    case "assets1.xboxlive.com":
-                    case "assets2.xboxlive.com":
-                    case "dlassets.xboxlive.com":
-                    case "dlassets2.xboxlive.com":
-                    case "d1.xboxlive.com":
-                    case "d2.xboxlive.com":
                     case "xvcf1.xboxlive.com":
                     case "xvcf2.xboxlive.com":
+                    case "assets1.xboxlive.com":
+                    case "assets2.xboxlive.com":
+                    case "d1.xboxlive.com":
+                    case "d2.xboxlive.com":
+                    case "dlassets.xboxlive.com":
+                    case "dlassets2.xboxlive.com":
                         sHosts = Regex.Replace(sHosts, @"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+[^\s]+\.xboxlive\.com\s+# " + Form1.appName + "\r\n", "");
-                        sb.AppendLine(ip + " assets1.xboxlive.com # " + Form1.appName);
-                        sb.AppendLine(ip + " assets2.xboxlive.com # " + Form1.appName);
-                        sb.AppendLine(ip + " dlassets.xboxlive.com # " + Form1.appName);
-                        sb.AppendLine(ip + " dlassets2.xboxlive.com # " + Form1.appName);
-                        sb.AppendLine(ip + " d1.xboxlive.com # " + Form1.appName);
-                        sb.AppendLine(ip + " d2.xboxlive.com # " + Form1.appName);
                         sb.AppendLine(ip + " xvcf1.xboxlive.com # " + Form1.appName);
                         sb.AppendLine(ip + " xvcf2.xboxlive.com # " + Form1.appName);
+                        sb.AppendLine(ip + " assets1.xboxlive.com # " + Form1.appName);
+                        sb.AppendLine(ip + " assets2.xboxlive.com # " + Form1.appName);
+                        sb.AppendLine(ip + " d1.xboxlive.com # " + Form1.appName);
+                        sb.AppendLine(ip + " d2.xboxlive.com # " + Form1.appName);
+                        sb.AppendLine(ip + " dlassets.xboxlive.com # " + Form1.appName);
+                        sb.AppendLine(ip + " dlassets2.xboxlive.com # " + Form1.appName);
                         ThreadPool.QueueUserWorkItem(delegate { RestartService("DoSvc"); });
                         break;
                     case "dl.delivery.mp.microsoft.com":
@@ -1429,14 +1429,14 @@ namespace XboxDownload
                     case "origin-a.akamaihd.net":
                     case "blzddist1-a.akamaihd.net":
                         sHosts = Regex.Replace(sHosts, @"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\s+[^\s]+(\.xboxlive\.com|\.nintendo\.net|\.cdn\.ea\.com|\.akamaihd\.net)\s+# " + Form1.appName + "\r\n", "");
+                        sb.AppendLine(ip + " xvcf1.xboxlive.com # " + Form1.appName);
+                        sb.AppendLine(ip + " xvcf2.xboxlive.com # " + Form1.appName);
                         sb.AppendLine(ip + " assets1.xboxlive.com # " + Form1.appName);
-                        sb.AppendLine(ip + " assets2.xboxlive.com # " + Form1.appName);
-                        sb.AppendLine(ip + " dlassets.xboxlive.com # " + Form1.appName);
                         sb.AppendLine(ip + " dlassets2.xboxlive.com # " + Form1.appName);
                         sb.AppendLine(ip + " d1.xboxlive.com # " + Form1.appName);
                         sb.AppendLine(ip + " d2.xboxlive.com # " + Form1.appName);
-                        sb.AppendLine(ip + " xvcf1.xboxlive.com # " + Form1.appName);
-                        sb.AppendLine(ip + " xvcf2.xboxlive.com # " + Form1.appName);
+                        sb.AppendLine(ip + " assets2.xboxlive.com # " + Form1.appName);
+                        sb.AppendLine(ip + " dlassets.xboxlive.com # " + Form1.appName);
                         sb.AppendLine(ip + " atum.hac.lp1.d4c.nintendo.net # " + Form1.appName);
                         sb.AppendLine(ip + " bugyo.hac.lp1.eshop.nintendo.net # " + Form1.appName);
                         sb.AppendLine(ip + " ctest-ul-lp1.cdn.nintendo.net # " + Form1.appName);
@@ -1482,35 +1482,35 @@ namespace XboxDownload
             string msg = string.Empty;
             switch (host)
             {
-                case "assets1.xboxlive.com":
-                case "assets2.xboxlive.com":
-                case "dlassets.xboxlive.com":
-                case "dlassets2.xboxlive.com":
-                case "d1.xboxlive.com":
-                case "d2.xboxlive.com":
                 case "xvcf1.xboxlive.com":
                 case "xvcf2.xboxlive.com":
+                case "assets1.xboxlive.com":
+                case "assets2.xboxlive.com":
+                case "d1.xboxlive.com":
+                case "d2.xboxlive.com":
+                case "dlassets.xboxlive.com":
+                case "dlassets2.xboxlive.com":
                     if (tsmi.Name == "tsmDNSmasp")
                     {
-                        sb.AppendLine("address=/assets1.xboxlive.com/" + ip);
-                        sb.AppendLine("address=/assets2.xboxlive.com/" + ip);
-                        sb.AppendLine("address=/dlassets.xboxlive.com/" + ip);
-                        sb.AppendLine("address=/dlassets2.xboxlive.com/" + ip);
-                        sb.AppendLine("address=/d1.xboxlive.com/" + ip);
-                        sb.AppendLine("address=/d2.xboxlive.com/" + ip);
                         sb.AppendLine("address=/xvcf1.xboxlive.com/" + ip);
                         sb.AppendLine("address=/xvcf2.xboxlive.com/" + ip);
+                        sb.AppendLine("address=/assets1.xboxlive.com/" + ip);
+                        sb.AppendLine("address=/assets2.xboxlive.com/" + ip);
+                        sb.AppendLine("address=/d1.xboxlive.com/" + ip);
+                        sb.AppendLine("address=/d2.xboxlive.com/" + ip);
+                        sb.AppendLine("address=/dlassets.xboxlive.com/" + ip);
+                        sb.AppendLine("address=/dlassets2.xboxlive.com/" + ip);
                     }
                     else
                     {
-                        sb.AppendLine(ip + " assets1.xboxlive.com");
-                        sb.AppendLine(ip + " assets2.xboxlive.com");
-                        sb.AppendLine(ip + " dlassets.xboxlive.com");
-                        sb.AppendLine(ip + " dlassets2.xboxlive.com");
-                        sb.AppendLine(ip + " d1.xboxlive.com");
-                        sb.AppendLine(ip + " d2.xboxlive.com");
                         sb.AppendLine(ip + " xvcf1.xboxlive.com");
                         sb.AppendLine(ip + " xvcf2.xboxlive.com");
+                        sb.AppendLine(ip + " assets1.xboxlive.com");
+                        sb.AppendLine(ip + " assets2.xboxlive.com");
+                        sb.AppendLine(ip + " d1.xboxlive.com");
+                        sb.AppendLine(ip + " d2.xboxlive.com");
+                        sb.AppendLine(ip + " dlassets.xboxlive.com");
+                        sb.AppendLine(ip + " dlassets2.xboxlive.com");
                     }
                     break;
                 case "dl.delivery.mp.microsoft.com":
@@ -1586,14 +1586,14 @@ namespace XboxDownload
                     if (tsmi.Name == "tsmDNSmasp")
                     {
                         sb.AppendLine("# Xbox 国际域名");
+                        sb.AppendLine("address=/xvcf1.xboxlive.com/" + ip);
+                        sb.AppendLine("address=/xvcf2.xboxlive.com/" + ip);
                         sb.AppendLine("address=/assets1.xboxlive.com/" + ip);
-                        sb.AppendLine("address=/assets2.xboxlive.com/" + ip);
-                        sb.AppendLine("address=/dlassets.xboxlive.com/" + ip);
                         sb.AppendLine("address=/dlassets2.xboxlive.com/" + ip);
                         sb.AppendLine("address=/d1.xboxlive.com/" + ip);
                         sb.AppendLine("address=/d2.xboxlive.com/" + ip);
-                        sb.AppendLine("address=/xvcf1.xboxlive.com/" + ip);
-                        sb.AppendLine("address=/xvcf2.xboxlive.com/" + ip);
+                        sb.AppendLine("address=/assets2.xboxlive.com/" + ip);
+                        sb.AppendLine("address=/dlassets.xboxlive.com/" + ip);
                         sb.AppendLine();
                         sb.AppendLine("# Nintendo Switch");
                         sb.AppendLine("address=/atum.hac.lp1.d4c.nintendo.net/" + ip);
@@ -1610,14 +1610,14 @@ namespace XboxDownload
                     else
                     {
                         sb.AppendLine("# Xbox 国际域名");
-                        sb.AppendLine(ip + " assets1.xboxlive.com");
-                        sb.AppendLine(ip + " assets2.xboxlive.com");
-                        sb.AppendLine(ip + " dlassets.xboxlive.com");
-                        sb.AppendLine(ip + " dlassets2.xboxlive.com");
-                        sb.AppendLine(ip + " d1.xboxlive.com");
-                        sb.AppendLine(ip + " d2.xboxlive.com");
                         sb.AppendLine(ip + " xvcf1.xboxlive.com");
                         sb.AppendLine(ip + " xvcf2.xboxlive.com");
+                        sb.AppendLine(ip + " assets1.xboxlive.com");
+                        sb.AppendLine(ip + " assets2.xboxlive.com");
+                        sb.AppendLine(ip + " d1.xboxlive.com");
+                        sb.AppendLine(ip + " d2.xboxlive.com");
+                        sb.AppendLine(ip + " dlassets.xboxlive.com");
+                        sb.AppendLine(ip + " dlassets2.xboxlive.com");
                         sb.AppendLine();
                         sb.AppendLine("# Nintendo Switch");
                         sb.AppendLine(ip + " atum.hac.lp1.d4c.nintendo.net");
@@ -1949,14 +1949,14 @@ namespace XboxDownload
         {
             switch (host)
             {
-                case "assets1.xboxlive.com":
-                case "assets2.xboxlive.com":
-                case "dlassets.xboxlive.com":
-                case "dlassets2.xboxlive.com":
-                case "d1.xboxlive.com":
-                case "d2.xboxlive.com":
                 case "xvcf1.xboxlive.com":
                 case "xvcf2.xboxlive.com":
+                case "assets1.xboxlive.com":
+                case "assets2.xboxlive.com":
+                case "d1.xboxlive.com":
+                case "d2.xboxlive.com":
+                case "dlassets.xboxlive.com":
+                case "dlassets2.xboxlive.com":
                     {
                         LinkLabel lb1 = new LinkLabel()
                         {
@@ -2050,8 +2050,8 @@ namespace XboxDownload
                         lb1.LinkClicked += new LinkLabelLinkClickedEventHandler(this.LinkTestUrl_LinkClicked);
                         string[,] games = new string[,]
                         {
-                            {"光之子", "fe238acf-b298-408c-94c5-97c921640c02_x" },
-                            {"麦克斯：兄弟魔咒", "1e2131e1-299c-4df1-bdb6-84a38e07ea9f_x" }
+                            {"光之子(国行)", "fe238acf-b298-408c-94c5-97c921640c02_x" },
+                            {"麦克斯：兄弟魔咒(国行)", "1e2131e1-299c-4df1-bdb6-84a38e07ea9f_x" }
                         };
                         for (int i = 0; i <= games.GetLength(0) - 1; i++)
                         {
@@ -2083,7 +2083,7 @@ namespace XboxDownload
                         new Label()
                         {
                             ForeColor = Color.Green,
-                            Text = "部分老游戏使用此域名,可以不测.",
+                            Text = "部分老游戏使用此域名下载",
                             AutoSize = true,
                             Parent = this.flpTestUrl
                         };
@@ -2110,8 +2110,8 @@ namespace XboxDownload
                         lb2.LinkClicked += new LinkLabelLinkClickedEventHandler(this.LinkTestUrl_LinkClicked);
                         LinkLabel lb3 = new LinkLabel()
                         {
-                            Tag = "9P2N57MC619K|Microsoft.SeaofThieves_neutral_~_8wekyb3d8bbwe.eappxbundle",
-                            Text = "盗贼之海(PC)",
+                            Tag = "9NBLGGH537BL|Microsoft.MinecraftUWPConsole_x64__8wekyb3d8bbwe.Appx",
+                            Text = "我的世界(PC)",
                             AutoSize = true,
                             Parent = this.flpTestUrl
                         };
@@ -2119,7 +2119,7 @@ namespace XboxDownload
                         new Label()
                         {
                             ForeColor = Color.Green,
-                            Text = "部分PC商店游戏会使用此通道下载",
+                            Text = "部分PC商店游戏使用此域名下载",
                             AutoSize = true,
                             Parent = this.flpTestUrl
                         };
@@ -3833,6 +3833,7 @@ namespace XboxDownload
                                                     }
                                                     break;
                                                 default:
+                                                    if (Regex.IsMatch(packages.PackageFullName, @"_x64_|_neutral_"))
                                                     {
                                                         Match result = Regex.Match(packages.PackageFullName, @"_(?<version>\d+.\d+.\d+.\d+)_");
                                                         Version version = result.Success ? new Version(result.Groups["version"].Value) : new Version();
@@ -3840,11 +3841,13 @@ namespace XboxDownload
                                                         {
                                                             itemXboxApp = new ListViewItem(new string[] { "Xbox One", market.name, ClassMbr.ConvertBytes(packages.MaxDownloadSizeInBytes), url });
                                                             itemXboxApp.SubItems[2].Tag = version;
+                                                            itemXboxApp.SubItems[3].Tag = packages.PackageFullName + "." + packages.PackageFormat;
                                                             lsDownloadUrl.Add(itemXboxApp);
                                                         }
                                                         else if ((Version)itemXboxApp.SubItems[2].Tag < version)
                                                         {
                                                             itemXboxApp.SubItems[2].Tag = version;
+                                                            itemXboxApp.SubItems[3].Tag = packages.PackageFullName + "." + packages.PackageFormat;
                                                             itemXboxApp.SubItems[2].Text = ClassMbr.ConvertBytes(packages.MaxDownloadSizeInBytes);
                                                             itemXboxApp.SubItems[3].Text = url;
                                                         }
@@ -3889,7 +3892,7 @@ namespace XboxDownload
                                                             itemPcApp.SubItems[2].Tag = version;
                                                             itemPcApp.SubItems[3].Tag = packages.PackageFullName + "." + packages.PackageFormat;
                                                             itemPcApp.SubItems[2].Text = ClassMbr.ConvertBytes(packages.MaxDownloadSizeInBytes);
-                                                            itemXboxApp.SubItems[3].Text = url;
+                                                            itemPcApp.SubItems[3].Text = url;
                                                         }
                                                     }
                                                     break;
@@ -3899,24 +3902,38 @@ namespace XboxDownload
                                     if (packages.Languages != null) languages = string.Join(", ", packages.Languages);
                                 }
                             }
+                            string productId = product.ProductId.ToLower();
                             if (itemPcApp != null)
                             {
-                                string productId = product.ProductId.ToLower();
                                 if (MsAppDownload.dicMsApp.TryGetValue(productId, out MsAppDownload.Products MsApp))
                                 {
                                     if (MsApp.Expire.Ticks > 0 && DateTime.Compare(MsApp.Expire.AddMinutes(-20), DateTime.Now) >= 0)
                                     {
                                         itemPcApp.Tag = MsApp.Expire;
                                         itemPcApp.SubItems[3].Text = MsApp.Url;
+                                        itemPcApp = null;
                                     }
                                     else MsAppDownload.dicMsApp.TryRemove(productId, out _);
                                 }
-                                if (!MsAppDownload.dicMsApp.ContainsKey(productId))
+                            }
+                            if (itemXboxApp != null)
+                            {
+                                if (MsAppDownload.dicMsApp.TryGetValue(productId + "_x", out MsAppDownload.Products MsApp))
                                 {
-                                    itemPcApp.SubItems[3].Text = "正在获取下载链接，请稍候...";
-                                    string filename = itemPcApp.SubItems[3].Tag.ToString();
-                                    ThreadPool.QueueUserWorkItem(delegate { GetMsAppPackage(productId, filename, itemPcApp); });
+                                    if (MsApp.Expire.Ticks > 0 && DateTime.Compare(MsApp.Expire.AddMinutes(-20), DateTime.Now) >= 0)
+                                    {
+                                        itemXboxApp.Tag = MsApp.Expire;
+                                        itemXboxApp.SubItems[3].Text = MsApp.Url;
+                                        itemXboxApp = null;
+                                    }
+                                    else MsAppDownload.dicMsApp.TryRemove(productId, out _);
                                 }
+                            }
+                            if (itemPcApp != null || itemXboxApp != null)
+                            {
+                                if (itemPcApp != null) itemPcApp.SubItems[3].Text = "正在获取下载链接，请稍候...";
+                                if (itemXboxApp != null) itemXboxApp.SubItems[3].Text = "正在获取下载链接，请稍候...";
+                                ThreadPool.QueueUserWorkItem(delegate { GetMsAppPackage(productId, itemPcApp, itemXboxApp); });
                             }
                         }
                         if (displaySkuAvailabilitie.Sku.Properties.BundledSkus != null && displaySkuAvailabilitie.Sku.Properties.BundledSkus.Count >= 1)
@@ -4054,55 +4071,97 @@ namespace XboxDownload
             }));
         }
 
-        private void GetMsAppPackage(string productId, string filename, ListViewItem item = null)
+        private void GetMsAppPackage(string productId, string filename)
         {
-            string filename_2 = Regex.Replace(filename, @"_\d+\.\d+\.\d+\.\d+_", "_").ToLower();
+            var dicMsApp = GetMsAppFiles(productId);
+            if (dicMsApp.Count >= 1)
+            {
+                if (dicMsApp.TryGetValue(filename.ToLower(), out var MsApp))
+                {
+                    MsAppDownload.dicMsApp.AddOrUpdate(productId, MsApp, (oldkey, oldvalue) => MsApp);
+                }
+            }
+        }
 
-            MsAppDownload.Products MsApp = null;
-            Version version1 = new Version();
+        private void GetMsAppPackage(string productId, ListViewItem itemPcApp, ListViewItem itemXboxApp)
+        {
+            var dicMsApp = GetMsAppFiles(productId);
+            if (dicMsApp.Count >= 1)
+            {
+                this.Invoke(new Action(() =>
+                {
+                    if (itemPcApp != null)
+                    {
+                        string filename = Regex.Replace(itemPcApp.SubItems[3].Tag.ToString(), @"_\d+\.\d+\.\d+\.\d+_", "_").ToLower();
+                        if (dicMsApp.TryGetValue(filename, out var MsApp))
+                        {
+                            itemPcApp.Tag = MsApp.Expire;
+                            itemPcApp.SubItems[3].Text = MsApp.Url;
+                            MsAppDownload.dicMsApp.AddOrUpdate(productId, MsApp, (oldkey, oldvalue) => MsApp);
+                        }
+                        else
+                        {
+                            itemPcApp.SubItems[3].Text = null;
+                        }
+
+                    }
+                    if (itemXboxApp != null)
+                    {
+                        string filename = Regex.Replace(itemXboxApp.SubItems[3].Tag.ToString(), @"_\d+\.\d+\.\d+\.\d+_", "_").ToLower();
+                        if (dicMsApp.TryGetValue(filename, out var MsApp))
+                        {
+                            itemXboxApp.Tag = MsApp.Expire;
+                            itemXboxApp.SubItems[3].Text = MsApp.Url;
+                            MsAppDownload.dicMsApp.AddOrUpdate(productId + "_x", MsApp, (oldkey, oldvalue) => MsApp);
+                        }
+                        else
+                        {
+                            itemXboxApp.SubItems[3].Text = null;
+                        }
+                    }
+                }));
+            }
+        }
+
+        private ConcurrentDictionary<String, MsAppDownload.Products> GetMsAppFiles(string productId)
+        {
+            ConcurrentDictionary<String, MsAppDownload.Products> dicMsApp = new ConcurrentDictionary<String, MsAppDownload.Products>();
             SocketPackage socketPackage = ClassWeb.HttpRequest("https://store.rg-adguard.net/api/GetFiles", "POST", "type=ProductId&url=" + productId + "&ring=Retail&lang=" + Thread.CurrentThread.CurrentCulture.Name, "https://store.rg-adguard.net/", true, false, true, null, null, null, ClassWeb.useragent, null, null, null, null, 0, null);
             Match result = Regex.Match(socketPackage.Html, @"<tr [^>]+><td><a href=""(?<url>https?://tlu\.dl\.delivery\.mp\.microsoft\.com\/filestreamingservice\/files\/[^""]+)"" [^>]+>(?<file>[^<]+)</a></td><td [^>]+>(?<expire>[^<]+)</td><td [^>]+>[^<]+</td><td [^>]+>(?<size>[^\s]+) (?<unit>KB|MB|GB)</td></tr>");
             while (result.Success)
             {
                 string file = result.Groups["file"].Value;
-                string file_2 = Regex.Replace(file, @"_\d+\.\d+\.\d+\.\d+_", "_").ToLower();
-                if (file_2 == filename_2)
+                string filename = Regex.Replace(file, @"_\d+\.\d+\.\d+\.\d+_", "_").ToLower();
+                Match m1 = Regex.Match(file, @"_(?<version>\d+\.\d+\.\d+\.\d+)_");
+                if (result.Success && m1.Success)
                 {
-                    Match m1 = Regex.Match(file, @"_(?<version>\d+\.\d+\.\d+\.\d+)_");
-                    if (result.Success)
+                    Version version = new Version(m1.Groups["version"].Value);
+                    string url = result.Groups["url"].Value;
+                    DateTime.TryParse(result.Groups["expire"].Value, out DateTime expire);
+                    if (dicMsApp.ContainsKey(filename))
                     {
-                        Version version2 = new Version(m1.Groups["version"].Value);
-                        if (version2 >= version1)
+                        if (version > dicMsApp[filename].Version)
                         {
-                            version1 = version2;
-                            DateTime.TryParse(result.Groups["expire"].Value, out DateTime expire);
-                            MsApp = new MsAppDownload.Products
-                            {
-                                Url = result.Groups["url"].Value,
-                                Filename = file,
-                                Expire = expire
-                            };
+                            dicMsApp[filename].Version = version;
+                            dicMsApp[filename].Filename = file;
+                            dicMsApp[filename].Url = url;
+                            dicMsApp[filename].Expire = expire;
                         }
+                    }
+                    else
+                    {
+                        dicMsApp.TryAdd(filename, new MsAppDownload.Products
+                        {
+                            Version = version,
+                            Filename = file,
+                            Url = url,
+                            Expire = expire
+                        });
                     }
                 }
                 result = result.NextMatch();
             }
-            if (MsApp != null) MsAppDownload.dicMsApp.AddOrUpdate(productId, MsApp, (oldkey, oldvalue) => MsApp);
-            if (item != null)
-            {
-                this.Invoke(new Action(() =>
-                {
-                    if (MsApp != null)
-                    {
-                        item.Tag = MsApp.Expire;
-                        item.SubItems[3].Text = MsApp.Url;
-                    }
-                    else
-                    {
-                        item.SubItems[3].Text = null;
-                    }
-                }));
-            }
+            return dicMsApp;
         }
 
         private void LinkGameWebsite_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

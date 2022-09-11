@@ -284,8 +284,9 @@ namespace XboxDownload
         public static ConcurrentDictionary<String, Products> dicMsApp = new ConcurrentDictionary<String, Products>();
         public class Products
         {
-            public string Url { get; set; }
+            public Version Version { get; set; }
             public string Filename { get; set; }
+            public string Url { get; set; }
             public DateTime Expire { get; set; }
         }
     }
