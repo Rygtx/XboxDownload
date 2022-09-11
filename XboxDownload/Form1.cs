@@ -2050,8 +2050,8 @@ namespace XboxDownload
                         lb1.LinkClicked += new LinkLabelLinkClickedEventHandler(this.LinkTestUrl_LinkClicked);
                         string[,] games = new string[,]
                         {
-                            {"光之子(国行)", "fe238acf-b298-408c-94c5-97c921640c02_x" },
-                            {"麦克斯：兄弟魔咒(国行)", "1e2131e1-299c-4df1-bdb6-84a38e07ea9f_x" }
+                            {"光之子(国服)", "fe238acf-b298-408c-94c5-97c921640c02_x" },
+                            {"麦克斯：兄弟魔咒(国服)", "1e2131e1-299c-4df1-bdb6-84a38e07ea9f_x" }
                         };
                         for (int i = 0; i <= games.GetLength(0) - 1; i++)
                         {
@@ -2119,7 +2119,7 @@ namespace XboxDownload
                         new Label()
                         {
                             ForeColor = Color.Green,
-                            Text = "部分PC商店游戏使用此域名下载",
+                            Text = "应用和部分PC商店游戏使用此域名下载",
                             AutoSize = true,
                             Parent = this.flpTestUrl
                         };

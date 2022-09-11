@@ -99,13 +99,20 @@ https://github.com/skydevil88/XboxDownload/blob/master/README_OpenWrt.md
 
 
 其它路由器如果支持改Hosts，可以分别把 com 和cn 下载域名测速后找出最快IP写进Hosts 中，不管Xbox使用那个域名下载都能加速。
+
+CN IP 分三组，目前国内 IP 大部分不通用，需要分别测速(Akamai IP 可以通用) 
 ```
-address=/assets1.xboxlive.cn/cn IP 或者 Akamai IP
-address=/assets2.xboxlive.cn/cn IP 或者 Akamai IP
-address=/dlassets.xboxlive.cn/cn IP 或者 Akamai IP
-address=/dlassets2.xboxlive.cn/cn IP 或者 Akamai IP
-address=/d1.xboxlive.cn/cn IP 或者 Akamai IP
-address=/d2.xboxlive.cn/cn IP 或者 Akamai IP
+#第一组 
+address=/assets1.xboxlive.cn/cn IP 或者 Akamai IP 
+address=/assets2.xboxlive.cn/cn IP 或者 Akamai IP 
+address=/d1.xboxlive.cn/cn IP 或者 Akamai IP 
+address=/d2.xboxlive.cn/cn IP 或者 Akamai IP 
+#第二组，部分老游戏使用此域名，可以不加，使用自动解释 
+address=/dlassets.xboxlive.cn/cn IP 或者 Akamai IP 
+address=/dlassets2.xboxlive.cn/cn IP 或者 Akamai IP 
+#第三组，应用下载和部分 PC 微软商店游戏 
+address=/dl.delivery.mp.microsoft.com/cn IP 或者 Akamai IP 
+address=/tlu.dl.delivery.mp.microsoft.com /cn IP 或者 Akamai IP
 ```
 ```
 address=/assets1.xboxlive.com/com IP
