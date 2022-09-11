@@ -232,6 +232,7 @@
     <None Include="Resources\Xbox2.png" />
     <None Include="Resources\Xbox3.png" />
     <None Include="Resources\Akamai.txt" />
+    <None Include="Resources\Xbox.png" />
     <Content Include="XBox.ico" />
   </ItemGroup>
   <ItemGroup>

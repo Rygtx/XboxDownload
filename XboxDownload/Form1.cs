@@ -152,9 +152,10 @@ namespace XboxDownload
 
             Form1.lsMarket.AddRange((new List<Market>
             {
-                new Market("新加坡", "SG", "en-SG"),
-                new Market("香港", "HK", "zh-HK"),
                 new Market("台湾", "TW", "zh-TW"),
+                new Market("香港", "HK", "zh-HK"),
+                new Market("新加坡", "SG", "en-SG"),
+                new Market("韩国", "KR", "ko-KR"),
                 new Market("日本", "JP", "ja-JP"),
                 new Market("美国", "US", "en-US"),
 
@@ -172,7 +173,7 @@ namespace XboxDownload
                 new Market("法国", "FR", "fr-FR"),
                 new Market("芬兰", "FI", "fi-FI"),
                 new Market("哥伦比亚", "CO", "es-CO"),
-                new Market("韩国", "KR", "ko-KR"),
+                //new Market("韩国", "KR", "ko-KR"),
                 new Market("荷兰", "NL", "nl-NL"),
                 new Market("加拿大", "CA", "en-CA"),
                 new Market("捷克共和国", "CZ", "cs-CZ"),
@@ -2057,19 +2058,7 @@ namespace XboxDownload
                         {
                             if (XboxGameDownload.dicXboxGame.TryGetValue(games[i, 1], out XboxGameDownload.Products XboxGame))
                             {
-                                string url = XboxGame.Url;
-                                switch (Regex.Match(url, @"(?<=://)[a-zA-Z\.0-9]+(?=\/)").Value)
-                                {
-                                    case "xvcf1.xboxlive.com":
-                                        url = url.Replace("xvcf1.xboxlive.com", "assets1.xboxlive.cn");
-                                        break;
-                                    case "xvcf2.xboxlive.com":
-                                        url = url.Replace("xvcf2.xboxlive.com", "assets2.xboxlive.cn");
-                                        break;
-                                    default:
-                                        url = url.Replace(".xboxlive.com", ".xboxlive.cn");
-                                        break;
-                                }
+                                string url = XboxGame.Url.Replace(".xboxlive.com", ".xboxlive.cn");
                                 LinkLabel lb = new LinkLabel()
                                 {
                                     Tag = url,
@@ -3493,7 +3482,7 @@ namespace XboxDownload
                 string keyCopydatesnowgame1 = result.Groups["keyCopydatesnowgame1"].Value;
                 string keyCopydatesnowgame2 = result.Groups["keyCopydatesnowgame2"].Value;
                 string keyCopydatesnowgame3 = result.Groups["keyCopydatesnowgame3"].Value;
-                if (language == "en-sg")
+                if (language == "zh-tw")
                 {
                     if (!string.IsNullOrEmpty(keyLinknowgame1))
                     {
@@ -3689,14 +3678,14 @@ namespace XboxDownload
             string language = market.language;
             switch (language)
             {
-                case "en-SG":
-                    language = "zh-Hans,en-SG";
+                case "zh-TW":
+                    language = "zh-TW,zh-Hans";
                     break;
                 case "zh-HK":
                     language = "zh-HK,zh-Hans";
                     break;
-                case "zh-TW":
-                    language = "zh-TW,zh-Hans";
+                case "en-SG":
+                    language = "zh-Hans,en-SG";
                     break;
             }
             string url = "https://displaycatalog.mp.microsoft.com/v7.0/products?bigIds=" + productId + "&market=" + market.code + "&languages=" + language + ",neutral&MS-CV=DGU1mcuYo0WMMp+F.1";
@@ -3954,14 +3943,14 @@ namespace XboxDownload
                 string language = market.language;
                 switch (language)
                 {
-                    case "en-SG":
-                        language = "zh-Hans,en-SG";
+                    case "zh-TW":
+                        language = "zh-TW,zh-Hans";
                         break;
                     case "zh-HK":
                         language = "zh-HK,zh-Hans";
                         break;
-                    case "zh-TW":
-                        language = "zh-TW,zh-Hans";
+                    case "en-SG":
+                        language = "zh-Hans,en-SG";
                         break;
                 }
                 string url = "https://displaycatalog.mp.microsoft.com/v7.0/products?bigIds=" + string.Join(",", bundledId.ToArray()) + "&market=" + market.code + "&languages=" + language + ",neutral&MS-CV=DGU1mcuYo0WMMp+F.1";

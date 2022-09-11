@@ -19,7 +19,7 @@ namespace XboxDownload.Properties {
     // 类通过类似于 ResGen 或 Visual Studio 的工具自动生成的。
     // 若要添加或移除成员，请编辑 .ResX 文件，然后重新运行 ResGen
     // (以 /str 作为命令选项)，或重新生成 VS 项目。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -61,28 +61,40 @@ namespace XboxDownload.Properties {
         }
         
         /// <summary>
-        ///   查找类似 ############################## Xbox ###############################
-        ///activityhub.xboxlive.com
+        ///   查找类似 ############################# Microsoft ############################
         ///catalog.gamepass.com	#XGP游戏库
-        ///compass.xboxlive.com
-        ///dlassets-ssl.xboxlive.com
-        ///download-ssl.xbox.com
-        ///download.xbox.com
-        ///download.xbox.com.edgesuite.net
-        ///editorial.xboxlive.com
-        ///gameclipscontent-d2001.xboxlive.com
-        ///images-eds-ssl.xboxlive.com
-        ///images-eds.xboxlive.com
-        ///peoplehub.xboxlive.com
-        ///purchase.mp.microsoft.com
-        ///rta.xboxlive.com
-        ///store-images.microsoft.com
-        ///store-images.s-microsoft.com
-        ///titlehub.xboxlive.com [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///download.xbox.com	#Xbox360主机下载域名
+        ///
+        ///
+        ///############################# Nintendo #############################
+        ///bugyo.hac.lp1.eshop.nintendo.net	#NS商店、视频
+        ///*.hac.lp1.d4c.nintendo.net
+        ///*.hac.lp1.eshop.nintendo.net
+        ///*.hac.lp1.dragons.nintendo.net
+        ///
+        ///
+        ///################################ EA ################################
+        ///pl.ea.com
+        ///pc.ea.com
+        ///www.ea.com
+        ///pc-assets.ea.com
+        ///ratt.juno.ea.com
+        ///autopatch.juno.ea.com
+        ///desk [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string Akamai {
             get {
                 return ResourceManager.GetString("Akamai", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap Xbox {
+            get {
+                object obj = ResourceManager.GetObject("Xbox", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
