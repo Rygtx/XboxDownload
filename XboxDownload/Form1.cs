@@ -298,23 +298,22 @@ namespace XboxDownload
 
         private void TsmProductManual_Click(object sender, EventArgs e)
         {
-            tsmProductManual.Enabled = false;
             FileInfo fi = new FileInfo(Application.StartupPath + "\\" + UpdateFile.pdfFile);
             if (!fi.Exists)
             {
-                UpdateFile.bDownloadEnd = false;
-                ThreadPool.QueueUserWorkItem(delegate { UpdateFile.Download(fi.Name); });
-                while (!UpdateFile.bDownloadEnd)
+                tsmProductManual.Enabled = false;
+                Task task = Task.Run(() => { UpdateFile.Download(fi.Name); });
+                while (task.Status != TaskStatus.RanToCompletion)
                 {
                     Application.DoEvents();
                 }
+                tsmProductManual.Enabled = true;
                 fi.Refresh();
             }
             if (fi.Exists)
                 Process.Start(fi.FullName);
             else
                 MessageBox.Show("文件不存在", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-            tsmProductManual.Enabled = true;
         }
 
         private void TsmOpenSite_Click(object sender, EventArgs e)
@@ -1590,11 +1589,11 @@ namespace XboxDownload
                         sb.AppendLine("address=/xvcf1.xboxlive.com/" + ip);
                         sb.AppendLine("address=/xvcf2.xboxlive.com/" + ip);
                         sb.AppendLine("address=/assets1.xboxlive.com/" + ip);
-                        sb.AppendLine("address=/dlassets2.xboxlive.com/" + ip);
+                        sb.AppendLine("address=/assets2.xboxlive.com/" + ip);
                         sb.AppendLine("address=/d1.xboxlive.com/" + ip);
                         sb.AppendLine("address=/d2.xboxlive.com/" + ip);
-                        sb.AppendLine("address=/assets2.xboxlive.com/" + ip);
                         sb.AppendLine("address=/dlassets.xboxlive.com/" + ip);
+                        sb.AppendLine("address=/dlassets2.xboxlive.com/" + ip);
                         sb.AppendLine();
                         sb.AppendLine("# Nintendo Switch");
                         sb.AppendLine("address=/atum.hac.lp1.d4c.nintendo.net/" + ip);
@@ -1767,6 +1766,7 @@ namespace XboxDownload
             dgvIpList.Rows.Clear();
             flpTestUrl.Controls.Clear();
             tbDlUrl.Clear();
+            tbDlUrl.Tag = null;
             cbImportIP.Enabled = false;
 
             string host = string.Empty;
@@ -1799,9 +1799,8 @@ namespace XboxDownload
             if (fi.Exists) update = DateTime.Compare(DateTime.Now, fi.LastWriteTime.AddHours(24)) >= 0;
             if (update)
             {
-                UpdateFile.bDownloadEnd = false;
-                ThreadPool.QueueUserWorkItem(delegate { UpdateFile.Download(fi.Name); });
-                while (!UpdateFile.bDownloadEnd)
+                Task task = Task.Run(() => { UpdateFile.Download(fi.Name); });
+                while (task.Status != TaskStatus.RanToCompletion)
                 {
                     Application.DoEvents();
                 }
@@ -2206,12 +2205,14 @@ namespace XboxDownload
             string url = link.Tag.ToString();
             if (Regex.IsMatch(url, @"^https?://"))
             {
+                tbDlUrl.Tag = null;
                 tbDlUrl.Text = url;
             }
             else if (Regex.IsMatch(url, @"^[0-9A-Z]{12}|.+"))
             {
                 string[] product = url.Split('|');
                 string productId = product[0].ToLower();
+                tbDlUrl.Tag = productId;
                 if (MsAppDownload.dicMsApp.TryGetValue(productId, out MsAppDownload.Products MsApp))
                 {
                     if (MsApp.Expire.Ticks > 0 && DateTime.Compare(MsApp.Expire.AddMinutes(-20), DateTime.Now) >= 0)
@@ -2221,23 +2222,22 @@ namespace XboxDownload
                 }
                 if (!MsAppDownload.dicMsApp.ContainsKey(productId))
                 {
-                    if (threadGetMsAppUrl != null && threadGetMsAppUrl.IsAlive) threadGetMsAppUrl.Abort();
-                    threadGetMsAppUrl = new Thread(() => GetMsAppUrl(productId, product[1])) { IsBackground = true };
-                    threadGetMsAppUrl.Start();
+                    ThreadPool.QueueUserWorkItem(delegate { GetMsAppUrl(productId, product[1]); });
                 }
             }
         }
-
-        private Thread threadGetMsAppUrl = null;
 
         private void GetMsAppUrl(string productId, string filename)
         {
             SetTextBox(tbDlUrl, "正在获取下载链接，请稍候...");
             GetMsAppPackage(productId, filename);
-            if (MsAppDownload.dicMsApp.TryGetValue(productId, out MsAppDownload.Products MsApp))
-                SetTextBox(tbDlUrl, MsApp.Url);
-            else
-                SetTextBox(tbDlUrl, "");
+            if (tbDlUrl.Tag != null && tbDlUrl.Tag.ToString() == productId)
+            {
+                if (MsAppDownload.dicMsApp.TryGetValue(productId, out MsAppDownload.Products MsApp))
+                    SetTextBox(tbDlUrl, MsApp.Url);
+                else
+                    SetTextBox(tbDlUrl, "");
+            }
         }
 
         private void LinkHostsClear_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -2383,12 +2383,14 @@ namespace XboxDownload
                 url = link.Tag.ToString();
                 if (Regex.IsMatch(url, @"^https?://"))
                 {
+                    tbDlUrl.Tag = null;
                     SetTextBox(tbDlUrl, url);
                 }
                 else if (Regex.IsMatch(url, @"^[0-9A-Z]{12}|.+"))
                 {
                     string[] product = url.Split('|');
                     string productId = product[0].ToLower();
+                    tbDlUrl.Tag = productId;
                     if (MsAppDownload.dicMsApp.TryGetValue(productId, out MsAppDownload.Products MsApp))
                     {
                         if (MsApp.Expire.Ticks > 0 && DateTime.Compare(MsApp.Expire.AddMinutes(-20), DateTime.Now) >= 0)
@@ -2402,7 +2404,6 @@ namespace XboxDownload
                     if (!MsAppDownload.dicMsApp.ContainsKey(productId))
                     {
                         ls[0].Cells["Col_Speed"].Value = "请稍候...";
-                        if (threadGetMsAppUrl != null && threadGetMsAppUrl.IsAlive) threadGetMsAppUrl.Abort();
                         GetMsAppUrl(productId, product[1]);
                         url = tbDlUrl.Text;
                     }
@@ -2563,10 +2564,10 @@ namespace XboxDownload
                     switch (cbDohDNS.SelectedIndex)
                     {
                         case 1:
-                            dnsServer = "doh.pub";
+                            dnsServer = "1.12.12.12";  //doh.pub
                             break;
                         case 2:
-                            dnsServer = "doh.360.cn";
+                            dnsServer = "180.163.249.75";   //doh.360.cn
                             break;
                         case 3:
                             dnsServer = "8.8.8.8";
@@ -2590,7 +2591,7 @@ namespace XboxDownload
                         dtHosts.Rows.Add(dr);
                     }
                     dr["IPv4"] = null;
-                    Task.Run(() =>
+                    ThreadPool.QueueUserWorkItem(delegate
                     {
                         dr["IPv4"] = ClassDNS.DoH(hostname, dnsServer);
                     });
@@ -3311,7 +3312,7 @@ namespace XboxDownload
             Thread.Sleep(300);
             if (this.query != query) return;
             string language = Thread.CurrentThread.CurrentCulture.Name;
-            if (language == "zh-CN") language = "zh-SG";
+            if (language == "zh-CN") language = "zh-TW";
             string url = "https://www.microsoft.com/msstoreapiprod/api/autosuggest?market=" + language + "&clientId=7F27B536-CF6B-4C65-8638-A0F8CBDFCA65&sources=Microsoft-Terms,Iris-Products,DCatAll-Products&filter=+ClientType:StoreWeb&counts=5,1,5&query=" + ClassWeb.UrlEncode(query);
             SocketPackage socketPackage = ClassWeb.HttpRequest(url, "GET", null, null, true, false, true, null, null, null, ClassWeb.useragent, null, null, null, null, 0, null);
             if (this.query != query) return;
@@ -3676,19 +3677,7 @@ namespace XboxDownload
         {
             cbGameBundled.Tag = market;
             string language = market.language;
-            switch (language)
-            {
-                case "zh-TW":
-                    language = "zh-TW,zh-Hans";
-                    break;
-                case "zh-HK":
-                    language = "zh-HK,zh-Hans";
-                    break;
-                case "en-SG":
-                    language = "zh-Hans,en-SG";
-                    break;
-            }
-            string url = "https://displaycatalog.mp.microsoft.com/v7.0/products?bigIds=" + productId + "&market=" + market.code + "&languages=" + language + ",neutral&MS-CV=DGU1mcuYo0WMMp+F.1";
+            string url = "https://displaycatalog.mp.microsoft.com/v7.0/products?bigIds=" + productId + "&market=" + market.code + "&languages=zh-Hans," + language + ",neutral&MS-CV=DGU1mcuYo0WMMp+F.1";
             SocketPackage socketPackage = ClassWeb.HttpRequest(url, "GET", null, null, true, false, true, null, null, null, ClassWeb.useragent, null, null, null, null, 0, null);
             if (Regex.IsMatch(socketPackage.Html, @"^{.+}$", RegexOptions.Singleline))
             {
@@ -3941,19 +3930,7 @@ namespace XboxDownload
             if (bundledId.Count >= 1 && json.Products.Count == 1)
             {
                 string language = market.language;
-                switch (language)
-                {
-                    case "zh-TW":
-                        language = "zh-TW,zh-Hans";
-                        break;
-                    case "zh-HK":
-                        language = "zh-HK,zh-Hans";
-                        break;
-                    case "en-SG":
-                        language = "zh-Hans,en-SG";
-                        break;
-                }
-                string url = "https://displaycatalog.mp.microsoft.com/v7.0/products?bigIds=" + string.Join(",", bundledId.ToArray()) + "&market=" + market.code + "&languages=" + language + ",neutral&MS-CV=DGU1mcuYo0WMMp+F.1";
+                string url = "https://displaycatalog.mp.microsoft.com/v7.0/products?bigIds=" + string.Join(",", bundledId.ToArray()) + "&market=" + market.code + "&languages=zh-Hans," + language + ",neutral&MS-CV=DGU1mcuYo0WMMp+F.1";
                 SocketPackage socketPackage = ClassWeb.HttpRequest(url, "GET", null, null, true, false, true, null, null, null, ClassWeb.useragent, null, null, null, null, 0, null);
                 if (Regex.IsMatch(socketPackage.Html, @"^{.+}$", RegexOptions.Singleline))
                 {
@@ -4062,67 +4039,60 @@ namespace XboxDownload
 
         private void GetMsAppPackage(string productId, string filename)
         {
-            var dicMsApp = GetMsAppFiles(productId);
-            if (dicMsApp.Count >= 1)
+            ConcurrentDictionary<String, MsAppDownload.Products> dicMsApp = GetMsAppFiles(productId);
+            if (dicMsApp.TryGetValue(filename.ToLower(), out MsAppDownload.Products MsApp))
             {
-                if (dicMsApp.TryGetValue(filename.ToLower(), out var MsApp))
-                {
-                    MsAppDownload.dicMsApp.AddOrUpdate(productId, MsApp, (oldkey, oldvalue) => MsApp);
-                }
+                MsAppDownload.dicMsApp.AddOrUpdate(productId, MsApp, (oldkey, oldvalue) => MsApp);
             }
         }
 
         private void GetMsAppPackage(string productId, ListViewItem itemPcApp, ListViewItem itemXboxApp)
         {
-            var dicMsApp = GetMsAppFiles(productId);
-            if (dicMsApp.Count >= 1)
+            ConcurrentDictionary<String, MsAppDownload.Products> dicMsApp = GetMsAppFiles(productId);
+            this.Invoke(new Action(() =>
             {
-                this.Invoke(new Action(() =>
+                if (itemPcApp != null)
                 {
-                    if (itemPcApp != null)
+                    string filename = Regex.Replace(itemPcApp.SubItems[3].Tag.ToString(), @"_\d+\.\d+\.\d+\.\d+_", "_").ToLower();
+                    if (dicMsApp.TryGetValue(filename, out MsAppDownload.Products MsApp))
                     {
-                        string filename = Regex.Replace(itemPcApp.SubItems[3].Tag.ToString(), @"_\d+\.\d+\.\d+\.\d+_", "_").ToLower();
-                        if (dicMsApp.TryGetValue(filename, out var MsApp))
-                        {
-                            itemPcApp.Tag = MsApp.Expire;
-                            itemPcApp.SubItems[3].Text = MsApp.Url;
-                            MsAppDownload.dicMsApp.AddOrUpdate(productId, MsApp, (oldkey, oldvalue) => MsApp);
-                        }
-                        else
-                        {
-                            itemPcApp.SubItems[3].Text = null;
-                        }
-
+                        itemPcApp.Tag = MsApp.Expire;
+                        itemPcApp.SubItems[3].Text = MsApp.Url;
+                        MsAppDownload.dicMsApp.AddOrUpdate(productId, MsApp, (oldkey, oldvalue) => MsApp);
                     }
-                    if (itemXboxApp != null)
+                    else
                     {
-                        string filename = Regex.Replace(itemXboxApp.SubItems[3].Tag.ToString(), @"_\d+\.\d+\.\d+\.\d+_", "_").ToLower();
-                        if (dicMsApp.TryGetValue(filename, out var MsApp))
-                        {
-                            itemXboxApp.Tag = MsApp.Expire;
-                            itemXboxApp.SubItems[3].Text = MsApp.Url;
-                            MsAppDownload.dicMsApp.AddOrUpdate(productId + "_x", MsApp, (oldkey, oldvalue) => MsApp);
-                        }
-                        else
-                        {
-                            itemXboxApp.SubItems[3].Text = null;
-                        }
+                        itemPcApp.SubItems[3].Text = null;
                     }
-                }));
-            }
+                }
+                if (itemXboxApp != null)
+                {
+                    string filename = Regex.Replace(itemXboxApp.SubItems[3].Tag.ToString(), @"_\d+\.\d+\.\d+\.\d+_", "_").ToLower();
+                    if (dicMsApp.TryGetValue(filename, out MsAppDownload.Products MsApp))
+                    {
+                        itemXboxApp.Tag = MsApp.Expire;
+                        itemXboxApp.SubItems[3].Text = MsApp.Url;
+                        MsAppDownload.dicMsApp.AddOrUpdate(productId + "_x", MsApp, (oldkey, oldvalue) => MsApp);
+                    }
+                    else
+                    {
+                        itemXboxApp.SubItems[3].Text = null;
+                    }
+                }
+            }));
         }
 
         private ConcurrentDictionary<String, MsAppDownload.Products> GetMsAppFiles(string productId)
         {
             ConcurrentDictionary<String, MsAppDownload.Products> dicMsApp = new ConcurrentDictionary<String, MsAppDownload.Products>();
             SocketPackage socketPackage = ClassWeb.HttpRequest("https://store.rg-adguard.net/api/GetFiles", "POST", "type=ProductId&url=" + productId + "&ring=Retail&lang=" + Thread.CurrentThread.CurrentCulture.Name, "https://store.rg-adguard.net/", true, false, true, null, null, null, ClassWeb.useragent, null, null, null, null, 0, null);
-            Match result = Regex.Match(socketPackage.Html, @"<tr [^>]+><td><a href=""(?<url>https?://tlu\.dl\.delivery\.mp\.microsoft\.com\/filestreamingservice\/files\/[^""]+)"" [^>]+>(?<file>[^<]+)</a></td><td [^>]+>(?<expire>[^<]+)</td><td [^>]+>[^<]+</td><td [^>]+>(?<size>[^\s]+) (?<unit>KB|MB|GB)</td></tr>");
+            Match result = Regex.Match(socketPackage.Html, @"<tr [^>]+><td><a href=""(?<url>https?://tlu\.dl\.delivery\.mp\.microsoft\.com\/filestreamingservice\/files\/[^""]+)"" [^>]+>(?<file>[^<]+)</a></td><td [^>]+>(?<expire>[^<]+)</td><td [^>]+>[^<]+</td><td [^>]+>(?<size>[^>]+)</td></tr>");
             while (result.Success)
             {
                 string file = result.Groups["file"].Value;
                 string filename = Regex.Replace(file, @"_\d+\.\d+\.\d+\.\d+_", "_").ToLower();
                 Match m1 = Regex.Match(file, @"_(?<version>\d+\.\d+\.\d+\.\d+)_");
-                if (result.Success && m1.Success)
+                if (m1.Success)
                 {
                     Version version = new Version(m1.Groups["version"].Value);
                     string url = result.Groups["url"].Value;

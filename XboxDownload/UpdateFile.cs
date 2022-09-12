@@ -206,7 +206,6 @@ namespace XboxDownload
             }
         }
 
-        internal static Boolean bDownloadEnd;
         public static void Download(string filename)
         {
             string md5 = string.Empty;
@@ -238,7 +237,6 @@ namespace XboxDownload
             }
             Array.ForEach(tasks, x => x.Start());
             Task.WaitAll(tasks);
-            if (string.IsNullOrEmpty(md5)) UpdateFile.bDownloadEnd = true;
         }
 
         private static void Download(string filename, string url)
@@ -257,7 +255,6 @@ namespace XboxDownload
                 }
                 catch { }
             }
-            UpdateFile.bDownloadEnd = true;
         }
 
         public static void UpdateXboxGameData(string updateUrl = null)

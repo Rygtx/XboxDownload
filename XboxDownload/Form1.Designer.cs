@@ -441,7 +441,7 @@ namespace XboxDownload
             // tsmProductManual
             // 
             this.tsmProductManual.Name = "tsmProductManual";
-            this.tsmProductManual.Size = new System.Drawing.Size(266, 34);
+            this.tsmProductManual.Size = new System.Drawing.Size(270, 34);
             this.tsmProductManual.Text = "使用说明";
             this.tsmProductManual.Click += new System.EventHandler(this.TsmProductManual_Click);
             // 
@@ -453,7 +453,7 @@ namespace XboxDownload
             this.tsmTeaching2,
             this.tsmTeaching1});
             this.tsmTeaching.Name = "tsmTeaching";
-            this.tsmTeaching.Size = new System.Drawing.Size(266, 34);
+            this.tsmTeaching.Size = new System.Drawing.Size(270, 34);
             this.tsmTeaching.Text = "视频教程(网友制作)";
             // 
             // tsmTeaching4
@@ -494,7 +494,7 @@ namespace XboxDownload
             this.tsmSites1,
             this.tsmSites2});
             this.aaaaToolStripMenuItem.Name = "aaaaToolStripMenuItem";
-            this.aaaaToolStripMenuItem.Size = new System.Drawing.Size(266, 34);
+            this.aaaaToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.aaaaToolStripMenuItem.Text = "收录网站";
             // 
             // tsmSites1
@@ -516,7 +516,7 @@ namespace XboxDownload
             // tsmAbout
             // 
             this.tsmAbout.Name = "tsmAbout";
-            this.tsmAbout.Size = new System.Drawing.Size(266, 34);
+            this.tsmAbout.Size = new System.Drawing.Size(270, 34);
             this.tsmAbout.Text = "关于";
             this.tsmAbout.Click += new System.EventHandler(this.TsmAbout_Click);
             // 
@@ -1784,7 +1784,7 @@ namespace XboxDownload
             "联机激活和应用许可(licensing.mp.microsoft.com)",
             "微软商店通信(displaycatalog.mp.microsoft.com)",
             "微软商店图像(store-images.s-microsoft.com)",
-            "Xbox云存档(titlestorage.xboxlive.com)",
+            "Xbox游戏存储(titlestorage.xboxlive.com)",
             "Xbox360主机本地上传"});
             this.cbHosts.Location = new System.Drawing.Point(5, 13);
             this.cbHosts.Name = "cbHosts";
