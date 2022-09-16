@@ -181,7 +181,7 @@ namespace XboxDownload
 
             if (discount_ListPrice_1 || discount_ListPrice_2 || discount_WholesalePrice_2)
                 groupBox2.Text = product.LocalizedProperties[0].ProductTitle + " (折扣: " + priceRatio + "%，剩余：" + (new TimeSpan(product.DisplaySkuAvailabilities[0].Availabilities[0].Conditions.EndDate.Ticks - DateTime.Now.Ticks).Days) + "天，打折时段：" + product.DisplaySkuAvailabilities[0].Availabilities[0].Conditions.StartDate + " - " + product.DisplaySkuAvailabilities[0].Availabilities[0].Conditions.EndDate + ")";
-            else if (product.LocalizedProperties[0].EligibilityProperties.Affirmations.Length >= 1)
+            else if (product.LocalizedProperties[0].EligibilityProperties != null && product.LocalizedProperties[0].EligibilityProperties.Affirmations.Length >= 1)
             {
                 string description = product.LocalizedProperties[0].EligibilityProperties.Affirmations[0].Description;
                 if (description.Contains("EA Play"))

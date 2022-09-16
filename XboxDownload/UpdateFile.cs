@@ -14,8 +14,10 @@ namespace XboxDownload
     class UpdateFile
     {
         private const string updateUrl = "https://github.com/skydevil88/XboxDownload/releases/download/v1/";
+        public const string getXboxUrl = "http://13.215.187.105:5000";
         private const string exeFile = "XboxDownload.exe";
         public const string pdfFile = "ProductManual.pdf";
+        public const string dataFile = "XboxGame.dat";
         private static readonly string[,] proxys = {
             { "proxy", "https://ghproxy.com/" },
             { "proxy", "https://gh.api.99988866.xyz/" },
@@ -202,7 +204,6 @@ namespace XboxDownload
                     if (!autoupdate) MessageBox.Show("软件已经是最新版本。", Form1.appName + " - 软件更新", MessageBoxButtons.OK, MessageBoxIcon.None);
                     parentForm.tsmUpdate.Enabled = true;
                 }));
-                UpdateXboxGameData(updateUrl);
             }
         }
 
@@ -257,10 +258,9 @@ namespace XboxDownload
             }
         }
 
-        public static void UpdateXboxGameData(string updateUrl = null)
+        public static void UpdateXboxGameData(string updateUrl)
         {
-            if (string.IsNullOrEmpty(updateUrl)) updateUrl = UpdateFile.updateUrl;
-            SocketPackage socketPackage = ClassWeb.HttpRequest(updateUrl + "XboxGame.dat", "GET", null, null, true, false, false, null, null, null, ClassWeb.useragent, null, null, null, null, 0, null);
+            SocketPackage socketPackage = ClassWeb.HttpRequest(updateUrl + UpdateFile.dataFile, "GET", null, null, true, false, false, null, null, null, ClassWeb.useragent, null, null, null, null, 0, null);
             ConcurrentDictionary<String, XboxGameDownload.Products> dicXboxGame = null;
             if (string.IsNullOrEmpty(socketPackage.Err) && socketPackage.Buffer.Length > 0 && socketPackage.Headers.Contains(" 200 OK"))
             {
@@ -300,7 +300,7 @@ namespace XboxDownload
                 }
                 try
                 {
-                    using (FileStream stream = new FileStream(Application.StartupPath + "\\XboxGame.dat", FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
+                    using (FileStream stream = new FileStream(Application.StartupPath + "\\" + UpdateFile.dataFile, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
                     {
                         BinaryFormatter bFormat = new BinaryFormatter();
                         bFormat.Serialize(stream, XboxGameDownload.dicXboxGame);

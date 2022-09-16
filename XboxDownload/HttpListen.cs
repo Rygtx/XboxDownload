@@ -161,7 +161,7 @@ namespace XboxDownload
                                     _newHosts = Regex.Replace(_hosts, @"\.com$", ".cn");
                                 }
                                 if (dicFilePath.TryAdd(_filePath, null))
-                                    ThreadPool.QueueUserWorkItem(delegate { UpdateGameUrl(_hosts, _filePath); });
+                                    ThreadPool.QueueUserWorkItem(delegate { UpdateGameUrl(_hosts, _filePath, _extension); });
                                 break;
                             case "xvcf1.xboxlive.com":
                                 if (Properties.Settings.Default.Redirect)
@@ -170,7 +170,7 @@ namespace XboxDownload
                                     _newHosts = "assets1.xboxlive.cn";
                                 }
                                 if (dicFilePath.TryAdd(_filePath, null))
-                                    ThreadPool.QueueUserWorkItem(delegate { UpdateGameUrl(_hosts, _filePath); });
+                                    ThreadPool.QueueUserWorkItem(delegate { UpdateGameUrl(_hosts, _filePath, _extension); });
                                 break;
                             case "xvcf2.xboxlive.com":
                                 if (Properties.Settings.Default.Redirect)
@@ -179,7 +179,7 @@ namespace XboxDownload
                                     _newHosts = "assets2.xboxlive.cn";
                                 }
                                 if (dicFilePath.TryAdd(_filePath, null))
-                                    ThreadPool.QueueUserWorkItem(delegate { UpdateGameUrl(_hosts, _filePath); });
+                                    ThreadPool.QueueUserWorkItem(delegate { UpdateGameUrl(_hosts, _filePath, _extension); });
                                 break;
                             case "us.cdn.blizzard.com":
                             case "eu.cdn.blizzard.com":
@@ -367,7 +367,7 @@ namespace XboxDownload
                                         case "d2.xboxlive.cn":
                                             argb = 0x008000;
                                             if (dicFilePath.TryAdd(_filePath, null))
-                                                ThreadPool.QueueUserWorkItem(delegate { UpdateGameUrl(_hosts, _filePath); });
+                                                ThreadPool.QueueUserWorkItem(delegate { UpdateGameUrl(_hosts, _filePath, _extension); });
                                             break;
                                         case "tlu.dl.delivery.mp.microsoft.com":
                                         case "download.xbox.com":
@@ -410,8 +410,10 @@ namespace XboxDownload
         }
 
         readonly ConcurrentDictionary<String, String> dicFilePath = new ConcurrentDictionary<String, String>();
-        private void UpdateGameUrl(string _hosts, string _filePath)
+        private void UpdateGameUrl(string _hosts, string _filePath, string _extension)
         {
+            if (Regex.IsMatch(_extension, @"\.(phf|xsp)$")) return;
+
             Match result = Regex.Match(_filePath, @"/(?<ContentId>\w{8}-\w{4}-\w{4}-\w{4}-\w{12})/(?<Version>\d+\.\d+\.\d+\.\d+)\.\w{8}-\w{4}-\w{4}-\w{4}-\w{12}");
             if (result.Success)
             {
@@ -449,7 +451,7 @@ namespace XboxDownload
                         XboxGameDownload.dicXboxGame.AddOrUpdate(contentId, XboxGame, (oldkey, oldvalue) => XboxGame);
                         try
                         {
-                            using (FileStream stream = new FileStream(Application.StartupPath + "\\XboxGame.dat", FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
+                            using (FileStream stream = new FileStream(Application.StartupPath + "\\" + UpdateFile.dataFile, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
                             {
                                 BinaryFormatter bFormat = new BinaryFormatter();
                                 bFormat.Serialize(stream, XboxGameDownload.dicXboxGame);
@@ -457,6 +459,8 @@ namespace XboxDownload
                             }
                         }
                         catch { }
+
+                        ClassWeb.HttpRequest(UpdateFile.getXboxUrl + "/Game/AddUrl?url=" + ClassWeb.UrlEncode(XboxGame.Url), "PUT", null, null, true, false, true, null, null, new String[] { "X-Organization: XboxDownload", "X-Author: Devil" }, null, null, null, null, null, 0, null);
                     }
                 }
             }

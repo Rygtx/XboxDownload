@@ -277,6 +277,19 @@ namespace XboxDownload
             public string RelativeUrl { get; set; }
             public DateTime ModifiedDate { get; set; }
         }
+
+        public class XboxGameUrl
+        {
+            public string code { get; set; }
+            public Data data { get; set; }
+        }
+
+        public class Data
+        {
+            public string Version { get; set; }
+            public ulong FileSize { get; set; }
+            public string Url { get; set; }
+        }
     }
 
     class MsAppDownload
@@ -288,6 +301,7 @@ namespace XboxDownload
             public string Filename { get; set; }
             public string Url { get; set; }
             public DateTime Expire { get; set; }
+            public DateTime Update { get; set; }
         }
     }
 

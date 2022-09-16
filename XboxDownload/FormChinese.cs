@@ -118,7 +118,7 @@ namespace XboxDownload
                 {
                     try
                     {
-                        using (FileStream stream = new FileStream(Application.StartupPath + "\\XboxGame.dat", FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
+                        using (FileStream stream = new FileStream(Application.StartupPath + "\\" + UpdateFile.dataFile, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
                         {
                             BinaryFormatter bFormat = new BinaryFormatter();
                             bFormat.Serialize(stream, XboxGameDownload.dicXboxGame);
