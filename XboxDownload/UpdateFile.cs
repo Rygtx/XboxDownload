@@ -13,7 +13,7 @@ namespace XboxDownload
 {
     class UpdateFile
     {
-        private const string updateUrl = "https://github.com/skydevil88/XboxDownload/releases/download/v1/";
+        public const string updateUrl = "https://github.com/skydevil88/XboxDownload/releases/download/v1/";
         public const string getXboxUrl = "http://13.215.187.105:5000";
         private const string exeFile = "XboxDownload.exe";
         public const string pdfFile = "ProductManual.pdf";
@@ -313,7 +313,7 @@ namespace XboxDownload
 
         public static string GetPathHash(string path, string encrypt = "md5")
         {
-            string hash = string.Empty;
+            string hash;
             switch (encrypt)
             {
                 case "md5":
@@ -333,6 +333,9 @@ namespace XboxDownload
                             hash = BitConverter.ToString(sha256.ComputeHash(stream)).Replace("-", string.Empty);
                         }
                     }
+                    break;
+                default:
+                    hash = string.Empty;
                     break;
             }
             return hash;

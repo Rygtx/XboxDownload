@@ -417,13 +417,13 @@ namespace XboxDownload
             Match result = Regex.Match(_filePath, @"/(?<ContentId>\w{8}-\w{4}-\w{4}-\w{4}-\w{12})/(?<Version>\d+\.\d+\.\d+\.\d+)\.\w{8}-\w{4}-\w{4}-\w{4}-\w{12}");
             if (result.Success)
             {
-                string contentId = result.Groups["ContentId"].Value.ToLower();
+                string key = result.Groups["ContentId"].Value.ToLower();
                 if (Regex.IsMatch(_filePath, @"_xs\.xvc$", RegexOptions.IgnoreCase))
-                    contentId += "_xs";
+                    key += "_xs";
                 else if (!Regex.IsMatch(_filePath, @"\.msixvc$", RegexOptions.IgnoreCase))
-                    contentId += "_x";
+                    key += "_x";
                 Version version = new Version(result.Groups["Version"].Value);
-                if (XboxGameDownload.dicXboxGame.TryGetValue(contentId, out XboxGameDownload.Products XboxGame))
+                if (XboxGameDownload.dicXboxGame.TryGetValue(key, out XboxGameDownload.Products XboxGame))
                 {
                     if (XboxGame.Version >= version) return;
                 }
@@ -448,7 +448,7 @@ namespace XboxDownload
                             FileSize = filesize,
                             Url = "http://" + _hosts + _filePath
                         };
-                        XboxGameDownload.dicXboxGame.AddOrUpdate(contentId, XboxGame, (oldkey, oldvalue) => XboxGame);
+                        XboxGameDownload.dicXboxGame.AddOrUpdate(key, XboxGame, (oldkey, oldvalue) => XboxGame);
                         try
                         {
                             using (FileStream stream = new FileStream(Application.StartupPath + "\\" + UpdateFile.dataFile, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
@@ -459,7 +459,6 @@ namespace XboxDownload
                             }
                         }
                         catch { }
-
                         ClassWeb.HttpRequest(UpdateFile.getXboxUrl + "/Game/AddUrl?url=" + ClassWeb.UrlEncode(XboxGame.Url), "PUT", null, null, true, false, true, null, null, new String[] { "X-Organization: XboxDownload", "X-Author: Devil" }, null, null, null, null, null, 0, null);
                     }
                 }

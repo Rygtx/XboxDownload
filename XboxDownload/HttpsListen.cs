@@ -164,7 +164,7 @@ namespace XboxDownload
                                     switch (_hosts)
                                     {
                                         case "api1.origin.com":
-                                            if (Properties.Settings.Default.EAStore)
+                                            //if (Properties.Settings.Default.EAStore)
                                             {
                                                 if (!DnsListen.dicHosts2.TryGetValue(_hosts, out IPAddress ip))
                                                 {
@@ -235,7 +235,7 @@ namespace XboxDownload
                                             break;
                                         case "store.steampowered.com":
                                         case "steamcommunity.com":
-                                            if (Properties.Settings.Default.SteamStore)
+                                            //if (Properties.Settings.Default.SteamStore)
                                             {
                                                 string _hosts2 = string.Empty;
                                                 if (Regex.IsMatch(_filePath, @"^\/login\/(getrsakey|dologin|transfer)") || _filePath.Contains("/logout"))
