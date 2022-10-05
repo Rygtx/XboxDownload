@@ -40,7 +40,7 @@ vi /etc/lighttpd/lighttpd.conf
 
 server.modules = ( "mod_redirect" )
 $HTTP["host"] =~ "^(assets1|assets2|d1|d2|xvcf1|xvcf2)\.xboxlive\.com$" {
-	url.redirect = ( "(.*)" => "http://%1.xboxlive.cn$1" )
+	url.redirect = ( "(.*)" => "http://assets1.xboxlive.cn$1" )
 }
 $HTTP["host"] =~ "^(dlassets|dlassets2)\.xboxlive\.com$" {
 	url.redirect = ( "(.*)" => "http://dlassets.xboxlive.cn$1" )
