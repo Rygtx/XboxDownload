@@ -25,7 +25,8 @@ namespace XboxDownload
 
         public void Listen()
         {
-            IPEndPoint ipe = new IPEndPoint(Properties.Settings.Default.ListenIP == 0 ? IPAddress.Parse(Properties.Settings.Default.LocalIP) : IPAddress.Any, 80);
+            int port = 80;
+            IPEndPoint ipe = new IPEndPoint(Properties.Settings.Default.ListenIP == 0 ? IPAddress.Parse(Properties.Settings.Default.LocalIP) : IPAddress.Any, port);
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             try
             {
@@ -37,7 +38,7 @@ namespace XboxDownload
                 parentForm.Invoke(new Action(() =>
                 {
                     parentForm.pictureBox1.Image = Properties.Resources.Xbox3;
-                    MessageBox.Show(String.Format("启用HTTP服务失败!\n错误信息: {0}", ex.Message), "启用HTTP服务失败", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(String.Format("启用HTTP服务失败!\n错误信息: {0}\n\n解决方法：1、关闭占用{1}端口的程序。2、监听IP选择(Any)", ex.Message, port), "启用HTTP服务失败", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }));
                 return;
             }

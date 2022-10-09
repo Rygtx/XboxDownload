@@ -59,6 +59,7 @@ namespace XboxDownload
                     }
                 }
             }
+            int port = 53;
             IPEndPoint iPEndPoint = null;
             if (string.IsNullOrEmpty(Properties.Settings.Default.DnsIP))
             {
@@ -71,24 +72,24 @@ namespace XboxDownload
                         {
                             if (dns.ToString() == Properties.Settings.Default.LocalIP)
                                 continue;
-                            iPEndPoint = new IPEndPoint(dns, 53);
+                            iPEndPoint = new IPEndPoint(dns, port);
                             break;
                         }
                     }
                     if (iPEndPoint != null) break;
                 }
                 if (iPEndPoint == null)
-                    iPEndPoint = new IPEndPoint(IPAddress.Parse("114.114.114.114"), 53);
+                    iPEndPoint = new IPEndPoint(IPAddress.Parse("114.114.114.114"), port);
                 if (Form1.bServiceFlag)
                     parentForm.SetTextBox(parentForm.tbDnsIP, iPEndPoint.Address.ToString());
             }
             else
             {
-                iPEndPoint = new IPEndPoint(IPAddress.Parse(Properties.Settings.Default.DnsIP), 53);
+                iPEndPoint = new IPEndPoint(IPAddress.Parse(Properties.Settings.Default.DnsIP), port);
             }
             if (!Form1.bServiceFlag) return;
 
-            IPEndPoint ipe = new IPEndPoint(Properties.Settings.Default.ListenIP == 0 ? IPAddress.Parse(Properties.Settings.Default.LocalIP) : IPAddress.Any, 53);
+            IPEndPoint ipe = new IPEndPoint(Properties.Settings.Default.ListenIP == 0 ? IPAddress.Parse(Properties.Settings.Default.LocalIP) : IPAddress.Any, port);
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             try
             {
@@ -99,7 +100,7 @@ namespace XboxDownload
                 parentForm.Invoke(new Action(() =>
                 {
                     parentForm.pictureBox1.Image = Properties.Resources.Xbox3;
-                    MessageBox.Show(String.Format("启用DNS服务失败!\n错误信息: {0}", ex.Message), "启用DNS服务失败", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(String.Format("启用DNS服务失败!\n错误信息: {0}\n\n解决方法：1、关闭占用{1}端口的程序。2、监听IP选择(Any)", ex.Message, port), "启用DNS服务失败", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }));
                 return;
             }
