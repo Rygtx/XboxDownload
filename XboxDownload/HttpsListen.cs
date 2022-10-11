@@ -42,7 +42,7 @@ namespace XboxDownload
                 parentForm.Invoke(new Action(() =>
                 {
                     parentForm.pictureBox1.Image = Properties.Resources.Xbox3;
-                    MessageBox.Show(String.Format("启用HTTPS服务失败!\n错误信息: {0}\n\n解决方法：1、关闭占用{1}端口的程序。2、监听IP选择(Any)", ex.Message, port), "启用HTTPS服务失败", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(String.Format("启用HTTPS服务失败!\n错误信息: {0}\n\n解决方法：1、停用占用 {1} 端口的服务。2、监听IP选择(Any)", ex.Message, port), "启用HTTPS服务失败", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }));
                 return;
             }
