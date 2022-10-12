@@ -153,56 +153,58 @@ namespace XboxDownload
 
             Form1.lsMarket.AddRange((new List<Market>
             {
-                new Market("台湾", "TW", "zh-TW"),
-                new Market("香港", "HK", "zh-HK"),
-                new Market("新加坡", "SG", "en-SG"),
-                new Market("韩国", "KR", "ko-KR"),
-                new Market("日本", "JP", "ja-JP"),
-                new Market("美国", "US", "en-US"),
-
-                new Market("阿根廷", "AR", "es-AR"),
-                new Market("阿联酋", "AE", "ar-AE"),
-                new Market("爱尔兰" ,"IE", "en-IE"),
-                new Market("奥地利", "AT", "de-AT"),
-                new Market("澳大利亚", "AU", "en-AU"),
-                new Market("巴西", "BR", "pt-BR"),
-                new Market("比利时", "BE", "nl-BE"),
-                new Market("波兰", "PL", "pl-PL"),
-                new Market("丹麦", "DK", "da-DK"),
-                new Market("德国", "DE", "de-DE"),
-                new Market("俄罗斯", "RU", "ru-RU"),
-                new Market("法国", "FR", "fr-FR"),
-                new Market("芬兰", "FI", "fi-FI"),
-                new Market("哥伦比亚", "CO", "es-CO"),
-                //new Market("韩国", "KR", "ko-KR"),
-                new Market("荷兰", "NL", "nl-NL"),
-                new Market("加拿大", "CA", "en-CA"),
-                new Market("捷克共和国", "CZ", "cs-CZ"),
-                //new Market("美国", "US", "en-US"),
-                new Market("墨西哥", "MX", "es-MX"),
-                new Market("南非", "ZA", "en-ZA"),
-                new Market("挪威", "NO", "nb-NO"),
-                new Market("葡萄牙", "PT", "pt-PT"),
-                //new Market("日本", "JP", "ja-JP"),
-                new Market("瑞典", "SE", "sv-SE"),
-                new Market("瑞士", "CH", "de-CH"),
-                new Market("沙特阿拉伯", "SA", "ar-SA"),
-                new Market("斯洛伐克", "SK", "sk-SK"),
-                //new Market("台湾", "TW", "zh-TW"),
-                new Market("土尔其", "TR", "tr-TR"),
-                new Market("西班牙", "ES", "es-ES"),
-                new Market("希腊", "GR", "el-GR"),
-                //new Market("香港", "HK", "zh-HK"),
-                //new Market("新加坡", "SG", "en-SG"),
-                new Market("新西兰", "NZ", "en-NZ"),
-                new Market("匈牙利", "HU", "hu-HU"),
-                new Market("以色列", "IL", "he-IL"),
-                new Market("意大利", "IT", "it-IT"),
-                new Market("印度", "IN", "en-IN"),
-                new Market("英国", "GB", "en-GB"),
-                new Market("智利", "CL", "es-CL"),
-                new Market("中国", "CN", "zh-CN")
+                
+                new Market("Taiwan", "台湾", "TW", "zh-TW"),
+                new Market("Hong Kong SAR", "香港", "HK", "zh-HK"),
+                new Market("Singapore", "新加坡", "SG", "en-SG"),
+                new Market("Korea", "韩国", "KR", "ko-KR"),
+                new Market("Japan", "日本", "JP", "ja-JP"),
+                new Market("United States","美国", "US", "en-US"),
+                
+                new Market("Argentina", "阿根廷", "AR", "es-AR"),
+                new Market("United Arab Emirates", "阿联酋", "AE", "ar-AE"),
+                new Market("Ireland", "爱尔兰", "IE", "en-IE"),
+                new Market("Austria", "奥地利", "AT", "de-AT"),
+                new Market("Austalia", "澳大利亚", "AU", "en-AU"),
+                new Market("Brazil", "巴西", "BR", "pt-BR"),
+                new Market("Belgium", "比利时", "BE", "nl-BE"),
+                new Market("Poland", "波兰", "PL", "pl-PL"),
+                new Market("Denmark", "丹麦", "DK", "da-DK"),
+                new Market("Germany", "德国", "DE", "de-DE"),
+                new Market("Russia", "俄罗斯", "RU", "ru-RU"),
+                new Market("France", "法国", "FR", "fr-FR"),
+                new Market("Finland", "芬兰", "FI", "fi-FI"),
+                new Market("Colombia", "哥伦比亚", "CO", "es-CO"),
+                //new Market("Korea", "韩国", "KR", "ko-KR"),
+                new Market("Netherlands", "荷兰", "NL", "nl-NL"),
+                new Market("Canada", "加拿大", "CA", "en-CA"),
+                new Market("Czech Republic", "捷克共和国", "CZ", "cs-CZ"),
+                //new Market("United States", "美国", "US", "en-US"),
+                new Market("Mexico", "墨西哥", "MX", "es-MX"),
+                new Market("South Africa", "南非", "ZA", "en-ZA"),
+                new Market("Norway", "挪威", "NO", "nb-NO"),
+                new Market("Portugal", "葡萄牙", "PT", "pt-PT"),
+                //new Market("Japan", "日本", "JP", "ja-JP"),
+                new Market("Sweden", "瑞典", "SE", "sv-SE"),
+                new Market("Switzerland", "瑞士", "CH", "de-CH"),
+                new Market("Saudi Arabia", "沙特阿拉伯", "SA", "ar-SA"),
+                new Market("Slovakia", "斯洛伐克", "SK", "sk-SK"),
+                //new Market("Taiwan", "台湾", "TW", "zh-TW"),
+                new Market("Turkey", "土尔其", "TR", "tr-TR"),
+                new Market("Spain", "西班牙", "ES", "es-ES"),
+                new Market("Greece", "希腊", "GR", "el-GR"),
+                //new Market("Hong Kong SAR", "香港", "HK", "zh-HK"),
+                //new Market("Singapore", "新加坡", "SG", "en-SG"),
+                new Market("New Zealand", "新西兰", "NZ", "en-NZ"),
+                new Market("Hungary", "匈牙利", "HU", "hu-HU"),
+                new Market("Israel", "以色列", "IL", "he-IL"),
+                new Market("Italy", "意大利", "IT", "it-IT"),
+                new Market("India", "印度", "IN", "en-IN"),
+                new Market("United Kingdom", "英国", "GB", "en-GB"),
+                new Market("Chile", "智利", "CL", "es-CL"),
+                new Market("China", "中国", "CN", "zh-CN")
             }).ToArray());
+            //Form1.lsMarket.Sort((x, y) => string.Compare(x.ename, y.ename));
             cbGameMarket.Items.AddRange(Form1.lsMarket.ToArray());
             cbGameMarket.SelectedIndex = 0;
             pbGame.Image = pbGame.InitialImage;
@@ -3555,13 +3557,13 @@ namespace XboxDownload
                         string url = result.Groups["url"].Value.Trim();
                         string title = Regex.Replace(HttpUtility.HtmlDecode(result.Groups["title"].Value), @"Free Play Days\s?:|-", "").Trim();
                         DateTime dt = DateTime.ParseExact(result.Groups["date"].Value, "yyyy/MM/dd", System.Globalization.CultureInfo.CurrentCulture);
-                        lbFreePlayDays = new LinkLabel()
+                        lbFreePlayDays = new LinkLabel
                         {
                             Text = title + "\n" + dt.ToString("MM/dd") + "(周末免费游戏日)",
                             TextAlign = ContentAlignment.TopCenter,
                             AutoSize = true,
+                            Visible = DateTime.Compare(dt.AddDays(4), DateTime.Now) >= 0
                         };
-                        lbFreePlayDays.Visible = DateTime.Compare(dt.AddDays(4), DateTime.Now) >= 0;
                         lbFreePlayDays.Links.Add(0, title.Length, url);
                         lbFreePlayDays.LinkClicked += new LinkLabelLinkClickedEventHandler(this.LinkGameWebsite_LinkClicked);
                     }
@@ -3629,7 +3631,7 @@ namespace XboxDownload
             }
             if (!find)
             {
-                cbGameMarket.Items.Add(new Market(language, Regex.Replace(language, "^[^-]+-", ""), language));
+                cbGameMarket.Items.Add(new Market(language, language, Regex.Replace(language, "^[^-]+-", ""), language));
                 cbGameMarket.SelectedIndex = cbGameMarket.Items.Count - 1;
             }
             if (butGame.Enabled) ButGame_Click(null, null);
@@ -3859,7 +3861,7 @@ namespace XboxDownload
                                             {
                                                 case 50000:
                                                     {
-                                                        ListViewItem item = new ListViewItem(new string[] { "Xbox One", market.name, ClassMbr.ConvertBytes(packages.MaxDownloadSizeInBytes), url });
+                                                        ListViewItem item = new ListViewItem(new string[] { "Xbox One", market.cname, ClassMbr.ConvertBytes(packages.MaxDownloadSizeInBytes), url });
                                                         item.SubItems[0].Tag = 0;
                                                         lsDownloadUrl.Add(item);
                                                         if (string.IsNullOrEmpty(url))
@@ -3887,7 +3889,7 @@ namespace XboxDownload
                                                     break;
                                                 case 51000:
                                                     {
-                                                        ListViewItem item = new ListViewItem(new string[] { "Xbox Series X|S", market.name, ClassMbr.ConvertBytes(packages.MaxDownloadSizeInBytes), url });
+                                                        ListViewItem item = new ListViewItem(new string[] { "Xbox Series X|S", market.cname, ClassMbr.ConvertBytes(packages.MaxDownloadSizeInBytes), url });
                                                         item.SubItems[0].Tag = 1;
                                                         lsDownloadUrl.Add(item);
                                                         if (string.IsNullOrEmpty(url))
@@ -3923,7 +3925,7 @@ namespace XboxDownload
                                                             string key = Regex.Replace(filename, result.Groups[0].Value, "_").ToLower();
                                                             if (!dicListViewItem.TryGetValue(key, out ListViewItem item))
                                                             {
-                                                                item = new ListViewItem(new string[] { "Xbox One", market.name, ClassMbr.ConvertBytes(packages.MaxDownloadSizeInBytes), url });
+                                                                item = new ListViewItem(new string[] { "Xbox One", market.cname, ClassMbr.ConvertBytes(packages.MaxDownloadSizeInBytes), url });
                                                                 item.SubItems[0].Tag = 0;
                                                                 dicListViewItem.AddOrUpdate(key, item, (oldkey, oldvalue) => item);
 
@@ -3950,7 +3952,7 @@ namespace XboxDownload
                                             {
                                                 case "msixvc":
                                                     {
-                                                        ListViewItem item = new ListViewItem(new string[] { "Windows PC", market.name, ClassMbr.ConvertBytes(packages.MaxDownloadSizeInBytes), url });
+                                                        ListViewItem item = new ListViewItem(new string[] { "Windows PC", market.cname, ClassMbr.ConvertBytes(packages.MaxDownloadSizeInBytes), url });
                                                         item.SubItems[0].Tag = 2;
                                                         lsDownloadUrl.Add(item);
                                                         if (string.IsNullOrEmpty(url))
@@ -3989,7 +3991,7 @@ namespace XboxDownload
                                                             string key = Regex.Replace(filename, result.Groups[0].Value, "_").ToLower();
                                                             if (!dicListViewItem.TryGetValue(key, out ListViewItem item))
                                                             {
-                                                                item = new ListViewItem(new string[] { "Windows PC", market.name, ClassMbr.ConvertBytes(packages.MaxDownloadSizeInBytes), url });
+                                                                item = new ListViewItem(new string[] { "Windows PC", market.cname, ClassMbr.ConvertBytes(packages.MaxDownloadSizeInBytes), url });
                                                                 item.SubItems[0].Tag = 2;
                                                                 item.SubItems[1].Tag = key;
                                                                 item.SubItems[2].Tag = version;

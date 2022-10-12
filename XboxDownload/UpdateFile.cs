@@ -14,7 +14,7 @@ namespace XboxDownload
     class UpdateFile
     {
         public const string updateUrl = "https://github.com/skydevil88/XboxDownload/releases/download/v1/";
-        public const string getXboxUrl = "http://13.215.187.105:5000";
+        public const string getXboxUrl = "https://xbox.skydevil.xyz";
         private const string exeFile = "XboxDownload.exe";
         public const string pdfFile = "ProductManual.pdf";
         public const string dataFile = "XboxGame.dat";

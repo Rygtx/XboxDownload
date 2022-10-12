@@ -7,20 +7,22 @@ namespace XboxDownload
 {
     class Market
     {
-        public String name;
+        public String ename;
+        public String cname;
         public String code;
         public String language;
 
-        public Market(String name, String code, String language)
+        public Market(String ename, String cname, String code, String language)
         {
-            this.name = name;
+            this.cname = cname;
             this.code = code;
             this.language = language;
+            this.ename = ename;
         }
 
         public override string ToString()
         {
-            return this.name;
+            return this.cname;
         }
     }
 
