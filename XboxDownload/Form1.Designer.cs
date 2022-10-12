@@ -48,8 +48,8 @@ namespace XboxDownload
             this.tsmTeaching2 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmTeaching1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aaaaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmSites1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmSites2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmSites3 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -334,6 +334,7 @@ namespace XboxDownload
             this.tsmAuthorization = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAuthorization1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAuthorization2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmSites1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabService.SuspendLayout();
@@ -441,7 +442,7 @@ namespace XboxDownload
             // tsmProductManual
             // 
             this.tsmProductManual.Name = "tsmProductManual";
-            this.tsmProductManual.Size = new System.Drawing.Size(266, 34);
+            this.tsmProductManual.Size = new System.Drawing.Size(270, 34);
             this.tsmProductManual.Text = "使用说明";
             this.tsmProductManual.Click += new System.EventHandler(this.TsmProductManual_Click);
             // 
@@ -453,7 +454,7 @@ namespace XboxDownload
             this.tsmTeaching2,
             this.tsmTeaching1});
             this.tsmTeaching.Name = "tsmTeaching";
-            this.tsmTeaching.Size = new System.Drawing.Size(266, 34);
+            this.tsmTeaching.Size = new System.Drawing.Size(270, 34);
             this.tsmTeaching.Text = "视频教程(网友制作)";
             // 
             // tsmTeaching4
@@ -492,31 +493,32 @@ namespace XboxDownload
             // 
             this.aaaaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmSites1,
-            this.tsmSites2});
+            this.tsmSites2,
+            this.tsmSites3});
             this.aaaaToolStripMenuItem.Name = "aaaaToolStripMenuItem";
-            this.aaaaToolStripMenuItem.Size = new System.Drawing.Size(266, 34);
+            this.aaaaToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.aaaaToolStripMenuItem.Text = "收录网站";
-            // 
-            // tsmSites1
-            // 
-            this.tsmSites1.Name = "tsmSites1";
-            this.tsmSites1.Size = new System.Drawing.Size(459, 34);
-            this.tsmSites1.Tag = "https://gamr13.github.io/";
-            this.tsmSites1.Text = "Gamr13\'s Repo";
-            this.tsmSites1.Click += new System.EventHandler(this.TsmOpenSite_Click);
             // 
             // tsmSites2
             // 
             this.tsmSites2.Name = "tsmSites2";
             this.tsmSites2.Size = new System.Drawing.Size(459, 34);
-            this.tsmSites2.Tag = "https://store.rg-adguard.net/";
-            this.tsmSites2.Text = "Online link generator for Microsoft Store";
+            this.tsmSites2.Tag = "https://gamr13.github.io/";
+            this.tsmSites2.Text = "Gamr13\'s Repo";
             this.tsmSites2.Click += new System.EventHandler(this.TsmOpenSite_Click);
+            // 
+            // tsmSites3
+            // 
+            this.tsmSites3.Name = "tsmSites3";
+            this.tsmSites3.Size = new System.Drawing.Size(459, 34);
+            this.tsmSites3.Tag = "https://store.rg-adguard.net/";
+            this.tsmSites3.Text = "Online link generator for Microsoft Store";
+            this.tsmSites3.Click += new System.EventHandler(this.TsmOpenSite_Click);
             // 
             // tsmAbout
             // 
             this.tsmAbout.Name = "tsmAbout";
-            this.tsmAbout.Size = new System.Drawing.Size(266, 34);
+            this.tsmAbout.Size = new System.Drawing.Size(270, 34);
             this.tsmAbout.Text = "关于";
             this.tsmAbout.Click += new System.EventHandler(this.TsmAbout_Click);
             // 
@@ -3525,6 +3527,14 @@ namespace XboxDownload
             this.tsmAuthorization2.Text = "打开光环无限（点击安装，然后等待无需实际安装）";
             this.tsmAuthorization2.Click += new System.EventHandler(this.TsmAuthorization_Click);
             // 
+            // tsmSites1
+            // 
+            this.tsmSites1.Name = "tsmSites1";
+            this.tsmSites1.Size = new System.Drawing.Size(459, 34);
+            this.tsmSites1.Tag = "https://xbox.skydevil.xyz";
+            this.tsmSites1.Text = "Xbox下载助手 - 网页版";
+            this.tsmSites1.Click += new System.EventHandler(this.TsmOpenSite_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
@@ -3887,8 +3897,8 @@ namespace XboxDownload
         private System.Windows.Forms.LinkLabel linkNSHomepage;
         private System.Windows.Forms.CheckBox ckbNSBrowser;
         private System.Windows.Forms.ToolStripMenuItem aaaaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tsmSites1;
         private System.Windows.Forms.ToolStripMenuItem tsmSites2;
+        private System.Windows.Forms.ToolStripMenuItem tsmSites3;
         private System.Windows.Forms.ToolStripMenuItem tsmCopyUrl3;
         private ExTextBox tbGameSearch;
         private System.Windows.Forms.ToolStripMenuItem tsmAuthorization;
@@ -3902,6 +3912,7 @@ namespace XboxDownload
         public System.Windows.Forms.TextBox tbCnIP2;
         private System.Windows.Forms.Label labelCn2;
         private System.Windows.Forms.ToolStripMenuItem tsmUseIPCn2;
+        private System.Windows.Forms.ToolStripMenuItem tsmSites1;
     }
 }
 
