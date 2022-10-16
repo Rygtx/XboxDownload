@@ -31,10 +31,10 @@ namespace XboxDownload
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsmUpdate = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,6 +48,7 @@ namespace XboxDownload
             this.tsmTeaching2 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmTeaching1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aaaaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmSites1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmSites2 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmSites3 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAbout = new System.Windows.Forms.ToolStripMenuItem();
@@ -231,6 +232,7 @@ namespace XboxDownload
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel8 = new System.Windows.Forms.Panel();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.linkAppxAdd = new System.Windows.Forms.LinkLabel();
             this.tbGameCategory = new System.Windows.Forms.TextBox();
             this.label30 = new System.Windows.Forms.Label();
@@ -334,7 +336,6 @@ namespace XboxDownload
             this.tsmAuthorization = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAuthorization1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAuthorization2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmSites1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabService.SuspendLayout();
@@ -498,6 +499,14 @@ namespace XboxDownload
             this.aaaaToolStripMenuItem.Name = "aaaaToolStripMenuItem";
             this.aaaaToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.aaaaToolStripMenuItem.Text = "收录网站";
+            // 
+            // tsmSites1
+            // 
+            this.tsmSites1.Name = "tsmSites1";
+            this.tsmSites1.Size = new System.Drawing.Size(459, 34);
+            this.tsmSites1.Tag = "https://xbox.skydevil.xyz";
+            this.tsmSites1.Text = "Xbox下载助手 - 网页版";
+            this.tsmSites1.Click += new System.EventHandler(this.TsmOpenSite_Click);
             // 
             // tsmSites2
             // 
@@ -1366,9 +1375,9 @@ namespace XboxDownload
             // 
             // Col_TTL
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle1.Format = "N0";
-            this.Col_TTL.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle17.Format = "N0";
+            this.Col_TTL.DefaultCellStyle = dataGridViewCellStyle17;
             this.Col_TTL.HeaderText = "TTL";
             this.Col_TTL.MinimumWidth = 8;
             this.Col_TTL.Name = "Col_TTL";
@@ -1376,9 +1385,9 @@ namespace XboxDownload
             // 
             // Col_RoundtripTime
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N0";
-            this.Col_RoundtripTime.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle18.Format = "N0";
+            this.Col_RoundtripTime.DefaultCellStyle = dataGridViewCellStyle18;
             this.Col_RoundtripTime.HeaderText = "响应时间(ms)";
             this.Col_RoundtripTime.MinimumWidth = 8;
             this.Col_RoundtripTime.Name = "Col_RoundtripTime";
@@ -1386,9 +1395,9 @@ namespace XboxDownload
             // 
             // Col_Speed
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N2";
-            this.Col_Speed.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle19.Format = "N2";
+            this.Col_Speed.DefaultCellStyle = dataGridViewCellStyle19;
             this.Col_Speed.HeaderText = "下载速度(MB/s)";
             this.Col_Speed.MinimumWidth = 8;
             this.Col_Speed.Name = "Col_Speed";
@@ -2334,8 +2343,8 @@ namespace XboxDownload
             // 
             // Col_Size
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Col_Size.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Col_Size.DefaultCellStyle = dataGridViewCellStyle20;
             this.Col_Size.HeaderText = "容量";
             this.Col_Size.MinimumWidth = 8;
             this.Col_Size.Name = "Col_Size";
@@ -2480,6 +2489,7 @@ namespace XboxDownload
             // 
             // panel8
             // 
+            this.panel8.Controls.Add(this.linkLabel2);
             this.panel8.Controls.Add(this.linkAppxAdd);
             this.panel8.Controls.Add(this.tbGameCategory);
             this.panel8.Controls.Add(this.label30);
@@ -2506,10 +2516,23 @@ namespace XboxDownload
             this.panel8.Size = new System.Drawing.Size(1478, 350);
             this.panel8.TabIndex = 1;
             // 
+            // linkLabel2
+            // 
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.LinkColor = System.Drawing.Color.Red;
+            this.linkLabel2.Location = new System.Drawing.Point(1243, 321);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(179, 18);
+            this.linkLabel2.TabIndex = 26;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Tag = "https://xbox.skydevil.xyz";
+            this.linkLabel2.Text = "Xbox下载助手-网页版";
+            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Link_LinkClicked);
+            // 
             // linkAppxAdd
             // 
             this.linkAppxAdd.AutoSize = true;
-            this.linkAppxAdd.Location = new System.Drawing.Point(1198, 321);
+            this.linkAppxAdd.Location = new System.Drawing.Point(1013, 321);
             this.linkAppxAdd.Name = "linkAppxAdd";
             this.linkAppxAdd.Size = new System.Drawing.Size(224, 18);
             this.linkAppxAdd.TabIndex = 25;
@@ -2584,7 +2607,7 @@ namespace XboxDownload
             // 
             this.label42.AutoSize = true;
             this.label42.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.label42.Location = new System.Drawing.Point(393, 321);
+            this.label42.Location = new System.Drawing.Point(208, 321);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(800, 18);
             this.label42.TabIndex = 16;
@@ -3527,14 +3550,6 @@ namespace XboxDownload
             this.tsmAuthorization2.Text = "打开光环无限（点击安装，然后等待无需实际安装）";
             this.tsmAuthorization2.Click += new System.EventHandler(this.TsmAuthorization_Click);
             // 
-            // tsmSites1
-            // 
-            this.tsmSites1.Name = "tsmSites1";
-            this.tsmSites1.Size = new System.Drawing.Size(459, 34);
-            this.tsmSites1.Tag = "https://xbox.skydevil.xyz";
-            this.tsmSites1.Text = "Xbox下载助手 - 网页版";
-            this.tsmSites1.Click += new System.EventHandler(this.TsmOpenSite_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
@@ -3913,6 +3928,7 @@ namespace XboxDownload
         private System.Windows.Forms.Label labelCn2;
         private System.Windows.Forms.ToolStripMenuItem tsmUseIPCn2;
         private System.Windows.Forms.ToolStripMenuItem tsmSites1;
+        private System.Windows.Forms.LinkLabel linkLabel2;
     }
 }
 

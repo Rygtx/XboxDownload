@@ -3328,7 +3328,7 @@ namespace XboxDownload
         {
             Thread.Sleep(300);
             if (this.query != query) return;
-            string language = Thread.CurrentThread.CurrentCulture.Name;
+            string language = ClassWeb.language;
             if (language == "zh-CN") language = "zh-TW";
             string url = "https://www.microsoft.com/msstoreapiprod/api/autosuggest?market=" + language + "&clientId=7F27B536-CF6B-4C65-8638-A0F8CBDFCA65&sources=Microsoft-Terms,Iris-Products,DCatAll-Products&filter=+ClientType:StoreWeb&counts=5,1,5&query=" + ClassWeb.UrlEncode(query);
             SocketPackage socketPackage = ClassWeb.HttpRequest(url, "GET", null, null, true, false, true, null, null, null, ClassWeb.useragent, null, null, null, null, 0, null);
@@ -3420,7 +3420,7 @@ namespace XboxDownload
         {
             List<Product> lsProduct = new List<Product>();
             List<string> lsBundledId = new List<string>();
-            string url = "https://catalog.gamepass.com/sigls/v2?id=" + siglId + "&language=zh-Hans&market=US";
+            string url = "https://catalog.gamepass.com/sigls/v2?id=" + siglId + "&language="+ ClassWeb.language + "&market=US";
             SocketPackage socketPackage = ClassWeb.HttpRequest(url, "GET", null, null, true, false, true, null, null, null, ClassWeb.useragent, null, null, null, null, 0, null, 60000, 60000);
             Match result = Regex.Match(socketPackage.Html, @"\{""id"":""(?<ProductId>[a-zA-Z0-9]{12})""\}");
             while (result.Success)
@@ -3430,7 +3430,7 @@ namespace XboxDownload
             }
             if (lsBundledId.Count >= 1)
             {
-                url = "https://displaycatalog.mp.microsoft.com/v7.0/products?bigIds=" + string.Join(",", lsBundledId.ToArray()) + "&market=US&languages=zh-Hans&MS-CV=DGU1mcuYo0WMMp+F.1";
+                url = "https://displaycatalog.mp.microsoft.com/v7.0/products?bigIds=" + string.Join(",", lsBundledId.ToArray()) + "&market=US&languages="+ ClassWeb.language + "&MS-CV=DGU1mcuYo0WMMp+F.1";
                 socketPackage = ClassWeb.HttpRequest(url, "GET", null, null, true, false, true, null, null, null, ClassWeb.useragent, null, null, null, null, 0, null, 60000, 60000);
                 if (Regex.IsMatch(socketPackage.Html, @"^{.+}$", RegexOptions.Singleline))
                 {
@@ -3678,7 +3678,7 @@ namespace XboxDownload
             SocketPackage socketPackage = ClassWeb.HttpRequest(url, "GET", null, null, true, false, true, null, null, null, ClassWeb.useragent, null, null, null, null, 0, null);
             string title = string.Empty, publisherName = string.Empty, developerName = string.Empty, category = string.Empty, originalReleaseDate = string.Empty, description = string.Empty;
             Match result = Regex.Match(socketPackage.Html, @"<title>(?<title>.+)</title>");
-            if (result.Success) title = System.Web.HttpUtility.HtmlDecode(result.Groups["title"].Value);
+            if (result.Success) title = HttpUtility.HtmlDecode(result.Groups["title"].Value);
             lock (ClassWeb.docLock)
             {
                 ClassWeb.SetHtmlDocument(socketPackage.Html, false);
@@ -3694,9 +3694,9 @@ namespace XboxDownload
                             {
                                 if (DateTime.TryParse(result.Groups["releasedate"].Value, System.Globalization.CultureInfo.CreateSpecificCulture(language), System.Globalization.DateTimeStyles.None, out DateTime dt))
                                     originalReleaseDate = dt.ToShortDateString();
-                                publisherName = System.Web.HttpUtility.HtmlDecode(result.Groups["publisher"].Value).Trim();
-                                developerName = System.Web.HttpUtility.HtmlDecode(result.Groups["developer"].Value).Trim();
-                                category = System.Web.HttpUtility.HtmlDecode(result.Groups["genres"].Value).Trim();
+                                publisherName = HttpUtility.HtmlDecode(result.Groups["publisher"].Value).Trim();
+                                developerName = HttpUtility.HtmlDecode(result.Groups["developer"].Value).Trim();
+                                category = HttpUtility.HtmlDecode(result.Groups["genres"].Value).Trim();
                             }
                         }
                         else if (hec.Children.Count == 3)
@@ -3707,13 +3707,13 @@ namespace XboxDownload
                                 if (DateTime.TryParse(result.Groups["releasedate"].Value, System.Globalization.CultureInfo.CreateSpecificCulture(language), System.Globalization.DateTimeStyles.None, out DateTime dt))
                                 {
                                     originalReleaseDate = dt.ToShortDateString();
-                                    publisherName = System.Web.HttpUtility.HtmlDecode(result.Groups["publisher"].Value).Trim();
-                                    category = System.Web.HttpUtility.HtmlDecode(result.Groups["genres"].Value).Trim();
+                                    publisherName = HttpUtility.HtmlDecode(result.Groups["publisher"].Value).Trim();
+                                    category = HttpUtility.HtmlDecode(result.Groups["genres"].Value).Trim();
                                 }
                                 else
                                 {
-                                    publisherName = System.Web.HttpUtility.HtmlDecode(result.Groups["releasedate"].Value).Trim();
-                                    category = System.Web.HttpUtility.HtmlDecode(result.Groups["genres"].Value).Trim();
+                                    publisherName = HttpUtility.HtmlDecode(result.Groups["releasedate"].Value).Trim();
+                                    category = HttpUtility.HtmlDecode(result.Groups["genres"].Value).Trim();
                                 }
                             }
                         }
@@ -4173,7 +4173,7 @@ namespace XboxDownload
             {
                 DateTime limit = DateTime.Now.AddMinutes(5);
                 dicXboxGetUrl.AddOrUpdate(key, limit, (oldkey, oldvalue) => limit);
-                SocketPackage socketPackage = ClassWeb.HttpRequest(UpdateFile.getXboxUrl + "/Game/GetUrl?contentId=" + contentId + "&platform=" + platform, "GET", null, null, true, false, true, null, null, new String[] { "X-Organization: XboxDownload", "X-Author: Devil" }, null, null, null, null, null, 0, null, 5000, 5000);
+                SocketPackage socketPackage = ClassWeb.HttpRequest(UpdateFile.getXboxUrl + "/Game/GetGameUrl?contentId=" + contentId + "&platform=" + platform, "GET", null, null, true, false, true, null, null, new String[] { "X-Organization: XboxDownload", "X-Author: Devil" }, null, null, null, null, null, 0, null, 5000, 5000);
                 JavaScriptSerializer js = new JavaScriptSerializer();
                 try
                 {
@@ -4275,7 +4275,7 @@ namespace XboxDownload
         private ConcurrentDictionary<String, MsAppDownload.Products> GetMsAppFiles(string productId)
         {
             ConcurrentDictionary<String, MsAppDownload.Products> dicMsApp = new ConcurrentDictionary<String, MsAppDownload.Products>();
-            SocketPackage socketPackage = ClassWeb.HttpRequest("https://store.rg-adguard.net/api/GetFiles", "POST", "type=ProductId&url=" + productId + "&ring=Retail&lang=" + Thread.CurrentThread.CurrentCulture.Name, "https://store.rg-adguard.net/", true, false, true, null, null, null, ClassWeb.useragent, null, null, null, null, 0, null);
+            SocketPackage socketPackage = ClassWeb.HttpRequest("https://store.rg-adguard.net/api/GetFiles", "POST", "type=ProductId&url=" + productId + "&ring=Retail&lang=" + ClassWeb.language, "https://store.rg-adguard.net/", true, false, true, null, null, null, ClassWeb.useragent, null, null, null, null, 0, null);
             Match result = Regex.Match(socketPackage.Html, @"<tr [^>]+><td><a href=""(?<url>https?://tlu\.dl\.delivery\.mp\.microsoft\.com\/filestreamingservice\/files\/[^""]+)"" [^>]+>(?<file>[^<]+)</a></td><td [^>]+>(?<expire>[^<]+)</td><td [^>]+>[^<]+</td><td [^>]+>(?<filesize>[^>]+)</td></tr>");
             while (result.Success)
             {

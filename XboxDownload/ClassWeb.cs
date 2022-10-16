@@ -9,6 +9,7 @@ using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace XboxDownload
 {
@@ -27,6 +28,7 @@ namespace XboxDownload
     class ClassWeb
     {
         public static string useragent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Safari/537.36 Edg/103.0.1264.77";
+        public static string language = Thread.CurrentThread.CurrentCulture.Name;
 
         public static SocketPackage HttpRequest(String url, String method, String postdata, String referer, Boolean redirect, Boolean ajax, Boolean decode, String charset, String contenttype, String[] headers, String useragent, String accept, CookieContainer cookies, IPEndPoint localEP, String proxyaddress, Int32 proxyport, String proxyauthorization, Int32 sendtimeout = 30000, Int32 receivetimeout = 30000, Int32 autoredirect = 1, String connectHost = null, Boolean speedtest = false)
         {
@@ -58,7 +60,7 @@ namespace XboxDownload
                     sSend.Append("Accept: */*\r\n");
                 else
                     sSend.Append("Accept: " + accept + "\r\n");
-                sSend.Append("Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,zh-TW;q=0.7,ja;q=0.6\r\n");
+                sSend.Append("Accept-Language: "+ language + "\r\n");
                 if (!speedtest) sSend.Append("Accept-Encoding: gzip, deflate\r\n");
                 sSend.Append("DNT: 1\r\n");
                 if (ajax) sSend.Append("X-Requested-With: XMLHttpRequest\r\n");
