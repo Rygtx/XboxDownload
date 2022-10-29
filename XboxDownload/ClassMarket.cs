@@ -126,6 +126,7 @@ namespace XboxDownload
             public int PackageRank { get; set; }
             public List<PlatformDependencies> PlatformDependencies { get; set; }
             public List<PackageDownloadUris> PackageDownloadUris { get; set; }
+            public FulfillmentData FulfillmentData { get; set; }
         }
 
         public class BundledSkus
@@ -141,6 +142,11 @@ namespace XboxDownload
         public class PackageDownloadUris
         {
             public string Uri { get; set; }
+        }
+
+        public class FulfillmentData
+        {
+            public string WuCategoryId { get; set; }
         }
 
 
@@ -282,8 +288,8 @@ namespace XboxDownload
 
         public class XboxGameUrl
         {
-            public string code { get; set; }
-            public Data data { get; set; }
+            public string Code { get; set; }
+            public Data Data { get; set; }
         }
 
         public class Data
@@ -294,18 +300,24 @@ namespace XboxDownload
         }
     }
 
-    class MsAppDownload
+    class AppPackage
     {
-        public static ConcurrentDictionary<String, Products> dicMsApp = new ConcurrentDictionary<String, Products>();
-        public class Products
+        public class Package
         {
-            public Version Version { get; set; }
-            public string Filename { get; set; }
-            public string Url { get; set; }
-            public DateTime Expire { get; set; }
-            public DateTime Update { get; set; }
+            public String Code { get; set; }
+            public List<Data> Data { get; set; }
+        }
+
+        public class Data
+        {
+            public String Name { get; set; }
+            public ulong Size { get; set; }
+            public String Url { get; set; }
         }
     }
+    
+
+
 
     class PsGame
     {

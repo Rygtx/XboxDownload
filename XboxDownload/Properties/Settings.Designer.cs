@@ -74,6 +74,18 @@ namespace XboxDownload.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CnIP2 {
+            get {
+                return ((string)(this["CnIP2"]));
+            }
+            set {
+                this["CnIP2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string AppIP {
             get {
                 return ((string)(this["AppIP"]));
@@ -121,7 +133,7 @@ namespace XboxDownload.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://www.baidu.com/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://xbox.skydevil.xyz/")]
         public string NSHomepage {
             get {
                 return ((string)(this["NSHomepage"]));
@@ -452,18 +464,6 @@ namespace XboxDownload.Properties {
             }
             set {
                 this["Authorization"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string CnIP2 {
-            get {
-                return ((string)(this["CnIP2"]));
-            }
-            set {
-                this["CnIP2"] = value;
             }
         }
     }

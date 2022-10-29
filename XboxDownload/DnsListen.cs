@@ -724,7 +724,7 @@ namespace XboxDownload
             ManagementObjectCollection moc = wmi.GetInstances();
             ManagementBaseObject inPar;
             ManagementBaseObject outPar;
-            foreach (ManagementObject mo in moc)
+            foreach (ManagementObject mo in moc.Cast<ManagementObject>())
             {
                 //如果没有启用IP设置的网络设备则跳过
                 if (!(bool)mo["IPEnabled"])

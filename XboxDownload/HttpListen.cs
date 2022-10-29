@@ -460,7 +460,7 @@ namespace XboxDownload
                             }
                         }
                         catch { }
-                        ClassWeb.HttpRequest(UpdateFile.getXboxUrl + "/Game/AddUrl?url=" + ClassWeb.UrlEncode(XboxGame.Url), "PUT", null, null, true, false, true, null, null, new String[] { "X-Organization: XboxDownload", "X-Author: Devil" }, null, null, null, null, null, 0, null);
+                        ClassWeb.HttpRequest(UpdateFile.homePage + "/Game/AddGameUrl?url=" + ClassWeb.UrlEncode(XboxGame.Url), "PUT", null, null, true, false, true, null, null, new String[] { "X-Organization: XboxDownload", "X-Author: Devil" }, null, null, null, null, null, 0, null);
                     }
                 }
             }

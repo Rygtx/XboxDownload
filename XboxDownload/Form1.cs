@@ -997,7 +997,6 @@ namespace XboxDownload
                     {
                         sb.AppendLine(Properties.Settings.Default.LocalIP + " store.steampowered.com");
                         sb.AppendLine(Properties.Settings.Default.LocalIP + " steamcommunity.com");
-                        sb.AppendLine("0.0.0.0 fonts.googleapis.com");
                     }
                     foreach (var host in DnsListen.dicHosts)
                     {
@@ -1780,7 +1779,6 @@ namespace XboxDownload
             dgvIpList.Rows.Clear();
             flpTestUrl.Controls.Clear();
             tbDlUrl.Clear();
-            tbDlUrl.Tag = null;
             cbImportIP.Enabled = false;
 
             string host = string.Empty;
@@ -2097,7 +2095,7 @@ namespace XboxDownload
                     {
                         LinkLabel lb1 = new LinkLabel()
                         {
-                            Tag = "9MV0B5HZVK9Z|Microsoft.GamingApp_neutral_~_8wekyb3d8bbwe.msixbundle",
+                            Tag = "986a47b3-0085-4c0c-b3b3-3b806f969b00|msixbundle|9MV0B5HZVK9Z",
                             Text = "Xbox(PC)",
                             AutoSize = true,
                             Parent = this.flpTestUrl
@@ -2105,7 +2103,7 @@ namespace XboxDownload
                         lb1.LinkClicked += new LinkLabelLinkClickedEventHandler(this.LinkTestUrl_LinkClicked);
                         LinkLabel lb2 = new LinkLabel()
                         {
-                            Tag = "9WZDNCRFJBMP|Microsoft.WindowsStore_neutral_~_8wekyb3d8bbwe.msixbundle",
+                            Tag = "64293252-5926-453c-9494-2d4021f1c78d|msixbundle|9WZDNCRFJBMP",
                             Text = "微软商店(PC)",
                             AutoSize = true,
                             Parent = this.flpTestUrl
@@ -2113,7 +2111,7 @@ namespace XboxDownload
                         lb2.LinkClicked += new LinkLabelLinkClickedEventHandler(this.LinkTestUrl_LinkClicked);
                         LinkLabel lb3 = new LinkLabel()
                         {
-                            Tag = "9NBLGGH537BL|Microsoft.MinecraftUWPConsole_x64__8wekyb3d8bbwe.Appx",
+                            Tag = "0e0dcbc6-1a24-42cf-847a-056d6d25f7ef|appx|9NBLGGH537BL",
                             Text = "我的世界(PC)",
                             AutoSize = true,
                             Parent = this.flpTestUrl
@@ -2220,40 +2218,36 @@ namespace XboxDownload
             string url = link.Tag.ToString();
             if (Regex.IsMatch(url, @"^https?://"))
             {
-                tbDlUrl.Tag = null;
                 tbDlUrl.Text = url;
             }
-            else if (Regex.IsMatch(url, @"^[0-9A-Z]{12}|.+"))
+            else if (Regex.IsMatch(url, @"^\w{8}-\w{4}-\w{4}-\w{4}-\w{12}|\d+$"))
             {
                 string[] product = url.Split('|');
-                string productId = product[0].ToLower();
-                string key = product[1].ToLower();
-                tbDlUrl.Tag = productId;
-                if (MsAppDownload.dicMsApp.TryGetValue(productId + "_" + key, out MsAppDownload.Products MsApp))
-                {
-                    if (MsApp.Expire.Ticks > 0 && DateTime.Compare(MsApp.Expire.AddMinutes(-20), DateTime.Now) >= 0)
-                        tbDlUrl.Text = MsApp.Url;
-                    else
-                        MsAppDownload.dicMsApp.TryRemove(productId + "_" + key, out _);
-                }
-                if (!MsAppDownload.dicMsApp.ContainsKey(productId + "_" + key))
-                {
-                    ThreadPool.QueueUserWorkItem(delegate { GetMsAppUrl(productId, key); });
-                }
+                string wuCategoryId = product[0];
+                string extension = product[1];
+                ThreadPool.QueueUserWorkItem(delegate { GetAppPackage(wuCategoryId, extension); });
             }
         }
 
-        private void GetMsAppUrl(string productId, string key)
+        private void GetAppPackage(string wuCategoryId, string extension)
         {
             SetTextBox(tbDlUrl, "正在获取下载链接，请稍候...");
-            GetMsAppPackage(productId, key);
-            if (tbDlUrl.Tag != null && tbDlUrl.Tag.ToString() == productId)
+            SocketPackage socketPackage = ClassWeb.HttpRequest(UpdateFile.homePage + "/Game/GetAppPackage?WuCategoryId=" + wuCategoryId, "GET", null, null, true, false, true, null, null, new String[] { "X-Organization: XboxDownload", "X-Author: Devil" }, null, null, null, null, null, 0, null, 5000, 5000);
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            string url = string.Empty;
+            try
             {
-                if (MsAppDownload.dicMsApp.TryGetValue(productId + "_" + key, out MsAppDownload.Products MsApp))
-                    SetTextBox(tbDlUrl, MsApp.Url);
-                else
-                    SetTextBox(tbDlUrl, "");
+                var json = js.Deserialize<AppPackage.Package>(socketPackage.Html);
+                if (json != null && json.Code != null && json.Code == "200")
+                {
+                    url = json.Data.Where(x => x.Name.ToLower().EndsWith("." + extension.ToLower())).Select(x => x.Url).FirstOrDefault();
+                }
             }
+            catch { }
+            this.Invoke(new Action(() =>
+            {
+                tbDlUrl.Text = url;
+            }));
         }
 
         private void LinkHostsClear_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -2399,31 +2393,16 @@ namespace XboxDownload
                 url = link.Tag.ToString();
                 if (Regex.IsMatch(url, @"^https?://"))
                 {
-                    tbDlUrl.Tag = null;
                     SetTextBox(tbDlUrl, url);
                 }
-                else if (Regex.IsMatch(url, @"^[0-9A-Z]{12}|.+"))
+                else if (Regex.IsMatch(url, @"^\w{8}-\w{4}-\w{4}-\w{4}-\w{12}|\d+$"))
                 {
                     string[] product = url.Split('|');
-                    string productId = product[0].ToLower();
-                    string key = product[1].ToLower();
-                    tbDlUrl.Tag = productId;
-                    if (MsAppDownload.dicMsApp.TryGetValue(productId + "_" + key, out MsAppDownload.Products MsApp))
-                    {
-                        if (MsApp.Expire.Ticks > 0 && DateTime.Compare(MsApp.Expire.AddMinutes(-20), DateTime.Now) >= 0)
-                        {
-                            url = MsApp.Url;
-                            SetTextBox(tbDlUrl, url);
-                        }
-                        else
-                            MsAppDownload.dicMsApp.TryRemove(productId + "_" + key, out _);
-                    }
-                    if (!MsAppDownload.dicMsApp.ContainsKey(productId + "_" + key))
-                    {
-                        ls[0].Cells["Col_Speed"].Value = "请稍候...";
-                        GetMsAppUrl(productId, key);
-                        url = tbDlUrl.Text;
-                    }
+                    string wuCategoryId = product[0];
+                    string extension = product[1];
+                    ls[0].Cells["Col_Speed"].Value = "请稍候...";
+                    GetAppPackage(wuCategoryId, extension);
+                    url = tbDlUrl.Text;
                 }
             }
 
@@ -3841,19 +3820,19 @@ namespace XboxDownload
                 {
                     if (displaySkuAvailabilitie.Sku.SkuType == "full")
                     {
+                        string wuCategoryId = string.Empty;
                         if (displaySkuAvailabilitie.Sku.Properties.Packages != null)
                         {
-                            ConcurrentDictionary<String, ListViewItem> dicListViewItem = new ConcurrentDictionary<String, ListViewItem>();
                             foreach (var packages in displaySkuAvailabilitie.Sku.Properties.Packages)
                             {
                                 List<ClassGame.PlatformDependencies> platformDependencie = packages.PlatformDependencies;
                                 List<ClassGame.PackageDownloadUris> packageDownloadUris = packages.PackageDownloadUris;
                                 if (platformDependencie != null && packages.PlatformDependencies.Count >= 1)
                                 {
+                                    wuCategoryId = packages.FulfillmentData.WuCategoryId.ToLower();
                                     string url = (packageDownloadUris != null && packageDownloadUris.Count >= 1) ? packageDownloadUris[0].Uri : null;
                                     if (url == "https://productingestionbin1.blob.core.windows.net") url = null;
                                     string contentId = packages.ContentId.ToLower();
-
                                     switch (platformDependencie[0].PlatformName)
                                     {
                                         case "Windows.Xbox":
@@ -3861,7 +3840,10 @@ namespace XboxDownload
                                             {
                                                 case 50000:
                                                     {
-                                                        ListViewItem item = new ListViewItem(new string[] { "Xbox One", market.cname, ClassMbr.ConvertBytes(packages.MaxDownloadSizeInBytes), url });
+                                                        ListViewItem item = new ListViewItem(new string[] { "Xbox One", market.cname, ClassMbr.ConvertBytes(packages.MaxDownloadSizeInBytes), url })
+                                                        {
+                                                            Tag = 0
+                                                        };
                                                         item.SubItems[0].Tag = 0;
                                                         lsDownloadUrl.Add(item);
                                                         if (string.IsNullOrEmpty(url))
@@ -3889,7 +3871,10 @@ namespace XboxDownload
                                                     break;
                                                 case 51000:
                                                     {
-                                                        ListViewItem item = new ListViewItem(new string[] { "Xbox Series X|S", market.cname, ClassMbr.ConvertBytes(packages.MaxDownloadSizeInBytes), url });
+                                                        ListViewItem item = new ListViewItem(new string[] { "Xbox Series X|S", market.cname, ClassMbr.ConvertBytes(packages.MaxDownloadSizeInBytes), url })
+                                                        {
+                                                            Tag = 0
+                                                        };
                                                         item.SubItems[0].Tag = 1;
                                                         lsDownloadUrl.Add(item);
                                                         if (string.IsNullOrEmpty(url))
@@ -3917,31 +3902,31 @@ namespace XboxDownload
                                                     break;
                                                 default:
                                                     {
-                                                        Match result = Regex.Match(packages.PackageFullName, @"_(?<version>\d+\.\d+\.\d+\.\d+)_");
-                                                        if (result.Success)
+                                                        string version = Regex.Match(packages.PackageFullName, @"(\d+\.\d+\.\d+\.\d+)").Value;
+                                                        string key = Regex.Replace(packages.PackageFullName, @"\d+\.\d+\.\d+\.\d+", "") +"." + packages.PackageFormat;
+                                                        ListViewItem item = lsDownloadUrl.ToArray().Where(x => x.Tag.ToString() == "1" && x.SubItems[2].Tag.ToString() == key).FirstOrDefault();
+                                                        if (item != null)
                                                         {
-                                                            Version version = new Version(result.Groups["version"].Value);
-                                                            string filename = packages.PackageFullName + "." + packages.PackageFormat;
-                                                            string key = Regex.Replace(filename, result.Groups[0].Value, "_").ToLower();
-                                                            if (!dicListViewItem.TryGetValue(key, out ListViewItem item))
+                                                            if (new Version(version) > new Version(item.SubItems[1].Tag.ToString()))
                                                             {
-                                                                item = new ListViewItem(new string[] { "Xbox One", market.cname, ClassMbr.ConvertBytes(packages.MaxDownloadSizeInBytes), url });
-                                                                item.SubItems[0].Tag = 0;
-                                                                dicListViewItem.AddOrUpdate(key, item, (oldkey, oldvalue) => item);
-
-                                                                item.SubItems[1].Tag = key;
-                                                                item.SubItems[2].Tag = version;
-                                                                item.SubItems[3].Tag = filename;
-                                                                lsDownloadUrl.Add(item);
-                                                            }
-                                                            else if ((Version)item.SubItems[2].Tag < version)
-                                                            {
-                                                                item.SubItems[2].Tag = version;
-                                                                item.SubItems[3].Tag = filename;
                                                                 item.SubItems[2].Text = ClassMbr.ConvertBytes(packages.MaxDownloadSizeInBytes);
-                                                                item.SubItems[3].Text = url;
+                                                                item.SubItems[1].Tag = version;
+                                                                item.SubItems[3].Tag = packages.PackageFullName + "." + packages.PackageFormat;
                                                             }
                                                         }
+                                                        else
+                                                        {
+                                                            item = new ListViewItem(new string[] { "Xbox One", market.cname, ClassMbr.ConvertBytes(packages.MaxDownloadSizeInBytes), url })
+                                                            {
+                                                                Tag = 1
+                                                            };
+                                                            item.SubItems[3].Text = "正在获取下载链接，请稍候...";
+                                                            item.SubItems[0].Tag = 0;
+                                                            item.SubItems[1].Tag = version;
+                                                            item.SubItems[2].Tag = key;
+                                                            item.SubItems[3].Tag = packages.PackageFullName + "." + packages.PackageFormat;
+                                                            lsDownloadUrl.Add(item);
+                                                    }
                                                     }
                                                     break;
                                             }
@@ -3952,7 +3937,10 @@ namespace XboxDownload
                                             {
                                                 case "msixvc":
                                                     {
-                                                        ListViewItem item = new ListViewItem(new string[] { "Windows PC", market.cname, ClassMbr.ConvertBytes(packages.MaxDownloadSizeInBytes), url });
+                                                        ListViewItem item = new ListViewItem(new string[] { "Windows PC", market.cname, ClassMbr.ConvertBytes(packages.MaxDownloadSizeInBytes), url })
+                                                        {
+                                                            Tag = 0
+                                                        };
                                                         item.SubItems[0].Tag = 2;
                                                         lsDownloadUrl.Add(item);
                                                         if (string.IsNullOrEmpty(url))
@@ -3969,7 +3957,6 @@ namespace XboxDownload
                                                             }
                                                             if (!find)
                                                             {
-                                                                item.SubItems[3].Text = "正在获取下载链接，请稍候...";
                                                                 item.Tag = product.ProductId;
                                                                 ThreadPool.QueueUserWorkItem(delegate { GetXboxGameUrl(item, contentId, key, 2, packages); });
                                                             }
@@ -3983,29 +3970,30 @@ namespace XboxDownload
                                                 case "msix":
                                                 case "msixbundle":
                                                     {
-                                                        Match result = Regex.Match(packages.PackageFullName, @"_(?<version>\d+\.\d+\.\d+\.\d+)_");
-                                                        if (result.Success)
+                                                        string version = Regex.Match(packages.PackageFullName, @"(\d+\.\d+\.\d+\.\d+)").Value;
+                                                        string key = Regex.Replace(packages.PackageFullName, @"\d+\.\d+\.\d+\.\d+", "") + "." + packages.PackageFormat;
+                                                        ListViewItem item = lsDownloadUrl.ToArray().Where(x => x.Tag.ToString() == "1" && x.SubItems[2].Tag.ToString() == key).FirstOrDefault();
+                                                        if (item != null)
                                                         {
-                                                            Version version = new Version(result.Groups["version"].Value);
-                                                            string filename = packages.PackageFullName + "." + packages.PackageFormat;
-                                                            string key = Regex.Replace(filename, result.Groups[0].Value, "_").ToLower();
-                                                            if (!dicListViewItem.TryGetValue(key, out ListViewItem item))
+                                                            if (new Version(version) > new Version(item.SubItems[1].Tag.ToString()))
                                                             {
-                                                                item = new ListViewItem(new string[] { "Windows PC", market.cname, ClassMbr.ConvertBytes(packages.MaxDownloadSizeInBytes), url });
-                                                                item.SubItems[0].Tag = 2;
-                                                                item.SubItems[1].Tag = key;
-                                                                item.SubItems[2].Tag = version;
-                                                                item.SubItems[3].Tag = filename;
-                                                                lsDownloadUrl.Add(item);
-                                                                dicListViewItem.AddOrUpdate(key, item, (oldkey, oldvalue) => item);
-                                                            }
-                                                            else if ((Version)item.SubItems[2].Tag < version)
-                                                            {
-                                                                item.SubItems[2].Tag = version;
-                                                                item.SubItems[3].Tag = filename;
                                                                 item.SubItems[2].Text = ClassMbr.ConvertBytes(packages.MaxDownloadSizeInBytes);
-                                                                item.SubItems[3].Text = url;
+                                                                item.SubItems[1].Tag = version;
+                                                                item.SubItems[3].Tag = packages.PackageFullName + "." + packages.PackageFormat;
                                                             }
+                                                        }
+                                                        else
+                                                        {
+                                                            item = new ListViewItem(new string[] { "Windows PC", market.cname, ClassMbr.ConvertBytes(packages.MaxDownloadSizeInBytes), url })
+                                                            {
+                                                                Tag = 1
+                                                            };
+                                                            item.SubItems[3].Text = "正在获取下载链接，请稍候...";
+                                                            item.SubItems[0].Tag = 2;
+                                                            item.SubItems[1].Tag = version;
+                                                            item.SubItems[2].Tag = key;
+                                                            item.SubItems[3].Tag = packages.PackageFullName + "." + packages.PackageFormat;
+                                                            lsDownloadUrl.Add(item);
                                                         }
                                                     }
                                                     break;
@@ -4015,28 +4003,10 @@ namespace XboxDownload
                                     if (packages.Languages != null) gameLanguages = string.Join(", ", packages.Languages);
                                 }
                             }
-                            string productId = product.ProductId.ToLower();
-                            foreach (var item in dicListViewItem)
+                            List<ListViewItem> lsAppItem = lsDownloadUrl.ToArray().Where(x => x.Tag.ToString() == "1").ToList();
+                            if (lsAppItem.Count >= 1)
                             {
-                                string key = item.Value.SubItems[1].Tag.ToString();
-                                if (MsAppDownload.dicMsApp.TryGetValue(productId + "_" + key, out MsAppDownload.Products MsApp))
-                                {
-                                    if (((MsApp.Expire - MsApp.Update).Ticks / 2) <= (MsApp.Expire - DateTime.Now).Ticks)
-                                    {
-                                        item.Value.Tag = MsApp.Expire;
-                                        item.Value.SubItems[2].Tag = MsApp.Version;
-                                        item.Value.SubItems[3].Tag = MsApp.Filename;
-                                        item.Value.SubItems[3].Text = MsApp.Url;
-                                        dicListViewItem.TryRemove(key, out _);
-                                        continue;
-                                    }
-                                    else MsAppDownload.dicMsApp.TryRemove(productId + "_" + key, out _);
-                                }
-                                item.Value.SubItems[3].Text = "正在获取下载链接，请稍候...";
-                            }
-                            if (dicListViewItem.Count >= 1)
-                            {
-                                ThreadPool.QueueUserWorkItem(delegate { GetMsAppPackage(productId, dicListViewItem); });
+                                ThreadPool.QueueUserWorkItem(delegate { GetAppPackage(wuCategoryId, lsAppItem); });
                             }
                         }
                         if (displaySkuAvailabilitie.Sku.Properties.BundledSkus != null && displaySkuAvailabilitie.Sku.Properties.BundledSkus.Count >= 1)
@@ -4173,7 +4143,7 @@ namespace XboxDownload
             {
                 DateTime limit = DateTime.Now.AddMinutes(5);
                 dicXboxGetUrl.AddOrUpdate(key, limit, (oldkey, oldvalue) => limit);
-                SocketPackage socketPackage = ClassWeb.HttpRequest(UpdateFile.getXboxUrl + "/Game/GetGameUrl?contentId=" + contentId + "&platform=" + platform, "GET", null, null, true, false, true, null, null, new String[] { "X-Organization: XboxDownload", "X-Author: Devil" }, null, null, null, null, null, 0, null, 5000, 5000);
+                SocketPackage socketPackage = ClassWeb.HttpRequest(UpdateFile.homePage + "/Game/GetGameUrl?contentId=" + contentId + "&platform=" + platform, "GET", null, null, true, false, true, null, null, new String[] { "X-Organization: XboxDownload", "X-Author: Devil" }, null, null, null, null, null, 0, null, 5000, 5000);
                 JavaScriptSerializer js = new JavaScriptSerializer();
                 try
                 {
@@ -4181,17 +4151,17 @@ namespace XboxDownload
                 }
                 catch { }
             }
-            if (xboxGameUrl != null && xboxGameUrl.code == "200" && xboxGameUrl.data != null)
+            if (xboxGameUrl != null && xboxGameUrl.Code == "200" && xboxGameUrl.Data != null)
             {
-                Version version = new Version(xboxGameUrl.data.Version);
+                Version version = new Version(xboxGameUrl.Data.Version);
                 bool update = false;
                 if (XboxGameDownload.dicXboxGame.TryGetValue(key, out XboxGameDownload.Products XboxGame))
                 {
                     if (version > XboxGame.Version)
                     {
                         XboxGame.Version = version;
-                        XboxGame.FileSize = xboxGameUrl.data.FileSize;
-                        XboxGame.Url = xboxGameUrl.data.Url.Replace(".xboxlive.cn", ".xboxlive.com");
+                        XboxGame.FileSize = xboxGameUrl.Data.FileSize;
+                        XboxGame.Url = xboxGameUrl.Data.Url.Replace(".xboxlive.cn", ".xboxlive.com");
                         update = true;
                     }
                 }
@@ -4200,8 +4170,8 @@ namespace XboxDownload
                     XboxGame = new XboxGameDownload.Products
                     {
                         Version = version,
-                        FileSize = xboxGameUrl.data.FileSize,
-                        Url = xboxGameUrl.data.Url.Replace(".xboxlive.cn", ".xboxlive.com")
+                        FileSize = xboxGameUrl.Data.FileSize,
+                        Url = xboxGameUrl.Data.Url.Replace(".xboxlive.cn", ".xboxlive.com")
                     };
                     XboxGameDownload.dicXboxGame.TryAdd(key, XboxGame);
                     update = true;
@@ -4239,79 +4209,37 @@ namespace XboxDownload
             }
         }
 
-        private void GetMsAppPackage(string productId, string key)
+        private void GetAppPackage(string wuCategoryId, List<ListViewItem> lsAppItem)
         {
-            ConcurrentDictionary<String, MsAppDownload.Products> dicMsApp = GetMsAppFiles(productId);
-            if (dicMsApp.TryGetValue(key, out MsAppDownload.Products MsApp))
+            SocketPackage socketPackage = ClassWeb.HttpRequest(UpdateFile.homePage + "/Game/GetAppPackage?WuCategoryId=" + wuCategoryId, "GET", null, null, true, false, true, null, null, new String[] { "X-Organization: XboxDownload", "X-Author: Devil" }, null, null, null, null, null, 0, null, 5000, 5000);
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            AppPackage.Package json = null;
+            try
             {
-                MsAppDownload.dicMsApp.AddOrUpdate(productId + "_" + key, MsApp, (oldkey, oldvalue) => MsApp);
+                json = js.Deserialize<AppPackage.Package>(socketPackage.Html);
             }
-        }
-
-        private void GetMsAppPackage(string productId, ConcurrentDictionary<String, ListViewItem> dicListViewItem)
-        {
-            ConcurrentDictionary<String, MsAppDownload.Products> dicMsApp = GetMsAppFiles(productId);
+            catch { }
             this.Invoke(new Action(() =>
             {
-                foreach (var item in dicListViewItem)
+                foreach (var item in lsAppItem)
                 {
-                    string filename = Regex.Replace(item.Value.SubItems[3].Tag.ToString(), @"_\d+\.\d+\.\d+\.\d+_", "_").ToLower();
-                    if (dicMsApp.TryGetValue(filename, out MsAppDownload.Products MsApp))
+                    string url = String.Empty;
+                    if (json != null && json.Code != null && json.Code == "200")
                     {
-                        item.Value.Tag = MsApp.Expire;
-                        item.Value.SubItems[2].Tag = MsApp.Version;
-                        item.Value.SubItems[3].Tag = MsApp.Filename;
-                        item.Value.SubItems[3].Text = MsApp.Url;
-                        MsAppDownload.dicMsApp.AddOrUpdate(productId + "_" + item.Value.SubItems[1].Tag, MsApp, (oldkey, oldvalue) => MsApp);
-                    }
-                    else
-                    {
-                        item.Value.SubItems[3].Text = null;
-                    }
-                }
-            }));
-        }
-
-        private ConcurrentDictionary<String, MsAppDownload.Products> GetMsAppFiles(string productId)
-        {
-            ConcurrentDictionary<String, MsAppDownload.Products> dicMsApp = new ConcurrentDictionary<String, MsAppDownload.Products>();
-            SocketPackage socketPackage = ClassWeb.HttpRequest("https://store.rg-adguard.net/api/GetFiles", "POST", "type=ProductId&url=" + productId + "&ring=Retail&lang=" + ClassWeb.language, "https://store.rg-adguard.net/", true, false, true, null, null, null, ClassWeb.useragent, null, null, null, null, 0, null);
-            Match result = Regex.Match(socketPackage.Html, @"<tr [^>]+><td><a href=""(?<url>https?://tlu\.dl\.delivery\.mp\.microsoft\.com\/filestreamingservice\/files\/[^""]+)"" [^>]+>(?<file>[^<]+)</a></td><td [^>]+>(?<expire>[^<]+)</td><td [^>]+>[^<]+</td><td [^>]+>(?<filesize>[^>]+)</td></tr>");
-            while (result.Success)
-            {
-                string filename = result.Groups["file"].Value;
-                Match m1 = Regex.Match(filename, @"_(?<version>\d+\.\d+\.\d+\.\d+)_");
-                if (m1.Success)
-                {
-                    Version version = new Version(m1.Groups["version"].Value);
-                    string key = Regex.Replace(filename, m1.Groups[0].Value, "_").ToLower();
-                    string url = result.Groups["url"].Value;
-                    DateTime.TryParse(result.Groups["expire"].Value, out DateTime expire);
-                    if (dicMsApp.ContainsKey(key))
-                    {
-                        if (version > dicMsApp[key].Version)
+                        url = json.Data.Where(x => item.SubItems[3].Tag.ToString().ToLower() == x.Name.ToLower()).Select(x => x.Url).FirstOrDefault();
+                        if (string.IsNullOrEmpty(url))
                         {
-                            dicMsApp[key].Version = version;
-                            dicMsApp[key].Filename = filename;
-                            dicMsApp[key].Url = url;
-                            dicMsApp[key].Expire = expire;
+                            var data = json.Data.Where(x => Regex.Replace(item.SubItems[3].Tag.ToString(), @"\d+\.\d+\.\d+\.\d+", "").ToLower() == Regex.Replace(x.Name, @"\d+\.\d+\.\d+\.\d+", "").ToLower()).FirstOrDefault();
+                            if (data != null)
+                            {
+                                item.SubItems[2].Text = ClassMbr.ConvertBytes(data.Size);
+                                url = data.Url;
+                            }
                         }
                     }
-                    else
-                    {
-                        dicMsApp.TryAdd(key, new MsAppDownload.Products
-                        {
-                            Version = version,
-                            Filename = filename,
-                            Url = url,
-                            Expire = expire,
-                            Update = DateTime.Now
-                        });
-                    }
+                    item.SubItems[3].Text = url ;
                 }
-                result = result.NextMatch();
-            }
-            return dicMsApp;
+            }));
         }
 
         private void LinkGameWebsite_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -4376,19 +4304,7 @@ namespace XboxDownload
                 url = url.Replace(".xboxlive.cn", ".xboxlive.com");
             }
             Clipboard.SetDataObject(url);
-            if (Regex.IsMatch(url, @"^https?://tlu\.dl\.delivery\.mp\.microsoft\.com/"))
-            {
-                string msg = String.Empty;
-                if (lvGame.SelectedItems[0].SubItems[3].Tag != null)
-                    msg = "文件名\n" + lvGame.SelectedItems[0].SubItems[3].Tag + "\n\n";
-                if (lvGame.SelectedItems[0].Tag != null)
-                {
-                    TimeSpan ts = Convert.ToDateTime(lvGame.SelectedItems[0].Tag) - DateTime.Now;
-                    msg += "下载链接有效期\t" + lvGame.SelectedItems[0].Tag + "\n有效期结束剩余\t" + ts + "\n";
-                }
-                MessageBox.Show(msg, "提示信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (lvGame.SelectedItems[0].ForeColor == Color.Red)
+            if (lvGame.SelectedItems[0].ForeColor == Color.Red)
             {
                 MessageBox.Show("已有新的版本，此下载链接已过时。", "提示信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -4786,20 +4702,29 @@ namespace XboxDownload
 
         private void ReInstallGamingServices()
         {
-            string productId = "9mwpm2cqnlhn";
-            string key = "microsoft.gamingservices_neutral_~_8wekyb3d8bbwe.appxbundle";
-            GetMsAppPackage(productId, key);
-            if (MsAppDownload.dicMsApp.TryGetValue(productId + "_" + key, out MsAppDownload.Products MsApp))
+            SocketPackage socketPackage = ClassWeb.HttpRequest(UpdateFile.homePage + "/Game/GetAppPackage?WuCategoryId=f2ea4abe-4e1e-48ff-9022-a8a758303181", "GET", null, null, true, false, true, null, null, new String[] { "X-Organization: XboxDownload", "X-Author: Devil" }, null, null, null, null, null, 0, null, 5000, 5000);
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            AppPackage.Data data = null;
+            try
+            {
+                var json = js.Deserialize<AppPackage.Package>(socketPackage.Html);
+                if (json != null && json.Code != null && json.Code == "200")
+                {
+                    data = json.Data.Where(x => x.Name.ToLower().EndsWith(".appxbundle")).FirstOrDefault();
+                }
+            }
+            catch { }
+            if (data != null)
             {
                 this.Invoke(new Action(() =>
                 {
                     linkReInstallGamingServices.Text = "下载游戏服务应用安装包";
                 }));
-                string filePath = Path.GetTempPath() + "\\" + key;
+                string filePath = Path.GetTempPath() +  data.Name;
                 if (File.Exists(filePath))
                     File.Delete(filePath);
-                SocketPackage socketPackage = ClassWeb.HttpRequest(MsApp.Url, "GET", null, null, true, false, false, null, null, null, ClassWeb.useragent, null, null, null, null, 0, null);
-                if (string.IsNullOrEmpty(socketPackage.Err) && socketPackage.Buffer.Length > 0 && socketPackage.Headers.Contains(" 200 OK") && socketPackage.Headers.IndexOf(MsApp.Filename, StringComparison.OrdinalIgnoreCase) >= 0)
+                socketPackage = ClassWeb.HttpRequest(data.Url, "GET", null, null, true, false, false, null, null, null, ClassWeb.useragent, null, null, null, null, 0, null);
+                if (string.IsNullOrEmpty(socketPackage.Err) && socketPackage.Buffer.Length > 0 && socketPackage.Headers.Contains(" 200 OK") && socketPackage.Headers.IndexOf(data.Name, StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     try
                     {
@@ -4862,7 +4787,7 @@ namespace XboxDownload
                     {
                         try
                         {
-                            Process.Start("ms-windows-store://pdp/?productid=" + productId);
+                            Process.Start("ms-windows-store://pdp/?productid=9mwpm2cqnlhn");
                         }
                         catch { }
                     }
@@ -4879,7 +4804,7 @@ namespace XboxDownload
                     p.StartInfo.CreateNoWindow = true;
                     p.Start();
                     p.StandardInput.WriteLine("get-appxpackage Microsoft.GamingServices | remove-AppxPackage -allusers");
-                    p.StandardInput.WriteLine("start ms-windows-store://pdp/?productid=" + productId);
+                    p.StandardInput.WriteLine("start ms-windows-store://pdp/?productid=9mwpm2cqnlhn");
                     p.StandardInput.WriteLine("exit");
                     p.WaitForExit();
                 }
