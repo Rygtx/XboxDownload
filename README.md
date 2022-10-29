@@ -1,120 +1,121 @@
-# XboxÏÂÔØÖúÊÖ
+# Xboxä¸‹è½½åŠ©æ‰‹
+Xboxä¸‹è½½åŠ©æ‰‹-ç½‘é¡µç‰ˆï¼šhttps://xbox.skydevil.xyz
 
-XboxÏÂÔØÖúÊÖ-ÍøÒ³°æ£ºhttps://xbox.skydevil.xyz
+Xboxä¸‹è½½åŠ©æ‰‹-ç½‘é¡µç‰ˆï¼šhttps://xbox.skydevil.xyz
 
-[OpenWrt ÓòÃûÌø×ª¼ÓËÙ](./README_OpenWrt.md)
+[OpenWrt åŸŸåè·³è½¬åŠ é€Ÿ](./README_OpenWrt.md)
 
-»ñÈ¡PCÎ¢ÈíÉÌµêÓÎÏ·ÏÂÔØÁ´½Ó
+èŽ·å–PCå¾®è½¯å•†åº—æ¸¸æˆä¸‹è½½é“¾æŽ¥
 ---
-![Í¼0](doc/pm00.png)
+![å›?](doc/pm00.png)
 
 
-Ê¹ÓÃËµÃ÷
+ä½¿ç”¨è¯´æ˜Ž
 ---
-XboxÖ÷»úÊÇ¸ù¾ÝÊ¹ÓÃÕßIP·ÖÅäÓÎÏ·ÏÂÔØÓòÃû£¬¹úÄÚIPÊ¹ÓÃassets1.xboxlive.cn£¬ÓÐ¹úÄÚCDN·þÎñÆ÷£¬ÏÂÔØËÙ¶È¿ì£¨ÀäÃÅÓÎÏ·Ã»ÓÐ»º´æ³ýÍâ£©¡£¹úÍâIPÊ¹ÓÃassets1.xboxlive.com£¬Ã»ÓÐ¹úÄÚCDN·þÎñÆ÷£¬ÐèÒªÁ¬½Óµ½¹úÍâ£¬ÏÂÔØËÙ¶ÈÂý¡£¹úÄÚÓÃ»§Ê¹ÓÃÁË¼ÓËÙÆ÷»òÕß´úÀíÈí¼þ£¬»á±»Î¢ÈíÅÐ¶ÏÎª¹úÍâÓÃ»§²¢±»·ÖÅäÊ¹ÓÃcomÏÂÔØÓòÃû¡£
+Xboxä¸»æœºæ˜¯æ ¹æ®ä½¿ç”¨è€…IPåˆ†é…æ¸¸æˆä¸‹è½½åŸŸåï¼Œå›½å†…IPä½¿ç”¨assets1.xboxlive.cnï¼Œæœ‰å›½å†…CDNæœåŠ¡å™¨ï¼Œä¸‹è½½é€Ÿåº¦å¿«ï¼ˆå†·é—¨æ¸¸æˆæ²¡æœ‰ç¼“å­˜é™¤å¤–ï¼‰ã€‚å›½å¤–IPä½¿ç”¨assets1.xboxlive.comï¼Œæ²¡æœ‰å›½å†…CDNæœåŠ¡å™¨ï¼Œéœ€è¦è¿žæŽ¥åˆ°å›½å¤–ï¼Œä¸‹è½½é€Ÿåº¦æ…¢ã€‚å›½å†…ç”¨æˆ·ä½¿ç”¨äº†åŠ é€Ÿå™¨æˆ–è€…ä»£ç†è½¯ä»¶ï¼Œä¼šè¢«å¾®è½¯åˆ¤æ–­ä¸ºå›½å¤–ç”¨æˆ·å¹¶è¢«åˆ†é…ä½¿ç”¨comä¸‹è½½åŸŸåã€?
 
 
-±¾Èí¼þÌáËÙÔ­Àí£¬°Ñ Xbox ÏÂÔØÁ´½Ó assets1.xboxlive.com Ìø×ªµ½ assets1.xboxlive.cn ÉÏ£¬Ëø¶¨ÔÚ¹úÄÚ·þÎñÆ÷ÏÂÔØ£¬½â¾öÊ¹ÓÃ¹ú¼ÊÓòÃûÏÂÔØËÙ¶È¹ýÂýÎÊÌâ£¬²¢ÇÒÄÜÍ¬Ê±Ö§³Ö PCÎ¢ÈíÉÌµê¡¢PS¡¢NS¡¢EA Desktop & Origi¡¢Õ½Íø¹ú¼Ê·þ¡¢EpicÓÎÏ·ÏÂÔØ¼ÓËÙ¡£
+æœ¬è½¯ä»¶æé€ŸåŽŸç†ï¼ŒæŠ?Xbox ä¸‹è½½é“¾æŽ¥ assets1.xboxlive.com è·³è½¬åˆ?assets1.xboxlive.cn ä¸Šï¼Œé”å®šåœ¨å›½å†…æœåŠ¡å™¨ä¸‹è½½ï¼Œè§£å†³ä½¿ç”¨å›½é™…åŸŸåä¸‹è½½é€Ÿåº¦è¿‡æ…¢é—®é¢˜ï¼Œå¹¶ä¸”èƒ½åŒæ—¶æ”¯æŒ PCå¾®è½¯å•†åº—ã€PSã€NSã€EA Desktop & Origiã€æˆ˜ç½‘å›½é™…æœã€Epicæ¸¸æˆä¸‹è½½åŠ é€Ÿã€?
 
-ÏÂÔØÁ´½Ó
+ä¸‹è½½é“¾æŽ¥
 ```
-°Ù¶ÈÍøÅÌ: https://pan.baidu.com/s/1ZqBvWjpGYZXBL8WaitMLCQ?pwd=q3cp ÌáÈ¡Âë£ºq3cp
-ÌìÒíÔÆÅÌ: https://cloud.189.cn/t/JJvY3aZvyyM3 ÌáÈ¡Âë£º7oqc
-Ô´Âë£ºhttps://github.com/skydevil88/XboxDownload
+ç™¾åº¦ç½‘ç›˜: https://pan.baidu.com/s/1ZqBvWjpGYZXBL8WaitMLCQ?pwd=q3cp æå–ç ï¼šq3cp
+å¤©ç¿¼äº‘ç›˜: https://cloud.189.cn/t/JJvY3aZvyyM3 æå–ç ï¼š7oqc
+æºç ï¼šhttps://github.com/skydevil88/XboxDownload
 ```
-![Í¼1](doc/pm01.png)
+![å›?](doc/pm01.png)
 
-1.Ê¹ÓÃÉèÖÃ£¨Nintendo Switch¡¢PlayStation Ê¹ÓÃ·½·¨Í¬Àí£©
+1.ä½¿ç”¨è®¾ç½®ï¼ˆNintendo Switchã€PlayStation ä½¿ç”¨æ–¹æ³•åŒç†ï¼?
 ---
-XboxÕýÔÚÏÂÔØ£¬ÇëÏÈÔÝÍ££¬Íê³ÉÉèÖÃºóÔÙ¼ÌÐø¡£
+Xboxæ­£åœ¨ä¸‹è½½ï¼Œè¯·å…ˆæš‚åœï¼Œå®Œæˆè®¾ç½®åŽå†ç»§ç»­ã€?
 
-Ò»¡¢Æô¶¯ÏÂÔØÖúÊÖ£¬Ñ¡ÖÐ²âËÙ-ÔÚÏßµ¼ÈëIP£¬ÕÒÄã¼Ò¸½½üIP²âÊÔËÙ¶È£¨¿ÉÒÔÊ¹ÓÃ²éÕÒ¹¦ÄÜ£©£¬ÓÒ¼üÊ¹ÓÃÖ¸¶¨IP¡£
+ä¸€ã€å¯åŠ¨ä¸‹è½½åŠ©æ‰‹ï¼Œé€‰ä¸­æµ‹é€?åœ¨çº¿å¯¼å…¥IPï¼Œæ‰¾ä½ å®¶é™„è¿‘IPæµ‹è¯•é€Ÿåº¦ï¼ˆå¯ä»¥ä½¿ç”¨æŸ¥æ‰¾åŠŸèƒ½ï¼‰ï¼Œå³é”®ä½¿ç”¨æŒ‡å®šIPã€?
 
-![Í¼2](doc/pm02.png)
+![å›?](doc/pm02.png)
 
-¶þ¡¢±¾»úIPÑ¡Ôñ¸úXboxÍ¬Ò»IP¶Î£¬Ò»°ãÊÇ192.168.x.x£¬ÎÒÕâÀïÊÇ192.168.1.5£¬Çë×ÔÐÐÅÐ¶ÏÑ¡Ôñ¡£È·ÈÏ¹´Ñ¡ 1.ÆôÓÃDNS·þÎñ£¬2.ÆôÓÃHTTP·þÎñ£¬3.Ìø×ªcnÏÂÔØ ÕâÈýÏî£¬È»ºóµã»÷ ¿ªÊ¼¼àÌý¡£
+äºŒã€æœ¬æœºIPé€‰æ‹©è·ŸXboxåŒä¸€IPæ®µï¼Œä¸€èˆ¬æ˜¯192.168.x.xï¼Œæˆ‘è¿™é‡Œæ˜?92.168.1.5ï¼Œè¯·è‡ªè¡Œåˆ¤æ–­é€‰æ‹©ã€‚ç¡®è®¤å‹¾é€?1.å¯ç”¨DNSæœåŠ¡ï¼?.å¯ç”¨HTTPæœåŠ¡ï¼?.è·³è½¬cnä¸‹è½½ è¿™ä¸‰é¡¹ï¼Œç„¶åŽç‚¹å‡» å¼€å§‹ç›‘å¬ã€?
 
-![Í¼3](doc/pm03.png)
-
-
-Èý¡¢´ò¿ªXBOX ÉèÖÃ->³£¹æ->ÍøÂçÉèÖÃ->¸ß¼¶ÉèÖÃ->DNS ÉèÖÃ->ÊÖ¶¯ °Ñ Ö÷DNS ÉèÎªPCµçÄÔIP£¨XboxÏÂÔØÖúÊÖ×óÏÂ½Ç ±¾»úIP£©£¬¸¨ÖúDNSÁô¿Õ¡£(PCÎ¢ÈíÉÌµê´Ë²½ÖèÊ¡ÂÔ£¬¹´ÉÏ¼ÓËÙÎ¢ÈíÉÌµê)
-
-![Í¼4](doc/pm04.png)
-
-×¢Òâ£¬Èç¹ûÄãµÄXboxÕýÔÚÊ¹ÓÃIPv6ÁªÍø£¬ ÐèÒªÔÚÂ·ÓÉÆ÷ÖÐ¹Ø±ÕIPv6¹¦ÄÜ¡£
-
-![Í¼5](doc/pm05.png)
-
-ÏÖÔÚ¿ÉÒÔ¿ªÊ¼Óä¿ìµØÏÂÔØÁË¡£
-
-ÏÂÔØÍê³Éºó¼ÇµÃ°ÑXbox DNS¸Ä»Ø×Ô¶¯»ñÈ¡£¬·ñÔòXboxÏÂÔØÖúÊÖ¹Ø±ÕºóÃ»·¨ÁªÍø¡£
+![å›?](doc/pm03.png)
 
 
-ÆäËüÎÊÌâ£º
+ä¸‰ã€æ‰“å¼€XBOX è®¾ç½®->å¸¸è§„->ç½‘ç»œè®¾ç½®->é«˜çº§è®¾ç½®->DNS è®¾ç½®->æ‰‹åŠ¨ æŠ?ä¸»DNS è®¾ä¸ºPCç”µè„‘IPï¼ˆXboxä¸‹è½½åŠ©æ‰‹å·¦ä¸‹è§?æœ¬æœºIPï¼‰ï¼Œè¾…åŠ©DNSç•™ç©ºã€?PCå¾®è½¯å•†åº—æ­¤æ­¥éª¤çœç•¥ï¼Œå‹¾ä¸ŠåŠ é€Ÿå¾®è½¯å•†åº?
 
-Ò»¡¢	Ã»ÓÐÈÕÖ¾£¬µÚÒ»ÖÖÇé¿ö±¾»úIPÃ»ÓÐÑ¡ÔñÕýÈ·£¬ÇëÖØÐÂÑ¡Ôñ£»µÚ¶þÖÖÇé¿ö±»µçÄÔÍøÂç·À»ðÇ½×èÖ¹£¬Çë¹Ø±ÕµçÄÔÍøÂç·À»ðÇ½£¬»¹ÓÐ¸÷ÖÖµçÄÔ¹Ü¼ÒÖ®ÀàÈí¼þ¡£
+![å›?](doc/pm04.png)
 
-¶þ¡¢	¼ì²â¶Ë¿Ú±»Õ¼ÓÃ£¬Í¨³£°´ÊÇÇ¿ÖÆ½áÊø¾ÍÄÜÕý³£Æô¶¯£¬²»ÄÜ½áÊø¿ÉÒÔÓÃÃüÁî¡°netstat -an¡±²é¿´Õ¼ÓÃ¶Ë¿Ú³ÌÐò£¬ÈçºÎÍ£Ö¹Çë×ÔÐÐÉÏÍøËÑË÷¡£
+æ³¨æ„ï¼Œå¦‚æžœä½ çš„Xboxæ­£åœ¨ä½¿ç”¨IPv6è”ç½‘ï¼?éœ€è¦åœ¨è·¯ç”±å™¨ä¸­å…³é—­IPv6åŠŸèƒ½ã€?
 
-Èý¡¢	ÏÂÔØÃ»ÓÐHTTP 301ÈÕÖ¾£¬XboxÖ±½ÓÊ¹ÓÃÁËcnÓòÃûÏÂÔØ£¬Ê¡È¥HTTP·þÎñÌø×ªÕâÒ»²½Öè£¬ËùÒÔ¾ÍÃ»ÓÐHTTPÈÕÖ¾¡£
+![å›?](doc/pm05.png)
 
-ËÄ¡¢	XboxÍ¨¹ýµçÄÔWiFiÈÈµãÁ¬½ÓÍøÂçÐèÒªÒÔÏÂÉèÖÃ£¬1¡¢È¡ÏûÆôÓÃDNS ·þÎñ£¬2¡¢¹´Ñ¡¼ÓËÙÎ¢ÈíÉÌµê(PC)£¬3¡¢±¾»úIPÑ¡ÔñÈÈµãIP¡£
+çŽ°åœ¨å¯ä»¥å¼€å§‹æ„‰å¿«åœ°ä¸‹è½½äº†ã€?
 
-XboxÖ÷»úDNS¿ÉÒÔ²»ÓÃÉèÖÃ£¬Ö±½Ó×Ô¶¯»ñÈ¡¡£
-
-![Í¼6](doc/pm06.png)
+ä¸‹è½½å®ŒæˆåŽè®°å¾—æŠŠXbox DNSæ”¹å›žè‡ªåŠ¨èŽ·å–ï¼Œå¦åˆ™Xboxä¸‹è½½åŠ©æ‰‹å…³é—­åŽæ²¡æ³•è”ç½‘ã€?
 
 
-2.PCÏÂÔØ»Ø´«£¨PC XGP¡¢PlayStatio¡¢EAÍ¬ÑùÊÊÓÃ£©
+å…¶å®ƒé—®é¢˜ï¼?
+
+ä¸€ã€?æ²¡æœ‰æ—¥å¿—ï¼Œç¬¬ä¸€ç§æƒ…å†µæœ¬æœºIPæ²¡æœ‰é€‰æ‹©æ­£ç¡®ï¼Œè¯·é‡æ–°é€‰æ‹©ï¼›ç¬¬äºŒç§æƒ…å†µè¢«ç”µè„‘ç½‘ç»œé˜²ç«å¢™é˜»æ­¢ï¼Œè¯·å…³é—­ç”µè„‘ç½‘ç»œé˜²ç«å¢™ï¼Œè¿˜æœ‰å„ç§ç”µè„‘ç®¡å®¶ä¹‹ç±»è½¯ä»¶ã€?
+
+äºŒã€?æ£€æµ‹ç«¯å£è¢«å ç”¨ï¼Œé€šå¸¸æŒ‰æ˜¯å¼ºåˆ¶ç»“æŸå°±èƒ½æ­£å¸¸å¯åŠ¨ï¼Œä¸èƒ½ç»“æŸå¯ä»¥ç”¨å‘½ä»¤â€œnetstat -anâ€æŸ¥çœ‹å ç”¨ç«¯å£ç¨‹åºï¼Œå¦‚ä½•åœæ­¢è¯·è‡ªè¡Œä¸Šç½‘æœç´¢ã€?
+
+ä¸‰ã€?ä¸‹è½½æ²¡æœ‰HTTP 301æ—¥å¿—ï¼ŒXboxç›´æŽ¥ä½¿ç”¨äº†cnåŸŸåä¸‹è½½ï¼ŒçœåŽ»HTTPæœåŠ¡è·³è½¬è¿™ä¸€æ­¥éª¤ï¼Œæ‰€ä»¥å°±æ²¡æœ‰HTTPæ—¥å¿—ã€?
+
+å››ã€?Xboxé€šè¿‡ç”µè„‘WiFiçƒ­ç‚¹è¿žæŽ¥ç½‘ç»œéœ€è¦ä»¥ä¸‹è®¾ç½®ï¼Œ1ã€å–æ¶ˆå¯ç”¨DNS æœåŠ¡ï¼?ã€å‹¾é€‰åŠ é€Ÿå¾®è½¯å•†åº?PC)ï¼?ã€æœ¬æœºIPé€‰æ‹©çƒ­ç‚¹IPã€?
+
+Xboxä¸»æœºDNSå¯ä»¥ä¸ç”¨è®¾ç½®ï¼Œç›´æŽ¥è‡ªåŠ¨èŽ·å–ã€?
+
+![å›?](doc/pm06.png)
+
+
+2.PCä¸‹è½½å›žä¼ ï¼ˆPC XGPã€PlayStatioã€EAåŒæ ·é€‚ç”¨ï¼?
 ---
-ÓÐÁ½ÖÖ·½·¨»Ø´«Xbox£¬Ê×ÏÈÊ¹ÓÃÏÂÔØÖúÊÖ¼àÌýµ½ÓÎÏ·ÏÂÔØµØÖ·£¨XboxÊ¹ÓÃassets1.xboxlive.cnÓòÃûÏÂÔØµÄ£¬ÇëÔÚ ¡°Ö¸¶¨ cn ÏÂÔØÓòÃû IP¡± ÌîÉÏ±¾»úIP£¬ÓÉÓÚ±¾µØ»¹Ã»ÓÐÎÄ¼þ£¬ÏÂÔØ»á³öÏÖHTTP 404ÈÕÖ¾£¬XboxÏÂÔØÊ§°Ü£¬ÕâÊÇÕý³£µÄ£©£¬ÔÝÍ£ÏÂÔØ£¬ÓÒ¼ü¸´ÖÆÏÂÔØµØÖ·£¬È»ºóÊ¹ÓÃPCÏÂÔØ¹¤¾ß°ÑÎÄ¼þÏÂÔØ»ØÀ´¡£
+æœ‰ä¸¤ç§æ–¹æ³•å›žä¼ Xboxï¼Œé¦–å…ˆä½¿ç”¨ä¸‹è½½åŠ©æ‰‹ç›‘å¬åˆ°æ¸¸æˆä¸‹è½½åœ°å€ï¼ˆXboxä½¿ç”¨assets1.xboxlive.cnåŸŸåä¸‹è½½çš„ï¼Œè¯·åœ¨ â€œæŒ‡å®?cn ä¸‹è½½åŸŸå IPâ€?å¡«ä¸Šæœ¬æœºIPï¼Œç”±äºŽæœ¬åœ°è¿˜æ²¡æœ‰æ–‡ä»¶ï¼Œä¸‹è½½ä¼šå‡ºçŽ°HTTP 404æ—¥å¿—ï¼ŒXboxä¸‹è½½å¤±è´¥ï¼Œè¿™æ˜¯æ­£å¸¸çš„ï¼‰ï¼Œæš‚åœä¸‹è½½ï¼Œå³é”®å¤åˆ¶ä¸‹è½½åœ°å€ï¼Œç„¶åŽä½¿ç”¨PCä¸‹è½½å·¥å…·æŠŠæ–‡ä»¶ä¸‹è½½å›žæ¥ã€?
 
-PlayStation±¾µØÉÏ´« Ê¹ÓÃ·½Ê½²Î¿¼Xbox·½·¨Ò»¡£ 
+PlayStationæœ¬åœ°ä¸Šä¼  ä½¿ç”¨æ–¹å¼å‚è€ƒXboxæ–¹æ³•ä¸€ã€?
 
-PC XGPÓÎÏ·Ò²¿ÉÒÔÓÃ´Ë·½·¨¼àÌýµ½ÏÂÔØµØÖ·£¬È»ºóÊ¹ÓÃÏÂÔØ¹¤¾ßÏÂÔØ£¬Íê³ÉºóÔÚ ¹¤¾ß->ÀëÏß°²×°Î¢ÈíÉÌµêÓ¦ÓÃÈí¼þ ÖÐ°²×°¡£
+PC XGPæ¸¸æˆä¹Ÿå¯ä»¥ç”¨æ­¤æ–¹æ³•ç›‘å¬åˆ°ä¸‹è½½åœ°å€ï¼Œç„¶åŽä½¿ç”¨ä¸‹è½½å·¥å…·ä¸‹è½½ï¼Œå®ŒæˆåŽåœ¨ å·¥å…·->ç¦»çº¿å®‰è£…å¾®è½¯å•†åº—åº”ç”¨è½¯ä»¶ ä¸­å®‰è£…ã€?
 
-![Í¼7](doc/pm07.png)
+![å›?](doc/pm07.png)
 
-·½·¨Ò»£º±¾µØÉÏ´«
+æ–¹æ³•ä¸€ï¼šæœ¬åœ°ä¸Šä¼?
 
-°Ñ±¾µØÉÏ´«ÎÄ¼þ¼ÐÖ¸ÏòÏÂÔØÎÄ¼þ¼ÐÎ»ÖÃ£¬¹´Ñ¡±¾µØÉÏ´«ºóÆô¶¯¼àÌý£¬XboxÖØÐÂÏÂÔØ£¬¾Í¿ÉÒÔÖ±½Ó´ÓPCÉÏ´«Xbox¡£
+æŠŠæœ¬åœ°ä¸Šä¼ æ–‡ä»¶å¤¹æŒ‡å‘ä¸‹è½½æ–‡ä»¶å¤¹ä½ç½®ï¼Œå‹¾é€‰æœ¬åœ°ä¸Šä¼ åŽå¯åŠ¨ç›‘å¬ï¼ŒXboxé‡æ–°ä¸‹è½½ï¼Œå°±å¯ä»¥ç›´æŽ¥ä»ŽPCä¸Šä¼ Xboxã€?
 
-![Í¼8](doc/pm08.png)
+![å›?](doc/pm08.png)
 
-·½·¨¶þ£ºÓ²ÅÌµ¼Èë
+æ–¹æ³•äºŒï¼šç¡¬ç›˜å¯¼å…¥
 
-XboxÍâÖÃÒÆ¶¯Ó²ÅÌ½Óµ½PCÉÏ£¬È»ºóÔÚÏÂÔØÖúÊÖ×ª»»³ÉPCÄ£Ê½£¬¿ÉÄÜÐèÒª¹Ø±ÕÉ±¶¾Èí¼þ£¬½Ó×Å°ÑÏÂÔØÓÎÏ·ÎÄ¼þ¸´ÖÆ½øÈ¥ÖØÃüÃûÎªContent ID£¨Ò²¿ÉÒÔÖ±½Ó°ÑÓÎÏ·ÏÂÔØµ½ÒÆ¶¯Ó²ÅÌ¸ùÄ¿Â¼£¬Ê¡È¥¸´ÖÆÕâÒ»²½£©£¬Íê³Éºó×ª»»»ØXboxÄ£Ê½¡£°Ñ¸Õ²ÅXboxÔÝÍ£ÏÂÔØµÄÓÎÏ·É¾³ý£¬ÍâÖÃÒÆ¶¯Ó²ÅÌ½Ó»ØXbox£¬¿ª»úÁªÍø£¨±ØÐëÁªÍø£©£¬ÉèÖÃ-ÏµÍ³-´æ´¢£¬Ñ¡ÔñÒÆ¶¯Ó²ÅÌ£¬°ÑÓÎÏ·ÒÆ¶¯µ½ÄÚ²¿Ó²ÅÌ¡£×¢Òâ²»ÒªÔÚÒÆ¶¯Ó²ÅÌÖÐÆô¶¯ÓÎÏ·£¬·ñÔòÓÎÏ·»áÖØÐÂÏÂÔØ£¬Ó¦ÓÃ²»Ö§³ÖÓ²ÅÌ·½·¨µ¼Èë¡£ 
+Xboxå¤–ç½®ç§»åŠ¨ç¡¬ç›˜æŽ¥åˆ°PCä¸Šï¼Œç„¶åŽåœ¨ä¸‹è½½åŠ©æ‰‹è½¬æ¢æˆPCæ¨¡å¼ï¼Œå¯èƒ½éœ€è¦å…³é—­æ€æ¯’è½¯ä»¶ï¼ŒæŽ¥ç€æŠŠä¸‹è½½æ¸¸æˆæ–‡ä»¶å¤åˆ¶è¿›åŽ»é‡å‘½åä¸ºContent IDï¼ˆä¹Ÿå¯ä»¥ç›´æŽ¥æŠŠæ¸¸æˆä¸‹è½½åˆ°ç§»åŠ¨ç¡¬ç›˜æ ¹ç›®å½•ï¼ŒçœåŽ»å¤åˆ¶è¿™ä¸€æ­¥ï¼‰ï¼Œå®ŒæˆåŽè½¬æ¢å›žXboxæ¨¡å¼ã€‚æŠŠåˆšæ‰Xboxæš‚åœä¸‹è½½çš„æ¸¸æˆåˆ é™¤ï¼Œå¤–ç½®ç§»åŠ¨ç¡¬ç›˜æŽ¥å›žXboxï¼Œå¼€æœºè”ç½‘ï¼ˆå¿…é¡»è”ç½‘ï¼‰ï¼Œè®¾ç½®-ç³»ç»Ÿ-å­˜å‚¨ï¼Œé€‰æ‹©ç§»åŠ¨ç¡¬ç›˜ï¼ŒæŠŠæ¸¸æˆç§»åŠ¨åˆ°å†…éƒ¨ç¡¬ç›˜ã€‚æ³¨æ„ä¸è¦åœ¨ç§»åŠ¨ç¡¬ç›˜ä¸­å¯åŠ¨æ¸¸æˆï¼Œå¦åˆ™æ¸¸æˆä¼šé‡æ–°ä¸‹è½½ï¼Œåº”ç”¨ä¸æ”¯æŒç¡¬ç›˜æ–¹æ³•å¯¼å…¥ã€?
 
-ÖØÃüÃûContent ID·½·¨£ºÓ²ÅÌ-ÎÄ¼þÐÅÏ¢-±¾µØÎÄ¼þ-ä¯ÀÀ£¬Ñ¡ÔñÎÄ¼þ£¬È»ºóµã»÷ÖØÃüÃû±¾µØÎÄ¼þ¡£
+é‡å‘½åContent IDæ–¹æ³•ï¼šç¡¬ç›?æ–‡ä»¶ä¿¡æ¯-æœ¬åœ°æ–‡ä»¶-æµè§ˆï¼Œé€‰æ‹©æ–‡ä»¶ï¼Œç„¶åŽç‚¹å‡»é‡å‘½åæœ¬åœ°æ–‡ä»¶ã€?
 
-![Í¼9](doc/pm09.png)
+![å›?](doc/pm09.png)
 
-![Í¼10](doc/pm10.png)
+![å›?0](doc/pm10.png)
 
-![Í¼11](doc/pm11.png)
+![å›?1](doc/pm11.png)
 
 
-3.²»Ïë¿ªµçÄÔÏÂÔØ
+3.ä¸æƒ³å¼€ç”µè„‘ä¸‹è½½
 ---
-OpenWrt °²×° Lighttpd »òÕß Nginx£¬Ê¹ÓÃURLÖØÐ´Ìø×ª¹úÄÚCDN·þÎñÆ÷¼ÓËÙÏÂÔØ
+OpenWrt å®‰è£… Lighttpd æˆ–è€?Nginxï¼Œä½¿ç”¨URLé‡å†™è·³è½¬å›½å†…CDNæœåŠ¡å™¨åŠ é€Ÿä¸‹è½?
 https://github.com/skydevil88/XboxDownload/blob/master/README_OpenWrt.md
 
 
-ÆäËüÂ·ÓÉÆ÷Èç¹ûÖ§³Ö¸ÄHosts£¬¿ÉÒÔ·Ö±ð°Ñ com ºÍcn ÏÂÔØÓòÃû²âËÙºóÕÒ³ö×î¿ìIPÐ´½øHosts ÖÐ£¬²»¹ÜXboxÊ¹ÓÃÄÇ¸öÓòÃûÏÂÔØ¶¼ÄÜ¼ÓËÙ¡£
+å…¶å®ƒè·¯ç”±å™¨å¦‚æžœæ”¯æŒæ”¹Hostsï¼Œå¯ä»¥åˆ†åˆ«æŠŠ com å’Œcn ä¸‹è½½åŸŸåæµ‹é€ŸåŽæ‰¾å‡ºæœ€å¿«IPå†™è¿›Hosts ä¸­ï¼Œä¸ç®¡Xboxä½¿ç”¨é‚£ä¸ªåŸŸåä¸‹è½½éƒ½èƒ½åŠ é€Ÿã€?
 
-CN IP ·ÖÈý×é£¬Ä¿Ç°¹úÄÚ IP ´ó²¿·Ö²»Í¨ÓÃ£¬ÐèÒª·Ö±ð²âËÙ(Akamai IP ¿ÉÒÔÍ¨ÓÃ) 
+CN IP åˆ†ä¸‰ç»„ï¼Œç›®å‰å›½å†… IP å¤§éƒ¨åˆ†ä¸é€šç”¨ï¼Œéœ€è¦åˆ†åˆ«æµ‹é€?Akamai IP å¯ä»¥é€šç”¨) 
 ```
-#µÚÒ»×é 
-address=/assets1.xboxlive.cn/cn IP »òÕß Akamai IP 
-address=/assets2.xboxlive.cn/cn IP »òÕß Akamai IP 
-address=/d1.xboxlive.cn/cn IP »òÕß Akamai IP 
-address=/d2.xboxlive.cn/cn IP »òÕß Akamai IP 
-#µÚ¶þ×é£¬²¿·ÖÀÏÓÎÏ·Ê¹ÓÃ´ËÓòÃû£¬¿ÉÒÔ²»¼Ó£¬Ê¹ÓÃ×Ô¶¯½âÊÍ 
-address=/dlassets.xboxlive.cn/cn IP »òÕß Akamai IP 
-address=/dlassets2.xboxlive.cn/cn IP »òÕß Akamai IP 
-#µÚÈý×é£¬Ó¦ÓÃÏÂÔØºÍ²¿·Ö PC Î¢ÈíÉÌµêÓÎÏ· 
-address=/dl.delivery.mp.microsoft.com/cn IP »òÕß Akamai IP 
-address=/tlu.dl.delivery.mp.microsoft.com /cn IP »òÕß Akamai IP
+#ç¬¬ä¸€ç»?
+address=/assets1.xboxlive.cn/cn IP æˆ–è€?Akamai IP 
+address=/assets2.xboxlive.cn/cn IP æˆ–è€?Akamai IP 
+address=/d1.xboxlive.cn/cn IP æˆ–è€?Akamai IP 
+address=/d2.xboxlive.cn/cn IP æˆ–è€?Akamai IP 
+#ç¬¬äºŒç»„ï¼Œéƒ¨åˆ†è€æ¸¸æˆä½¿ç”¨æ­¤åŸŸåï¼Œå¯ä»¥ä¸åŠ ï¼Œä½¿ç”¨è‡ªåŠ¨è§£é‡Š 
+address=/dlassets.xboxlive.cn/cn IP æˆ–è€?Akamai IP 
+address=/dlassets2.xboxlive.cn/cn IP æˆ–è€?Akamai IP 
+#ç¬¬ä¸‰ç»„ï¼Œåº”ç”¨ä¸‹è½½å’Œéƒ¨åˆ?PC å¾®è½¯å•†åº—æ¸¸æˆ 
+address=/dl.delivery.mp.microsoft.com/cn IP æˆ–è€?Akamai IP 
+address=/tlu.dl.delivery.mp.microsoft.com /cn IP æˆ–è€?Akamai IP
 ```
 ```
 address=/xvcf1.xboxlive.com/com IP
@@ -126,8 +127,8 @@ address=/d2.xboxlive.com/com IP
 address=/dlassets.xboxlive.com/com IP
 address=/dlassets2.xboxlive.com/com IP
 ```
-×¢Òâ£º²»ÉÙÈËÖ±½Ó°Ñ com ÓòÃûÖ¸¶¨µ½ cn ip¡¢»òÕßÊ¹ÓÃ CNAME ½âÊÍµ½ cn IP£¬ÕâÁ½ÖÖ·½·¨¶¼ÊÇ´íÎóµÄ£¬·þÎñÆ÷»á·µ»Ø403´íÎó¡£ comÓòÃû²»ÄÜÊ¹ÓÃcn IP£¬·´¹ýÀ´cnÓòÃû¿ÉÒÔÊ¹ÓÃ²¿·Öcom IP(Akamai).
+æ³¨æ„ï¼šä¸å°‘äººç›´æŽ¥æŠ?com åŸŸåæŒ‡å®šåˆ?cn ipã€æˆ–è€…ä½¿ç”?CNAME è§£é‡Šåˆ?cn IPï¼Œè¿™ä¸¤ç§æ–¹æ³•éƒ½æ˜¯é”™è¯¯çš„ï¼ŒæœåŠ¡å™¨ä¼šè¿”å›ž403é”™è¯¯ã€?comåŸŸåä¸èƒ½ä½¿ç”¨cn IPï¼Œåè¿‡æ¥cnåŸŸåå¯ä»¥ä½¿ç”¨éƒ¨åˆ†com IP(Akamai).
 
-¹ØÓÚ
+å…³äºŽ
 ---
 ![About](doc/About.png)
