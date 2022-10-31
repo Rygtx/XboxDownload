@@ -285,24 +285,17 @@ namespace XboxDownload
             public string RelativeUrl { get; set; }
             public DateTime ModifiedDate { get; set; }
         }
+    }
 
-        public class XboxGameUrl
+    class XboxPackage
+    {
+        public class Game
         {
-            public string Code { get; set; }
+            public String Code { get; set; }
             public Data Data { get; set; }
         }
 
-        public class Data
-        {
-            public string Version { get; set; }
-            public ulong FileSize { get; set; }
-            public string Url { get; set; }
-        }
-    }
-
-    class AppPackage
-    {
-        public class Package
+        public class App
         {
             public String Code { get; set; }
             public List<Data> Data { get; set; }
@@ -316,8 +309,6 @@ namespace XboxDownload
         }
     }
     
-
-
 
     class PsGame
     {

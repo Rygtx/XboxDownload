@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace XboxDownload
@@ -18,11 +19,17 @@ namespace XboxDownload
 
         private void ButSubmit_Click(object sender, EventArgs e)
         {
-            if (SchTaskExt.IsExists(Form1.appName))
-                SchTaskExt.DeleteTask(Form1.appName);
-            if (cbStartup.Checked)
-                SchTaskExt.CreateRestartTask(Form1.appName);
-            this.Close();
+            butSubmit.Enabled = false;
+            ThreadPool.QueueUserWorkItem(delegate {
+                if (SchTaskExt.IsExists(Form1.appName))
+                    SchTaskExt.DeleteTask(Form1.appName);
+                if (cbStartup.Checked)
+                    SchTaskExt.CreateRestartTask(Form1.appName);
+                this.Invoke(new Action(() =>
+                {
+                    this.Close();
+                }));
+            });
         }
     }
 }
