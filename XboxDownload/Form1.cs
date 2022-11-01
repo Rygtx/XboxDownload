@@ -3327,7 +3327,6 @@ namespace XboxDownload
                     {
                         foreach (var suggest in resultSets.Suggests)
                         {
-                            if (suggest.Source != "Games") continue;
                             var BigCatalogId = Array.FindAll(suggest.Metas.ToArray(), a => a.Key == "BigCatalogId");
                             if (BigCatalogId.Length == 1)
                             {
@@ -3789,8 +3788,8 @@ namespace XboxDownload
             if (localizedPropertie != null && localizedPropertie.Count >= 1)
             {
                 title = localizedPropertie[0].ProductTitle;
-                developerName = localizedPropertie[0].DeveloperName.Trim();
-                publisherName = localizedPropertie[0].PublisherName.Trim();
+                developerName = localizedPropertie[0].DeveloperName ?? String.Empty;
+                publisherName = localizedPropertie[0].PublisherName ?? String.Empty;
                 description = localizedPropertie[0].ProductDescription;
                 string imageUri = localizedPropertie[0].Images.Where(x => x.ImagePurpose == "BoxArt").Select(x => x.Uri).FirstOrDefault() ?? localizedPropertie[0].Images.Where(x => x.Width == x.Height).OrderByDescending(x => x.Width).Select(x => x.Uri).FirstOrDefault();
                 if (!string.IsNullOrEmpty(imageUri))
@@ -4128,7 +4127,7 @@ namespace XboxDownload
             this.Invoke(new Action(() =>
             {
                 tbGameTitle.Text = title;
-                tbGameDeveloperName.Text = publisherName + " / " + developerName;
+                tbGameDeveloperName.Text = publisherName.Trim() + " / " + developerName.Trim();
                 tbGameCategory.Text = category;
                 tbGameOriginalReleaseDate.Text = originalReleaseDate;
                 if (lsProduct.Count >= 1)

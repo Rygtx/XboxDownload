@@ -2740,7 +2740,7 @@ namespace XboxDownload
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(80, 18);
             this.label25.TabIndex = 8;
-            this.label25.Text = "搜索游戏";
+            this.label25.Text = "搜索商店";
             // 
             // cbGameXGP1
             // 
