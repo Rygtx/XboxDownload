@@ -3,24 +3,6 @@ namespace XboxDownload
 {
     partial class Form1
     {
-        /// <summary>
-        /// 必需的设计器变量。
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
-
-        /// <summary>
-        /// 清理所有正在使用的资源。
-        /// </summary>
-        /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
         #region Windows 窗体设计器生成的代码
 
         /// <summary>
@@ -162,6 +144,7 @@ namespace XboxDownload
             this.Col_IPv4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_Remark = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.linkHostImport = new System.Windows.Forms.LinkLabel();
             this.cbDohDNS = new System.Windows.Forms.ComboBox();
             this.cbHosts = new System.Windows.Forms.ComboBox();
             this.linkHostClear = new System.Windows.Forms.LinkLabel();
@@ -219,8 +202,9 @@ namespace XboxDownload
             this.butScan = new System.Windows.Forms.Button();
             this.butEnabelXbox = new System.Windows.Forms.Button();
             this.butEnabelPc = new System.Windows.Forms.Button();
-            this.tabGames = new System.Windows.Forms.TabPage();
-            this.lbGameSearch = new System.Windows.Forms.ListBox();
+            this.tabStore = new System.Windows.Forms.TabPage();
+            this.lvGameSearch = new System.Windows.Forms.ListView();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.gbGameInfo = new System.Windows.Forms.GroupBox();
             this.lvGame = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -328,7 +312,6 @@ namespace XboxDownload
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmCopyUrl1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmCopyUrl2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmCopyUrl3 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAuthorization = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAuthorization1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAuthorization2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -358,7 +341,7 @@ namespace XboxDownload
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDevice)).BeginInit();
             this.panel4.SuspendLayout();
-            this.tabGames.SuspendLayout();
+            this.tabStore.SuspendLayout();
             this.gbGameInfo.SuspendLayout();
             this.panel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbGame)).BeginInit();
@@ -510,7 +493,7 @@ namespace XboxDownload
             this.tabControl1.Controls.Add(this.tabHosts);
             this.tabControl1.Controls.Add(this.tabCND);
             this.tabControl1.Controls.Add(this.tabHardDisk);
-            this.tabControl1.Controls.Add(this.tabGames);
+            this.tabControl1.Controls.Add(this.tabStore);
             this.tabControl1.Controls.Add(this.tabTool);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 33);
@@ -1721,6 +1704,7 @@ namespace XboxDownload
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.linkHostImport);
             this.panel3.Controls.Add(this.cbDohDNS);
             this.panel3.Controls.Add(this.cbHosts);
             this.panel3.Controls.Add(this.linkHostClear);
@@ -1731,6 +1715,17 @@ namespace XboxDownload
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1484, 51);
             this.panel3.TabIndex = 2;
+            // 
+            // linkHostImport
+            // 
+            this.linkHostImport.AutoSize = true;
+            this.linkHostImport.Location = new System.Drawing.Point(1314, 17);
+            this.linkHostImport.Name = "linkHostImport";
+            this.linkHostImport.Size = new System.Drawing.Size(80, 18);
+            this.linkHostImport.TabIndex = 6;
+            this.linkHostImport.TabStop = true;
+            this.linkHostImport.Text = "批量导入";
+            this.linkHostImport.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkHostImport_LinkClicked);
             // 
             // cbDohDNS
             // 
@@ -1771,7 +1766,7 @@ namespace XboxDownload
             this.linkHostClear.Location = new System.Drawing.Point(1400, 15);
             this.linkHostClear.Name = "linkHostClear";
             this.linkHostClear.Size = new System.Drawing.Size(80, 18);
-            this.linkHostClear.TabIndex = 6;
+            this.linkHostClear.TabIndex = 7;
             this.linkHostClear.TabStop = true;
             this.linkHostClear.Text = "清空域名";
             this.linkHostClear.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkHostClear_LinkClicked);
@@ -2368,33 +2363,42 @@ namespace XboxDownload
             this.butEnabelPc.UseVisualStyleBackColor = true;
             this.butEnabelPc.Click += new System.EventHandler(this.ButEnabelPc_Click);
             // 
-            // tabGames
+            // tabStore
             // 
-            this.tabGames.Controls.Add(this.lbGameSearch);
-            this.tabGames.Controls.Add(this.gbGameInfo);
-            this.tabGames.Controls.Add(this.gbMicrosoftStore);
-            this.tabGames.Location = new System.Drawing.Point(4, 28);
-            this.tabGames.Name = "tabGames";
-            this.tabGames.Padding = new System.Windows.Forms.Padding(3);
-            this.tabGames.Size = new System.Drawing.Size(1490, 839);
-            this.tabGames.TabIndex = 8;
-            this.tabGames.Text = "游戏";
-            this.tabGames.UseVisualStyleBackColor = true;
+            this.tabStore.Controls.Add(this.lvGameSearch);
+            this.tabStore.Controls.Add(this.gbGameInfo);
+            this.tabStore.Controls.Add(this.gbMicrosoftStore);
+            this.tabStore.Location = new System.Drawing.Point(4, 28);
+            this.tabStore.Name = "tabStore";
+            this.tabStore.Padding = new System.Windows.Forms.Padding(3);
+            this.tabStore.Size = new System.Drawing.Size(1490, 839);
+            this.tabStore.TabIndex = 8;
+            this.tabStore.Text = "商店";
+            this.tabStore.UseVisualStyleBackColor = true;
             // 
-            // lbGameSearch
+            // lvGameSearch
             // 
-            this.lbGameSearch.FormattingEnabled = true;
-            this.lbGameSearch.ItemHeight = 18;
-            this.lbGameSearch.Location = new System.Drawing.Point(140, 92);
-            this.lbGameSearch.MinimumSize = new System.Drawing.Size(4, 22);
-            this.lbGameSearch.Name = "lbGameSearch";
-            this.lbGameSearch.Size = new System.Drawing.Size(313, 22);
-            this.lbGameSearch.TabIndex = 11;
-            this.lbGameSearch.TabStop = false;
-            this.lbGameSearch.Visible = false;
-            this.lbGameSearch.DoubleClick += new System.EventHandler(this.LbGameSearch_DoubleClick);
-            this.lbGameSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LbGameSearch_KeyDown);
-            this.lbGameSearch.Leave += new System.EventHandler(this.LbGameSearch_Leave);
+            this.lvGameSearch.FullRowSelect = true;
+            this.lvGameSearch.HideSelection = false;
+            this.lvGameSearch.Location = new System.Drawing.Point(140, 92);
+            this.lvGameSearch.MultiSelect = false;
+            this.lvGameSearch.Name = "lvGameSearch";
+            this.lvGameSearch.Scrollable = false;
+            this.lvGameSearch.Size = new System.Drawing.Size(313, 38);
+            this.lvGameSearch.SmallImageList = this.imageList1;
+            this.lvGameSearch.TabIndex = 3;
+            this.lvGameSearch.UseCompatibleStateImageBehavior = false;
+            this.lvGameSearch.View = System.Windows.Forms.View.SmallIcon;
+            this.lvGameSearch.Visible = false;
+            this.lvGameSearch.DoubleClick += new System.EventHandler(this.LvGameSearch_DoubleClick);
+            this.lvGameSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LvGameSearch_KeyDown);
+            this.lvGameSearch.Leave += new System.EventHandler(this.LvGameSearch_Leave);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(25, 25);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // gbGameInfo
             // 
@@ -2445,7 +2449,7 @@ namespace XboxDownload
             // 
             // columnHeader4
             // 
-            this.columnHeader4.Text = "下载链接 (右键复制，没有数据可以在捆绑包内容中查找，主机可使用监听方式获取)";
+            this.columnHeader4.Text = "下载链接 (右键复制，单击显示完整链接；没有数据可以在捆绑包内容中查找)";
             this.columnHeader4.Width = 1500;
             // 
             // panel8
@@ -2568,11 +2572,11 @@ namespace XboxDownload
             // 
             this.label42.AutoSize = true;
             this.label42.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.label42.Location = new System.Drawing.Point(208, 321);
+            this.label42.Location = new System.Drawing.Point(189, 321);
             this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(800, 18);
+            this.label42.Size = new System.Drawing.Size(818, 18);
             this.label42.TabIndex = 16;
-            this.label42.Text = "本地安装微软商店(PC)应用软件：以管理员身份运行Powershell，输入add-appxpackage 安装包路径";
+            this.label42.Text = "本地安装微软商店(PC)应用软件：以管理员身份运行Powershell，输入\"add-appxpackage 安装包路径\"";
             // 
             // label23
             // 
@@ -2835,7 +2839,7 @@ namespace XboxDownload
             this.gpEACdn.Location = new System.Drawing.Point(0, 443);
             this.gpEACdn.Name = "gpEACdn";
             this.gpEACdn.Size = new System.Drawing.Size(1490, 146);
-            this.gpEACdn.TabIndex = 2;
+            this.gpEACdn.TabIndex = 3;
             this.gpEACdn.TabStop = false;
             this.gpEACdn.Text = "EA Origin 切换CDN服务器";
             // 
@@ -2928,7 +2932,7 @@ namespace XboxDownload
             this.gbGamingServices.Location = new System.Drawing.Point(0, 283);
             this.gbGamingServices.Name = "gbGamingServices";
             this.gbGamingServices.Size = new System.Drawing.Size(1490, 160);
-            this.gbGamingServices.TabIndex = 3;
+            this.gbGamingServices.TabIndex = 2;
             this.gbGamingServices.TabStop = false;
             this.gbGamingServices.Text = "在 Windows 10/11 设备上重新安装游戏服务应用";
             // 
@@ -3461,31 +3465,23 @@ namespace XboxDownload
             this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmCopyUrl1,
             this.tsmCopyUrl2,
-            this.tsmCopyUrl3,
             this.tsmAuthorization});
             this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(248, 124);
+            this.contextMenuStrip2.Size = new System.Drawing.Size(595, 127);
             // 
             // tsmCopyUrl1
             // 
             this.tsmCopyUrl1.Name = "tsmCopyUrl1";
-            this.tsmCopyUrl1.Size = new System.Drawing.Size(247, 30);
-            this.tsmCopyUrl1.Text = "复制下载链接";
+            this.tsmCopyUrl1.Size = new System.Drawing.Size(594, 30);
+            this.tsmCopyUrl1.Text = "复制下载链接(.com域名)";
             this.tsmCopyUrl1.Click += new System.EventHandler(this.TsmCopyUrl_Click);
             // 
             // tsmCopyUrl2
             // 
             this.tsmCopyUrl2.Name = "tsmCopyUrl2";
-            this.tsmCopyUrl2.Size = new System.Drawing.Size(247, 30);
-            this.tsmCopyUrl2.Text = "复制(.com替换为.cn)";
+            this.tsmCopyUrl2.Size = new System.Drawing.Size(594, 30);
+            this.tsmCopyUrl2.Text = "复制(.com替换为.cn)，国内CDN文件经常有坏块，建议用上面的";
             this.tsmCopyUrl2.Click += new System.EventHandler(this.TsmCopyUrl_Click);
-            // 
-            // tsmCopyUrl3
-            // 
-            this.tsmCopyUrl3.Name = "tsmCopyUrl3";
-            this.tsmCopyUrl3.Size = new System.Drawing.Size(247, 30);
-            this.tsmCopyUrl3.Text = "复制(.cn替换为.com)";
-            this.tsmCopyUrl3.Click += new System.EventHandler(this.TsmCopyUrl_Click);
             // 
             // tsmAuthorization
             // 
@@ -3493,7 +3489,7 @@ namespace XboxDownload
             this.tsmAuthorization1,
             this.tsmAuthorization2});
             this.tsmAuthorization.Name = "tsmAuthorization";
-            this.tsmAuthorization.Size = new System.Drawing.Size(247, 30);
+            this.tsmAuthorization.Size = new System.Drawing.Size(594, 30);
             this.tsmAuthorization.Text = "启动Xbox更新授权";
             // 
             // tsmAuthorization1
@@ -3563,7 +3559,7 @@ namespace XboxDownload
             this.groupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDevice)).EndInit();
             this.panel4.ResumeLayout(false);
-            this.tabGames.ResumeLayout(false);
+            this.tabStore.ResumeLayout(false);
             this.gbGameInfo.ResumeLayout(false);
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
@@ -3699,7 +3695,7 @@ namespace XboxDownload
         public System.Windows.Forms.TextBox tbComIP;
         private System.Windows.Forms.Button butConsoleRegionLock;
         private System.Windows.Forms.CheckBox ckbMicrosoftStore;
-        private System.Windows.Forms.TabPage tabGames;
+        private System.Windows.Forms.TabPage tabStore;
         private System.Windows.Forms.GroupBox gbMicrosoftStore;
         private System.Windows.Forms.Label label41;
         private System.Windows.Forms.TextBox tbGameUrl;
@@ -3739,7 +3735,6 @@ namespace XboxDownload
         private System.Windows.Forms.ComboBox cbGameXGP2;
         private System.Windows.Forms.ComboBox cbGameXGP1;
         private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.ListBox lbGameSearch;
         private System.Windows.Forms.FlowLayoutPanel flpGameWithGold;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.TextBox tbGameOriginalReleaseDate;
@@ -3872,7 +3867,6 @@ namespace XboxDownload
         private System.Windows.Forms.LinkLabel linkRestartGamingServices;
         private System.Windows.Forms.LinkLabel linkNSHomepage;
         private System.Windows.Forms.CheckBox ckbNSBrowser;
-        private System.Windows.Forms.ToolStripMenuItem tsmCopyUrl3;
         private ExTextBox tbGameSearch;
         private System.Windows.Forms.ToolStripMenuItem tsmAuthorization;
         private System.Windows.Forms.ToolStripMenuItem tsmExportLog;
@@ -3886,6 +3880,9 @@ namespace XboxDownload
         private System.Windows.Forms.Label labelCn2;
         private System.Windows.Forms.ToolStripMenuItem tsmUseIPCn2;
         private System.Windows.Forms.LinkLabel linkLabel2;
+        private System.Windows.Forms.LinkLabel linkHostImport;
+        private System.Windows.Forms.ListView lvGameSearch;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.ComponentModel.IContainer components;
     }
 }
-

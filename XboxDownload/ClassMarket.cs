@@ -191,6 +191,7 @@ namespace XboxDownload
         {
             public string Source { get; set; }
             public string Title { get; set; }
+            public string ImageUrl { get; set; }
             public List<Metas> Metas { get; set; }
         }
         public class Metas

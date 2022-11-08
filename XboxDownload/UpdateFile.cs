@@ -170,7 +170,7 @@ namespace XboxDownload
                             File.Delete(Application.StartupPath + "\\.update.cmd");
                         using (FileStream fs = File.Create(Application.StartupPath + "\\" + ".update.cmd"))
                         {
-                            Byte[] byteArray = new UTF8Encoding(true).GetBytes("cd /d \"" + Application.StartupPath + "\"\r\nchoice /t 3 /d y /n >nul\r\nmove \"" + filename + ".update\" \"" + filename + "\"\r\n\"" + filename + "\"\r\ndel /a/f/q .update.cmd");
+                            Byte[] byteArray =  Encoding.Default.GetBytes("cd /d \"" + Application.StartupPath + "\"\r\nchoice /t 3 /d y /n >nul\r\nmove \"" + filename + ".update\" \"" + filename + "\"\r\n\"" + filename + "\"\r\ndel /a/f/q .update.cmd");
                             fs.Write(byteArray, 0, byteArray.Length);
                             fs.Flush();
                             fs.Close();

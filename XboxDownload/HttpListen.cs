@@ -97,6 +97,7 @@ namespace XboxDownload
                     string _extension = Path.GetExtension(_tmpPath).ToLowerInvariant();
                     if (Properties.Settings.Default.LocalUpload && !string.IsNullOrEmpty(_localPath))
                     {
+                        if (Properties.Settings.Default.RecordLog) parentForm.SaveLog("本地上传", _localPath, ((IPEndPoint)mySocket.RemoteEndPoint).Address.ToString());
                         using (FileStream fs = new FileStream(_localPath, FileMode.Open, FileAccess.Read, FileShare.Read))
                         {
                             using (BinaryReader br = new BinaryReader(fs))
@@ -142,7 +143,6 @@ namespace XboxDownload
                                 }
                             }
                         }
-                        if (Properties.Settings.Default.RecordLog) parentForm.SaveLog("本地上传", _localPath, ((IPEndPoint)mySocket.RemoteEndPoint).Address.ToString());
                     }
                     else
                     {
